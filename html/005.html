@@ -1,0 +1,32 @@
+<h2>정의</h2>
+<p>area요소는 이미지맵의 영역을 지정하기 위한 요소이다.</p>
+
+<div class="line"></div>
+
+<h2>속성</h2>
+<p>shape : 영역의 형태를 지정한다.
+    <ul>
+        <li>default : 화면전체</li>
+        <li>rect : 사각형</li>
+        <li>circle : 원형</li>
+        <li>poly : 다각형</li>
+    </ul>
+</p>
+
+<p>coords : 영역의 좌표를 지정한다.
+    <ul>
+            <li>shape속성값이 rect일때 : 왼쪽위의 XY좌표와 오른쪽아래 XY좌표</li>
+            <li>shape속성값이 circle일때 : 중심의 XY좌표와 반경</li>
+            <li>shape속성값이 poly일때 : 첫번째 각의 XY좌표, 두번째각의 XY좌표, 세번째각의 XY좌표</li>
+    </ul>
+</p>
+    
+<p>href : 해당영역 클릭시 이동할 주소를 지정한다.<br>
+
+<p>alt : 영역을 설명할 대체 텍스트를 지정한다.</p>
+
+<div class="line"></div>
+
+<h2>설명</h2>
+<p>href속성을 갖는다면 alt 속성을 반드시 사용하는것이 좋다. 반대로 href속성을 갖지 않는다면 alt속성역시 반드시 생략되는 것이 좋다.</p>
+<p>대체로 img요소와 map요소를 함께 사용한다.</p>
