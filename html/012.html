@@ -1,21 +1,56 @@
 <h2>정의</h2>
-<p>bdo요소는 텍스트의 방향을 명시적으로 지정한다.</p>
+<p>bdo는 Bi-Directional Override를 나타냅니다.</p>
+<p>bdo요소는 텍스트의 방향을 명시적으로 지정합니다.</p>
+
+<div class="line"></div>
+
+<h2>지원 브라우저</h2>
+<img src="img/chrome_48_on.png" alt="크롬" />
+<img src="img/internet_explorer_48_on.png" alt="인터넷 익스플로러" />
+<img src="img/firefox_48_on.png" alt="파이어 폭스" />
+<img src="img/safari_48_on.png" alt="사파리" />
+<img src="img/ofera_48_on.png" alt="오페라" />
 
 <div class="line"></div>
 
 <h2>속성</h2>
-<p>
-    <ul>
-        <li>dir : 방향을 지정
-            <ul>
-                <li>ltr(left to right) : 왼쪽에서 오른쪽으로 출력</li>
-                <li>rtl(right to left) : 오른쪽에서 왼쪽으로 출력</li>
-            </ul>
-        </li>
-    </ul>
-</p>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Attribute</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>dir</td>
+            <td>필수 사항. &lt;bdo&gt; 요소 안의 텍스트의 텍스트 방향을 지정합니다.
+                <ul>
+                    <li>ltr(left to right) : 왼쪽에서 오른쪽으로 출력</li>
+                    <li>rtl(right to left) : 오른쪽에서 왼쪽으로 출력</li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</table>
 
 <div class="line"></div>
 
 <h2>설명</h2>
-<p>dir 속성을 반드시 사용해야한다.</p>
+<p>dir 속성을 반드시 사용해야 합니다.</p>
+
+<div class="line"></div>
+
+<h2>기본 CSS 설정</h2>
+<p><pre>bdo { 
+    unicode-bidi: bidi-override;
+}</pre></p>
+
+<div class="line"></div>
+
+<h2>예제</h2>
+<p><pre>
+&lt;bdo dir="rtl"&gt;
+This text will go right-to-left.
+&lt;/bdo&gt;
+</pre></p>

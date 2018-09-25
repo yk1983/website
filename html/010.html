@@ -1,30 +1,51 @@
 <h2>정의</h2>
-<p>base요소는 HTML문서의 기준 URL을 명시한다.</p>
+<p>base요소는 문서의 모든 상대 URL / 기본 URL대상을 지정합니다.</p>
+
+<div class="line"></div>
+
+<h2>지원 브라우저</h2>
+<img src="img/chrome_48_on.png" alt="크롬" />
+<img src="img/internet_explorer_48_on.png" alt="인터넷 익스플로러" />
+<img src="img/firefox_48_on.png" alt="파이어 폭스" />
+<img src="img/safari_48_on.png" alt="사파리" />
+<img src="img/ofera_48_on.png" alt="오페라" />
 
 <div class="line"></div>
 
 <h2>속성</h2>
-<p>
-    <ul>
-        <li>href : 문서의 기준이 되는 URL을 지정</li>
-        <li>target : 링크를 어떤 프레임에 열것인지를 결정
-            <ul>
-                <li>_blank : 새창에 열기</li>
-                <li>_parent : 부모창에 열기</li>
-                <li>_self : 자신의 창에 열기</li>
-                <li>_top : 화면이 여러 프레임으로 이루어져있는 경우 모든 프레임을 지우고 전체 화면에 열기</li>
-                <li>[name] : 지정된 이름에 링크를 열기</li>
-            </ul>
-        </li>
-    </ul>
-</p>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Attribute</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>href</td>
+            <td>페이지의 모든 상대 URL에 대한 기본 URL을 지정합니다.</td>
+        </tr>
+        <tr>
+            <td>target</td>
+            <td>페이지의 모든 하이퍼 링크 및 양식에 대한 기본 대상을 지정합니다.
+                <ul>
+                    <li>_blank : 새창에 열기</li>
+                    <li>_parent : 부모창에 열기</li>
+                    <li>_self : 자신의 창에 열기</li>
+                    <li>_top : 화면이 여러 프레임으로 이루어져있는 경우 모든 프레임을 지우고 전체 화면에 열기</li>
+                    <li>[name] : 지정된 이름에 링크를 열기</li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</table>
 
 <div class="line"></div>
 
 <h2>설명</h2>
-<p>문서의 head요소 안에서 사용</p>
-<p>base는 문서 당 하나만 지정 가능</p>
-<p>href 속성이나 target 속성중 반드시 하나 이상을 써야하며 둘 다 사용가능</p>
+<p>문서의 head요소 안에서 사용합니다.</p>
+<p>base는 문서 당 하나만 지정 가능합니다.</p>
+<p>주 : href 속성이나 target 속성중 반드시 하나 이상을 써야하며 둘 다 사용가능합니다.</p>
 
 <div class="line"></div>
 

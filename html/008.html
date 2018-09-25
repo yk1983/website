@@ -1,27 +1,103 @@
 <h2>정의</h2>
-<p>audio요소는 오디오 파일을 재생한다.</p>
+<p>audio요소는 음악 또는 기타 오디오 스트림과 같은 사운드를 정의합니다.</p>
+<p>현재 audio요소에는 MP3, WAV 및 OGG의 3가지 파일 형식이 있습니다.</p>
+
+<div class="line"></div>
+
+<h2>지원 브라우저</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Browser</th>
+            <th>MP3</th>
+            <th>WAV</th>
+            <th>OGG</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><img src="img/internet_explorer_48_on.png" alt="인터넷 익스플로러" />9.0</td>
+            <td>YES</td>
+            <td>NO</td>
+            <td>NO</td>
+        </tr>
+        <tr>
+            <td><img src="img/chrome_48_on.png" alt="크롬" />4.0</td>
+            <td>YES</td>
+            <td>YES</td>
+            <td>YES</td>
+        </tr>
+        <tr>
+            <td><img src="img/firefox_48_on.png" alt="파이어 폭스" />3.5</td>
+            <td>YES</td>
+            <td>YES</td>
+            <td>YES</td>
+        </tr>
+        <tr>
+            <td><img src="img/safari_48_on.png" alt="사파리" />4.0</td>
+            <td>YES</td>
+            <td>YES</td>
+            <td>NO</td>
+        </tr>
+        <tr>
+            <td><img src="img/ofera_48_on.png" alt="오페라" />10.5</td>
+            <td>YES</td>
+            <td>YES</td>
+            <td>YES</td>
+        </tr>
+    </tbody>
+</table>
 
 <div class="line"></div>
 
 <h2>속성</h2>
-<p>
-    <ul>
-        <li>src : 재생할 오디오의 주소를 지정</li>
-        <li>preload : 다운로드 상태</li>
-        <li>
-            <ul>
-                <li>none</li>
-                <li>metadata</li>
-                <li>auto</li>
-            </ul>
-        </li>
-        <li>autoplay : 자동 재생을 지정</li>
-        <li>loop : 반복 재생을 지정</li>
-        <li>controls : 브라우저의 기본 컨트롤러를 사용하도록 지정</li>
-    </ul>
-</p>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Attribute</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>autoplay</td>
+            <td>오디오가 준비되는 즉시 재생을 시작하도록 지정합니다.</td>
+        </tr>
+        <tr>
+            <td>controls</td>
+            <td>오디오 컨트롤이 표시되도록 지정합니다. (예 : 재생 / 일시 중지 단추 등)</td>
+        </tr>
+        <tr>
+            <td>loop</td>
+            <td>오디오가 끝날 때마다 다시 시작하도록 지정합니다.</td>
+        </tr>
+        <tr>
+            <td>muted</td>
+            <td>오디오 출력을 음소거하도록 지정합니다.</td>
+        </tr>
+        <tr>
+            <td>preload</td>
+            <td>제작자가 페이지 로드시 오디오를 로드해야 한다고 생각하는지 여부 및 그 방법을 지정합니다. (다운로드 상태 : none / metadata / auto)</td>
+        </tr>
+        <tr>
+            <td>src</td>
+            <td>오디오 파일의 URL을 지정합니다.</td>
+        </tr>
+    </tbody>
+</table>
 
 <div class="line"></div>
 
 <h2>설명</h2>
-<p>브라우저가 audio요소에서 제공하고 있는 오디오를 재생하지 못하는 경우 audio요소 내부에 있는 내용을 출력한다.</p>
+<p>브라우저가 audio요소에서 제공하고 있는 오디오를 재생하지 못하는 경우 audio요소 내부에 있는 내용을 출력합니다.</p>
+
+<div class="line"></div>
+
+<h2>예제</h2>
+<p><pre>
+&lt;audio controls&gt;
+    &lt;source src="horse.ogg" type="audio/ogg"&gt;
+    &lt;source src="horse.mp3" type="audio/mpeg"&gt;
+    Your browser does not support the audio tag.
+&lt;/audio&gt;
+</pre></p>

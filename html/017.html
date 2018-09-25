@@ -1,27 +1,81 @@
 <h2>정의</h2>
-<p>button요소는 버튼을 생성한다.</p>
+<p>button요소는 클릭 가능한 버튼을 정의합니다.</p>
+<p>input요소로 생성 된 버튼의 차이점은 button요소 안에는 텍스트나 이미지와 같은 내용을 넣을 수 있습니다.</p>
 
 <div class="line"></div>
 
 <h2>속성</h2>
-<p>
-    <ul>
-        <li>autofocus : 페이지를 로드할때 해당 요소가 자동으로 포커스를 받도록 지정</li>
-        <li>disabled : 포커스, 선택, 변경 등의 조작이 불가능하게 하고 데이터도 서버에 전송하지 않는다. boolean 속성(true와 false로 지정되는 속성)</li>
-        <li>name="이름" : 버튼의 식별자를 지정</li>
-        <li>type=버튼의 종류를 지정
-            <ul>
-                <li>submit: 폼을 제출합니다.</li>
-                <li>reset : 폼을 리셋</li>
-                <li>button : 지정된 스크립트가 없다면 아무 동작도 하지 않는 버튼</li>
-            </ul>
-        </li>
-        <li>value="값" : 전송되는 데이터의 초기값 지정</li>
-    </ul>
-</p>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Attribute</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>autofocus</td>
+            <td>페이지가 로드될 때 버튼에 자동으로 포커스가 지정되도록 지정합니다.</td>
+        </tr>
+        <tr>
+            <td>disabled</td>
+            <td>버튼을 비활성화해야 함을 나타냅니다.</td>
+        </tr>
+        <tr>
+            <td>form</td>
+            <td>버튼이 속한 하나 이상의 양식을 지정합니다.</td>
+        </tr>
+        <tr>
+            <td>formaction</td>
+            <td>양식을 제출할 때 양식 데이터를 보낼 위치를 지정합니다. type="submit"이어야 합니다.</td>
+        </tr>
+        <tr>
+            <td>formenctype</td>
+            <td>양식 데이터를 서버로 보내기 전에 인코딩 할 방법을 지정합니다. type="submit"이어야 합니다.</td>
+        </tr>
+        <tr>
+            <td>formmethod</td>
+            <td>양식 데이터를 보내는 방법(사용할 HTTP 방법)을 지정합니다. type="submit"이어야 합니다.</td>
+        </tr>
+        <tr>
+            <td>formnovalidate</td>
+            <td>제출시 양식 데이터의 유효성을 검사하지 않도록 지정합니다. type="submit"이어야 합니다.</td>
+        </tr>
+        <tr>
+            <td>formtarget</td>
+            <td>양식을 제출한 후 응답을 표시 할 위치를 지정합니다. type="submit"이어야 합니다.</td>
+        </tr>
+        <tr>
+            <td>name</td>
+            <td>버튼의 이름을 지정합니다.</td>
+        </tr>
+        <tr>
+            <td>type</td>
+            <td>버튼의 유형을 지정합니다.
+                <ul>
+                    <li>submit: 폼을 제출합니다.</li>
+                    <li>reset : 폼을 리셋합니다.</li>
+                    <li>button : 지정된 스크립트가 없다면 아무 동작도 하지 않는 버튼입니다.</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>value</td>
+            <td>버튼의 초기 값을 지정합니다.</td>
+        </tr>
+    </tbody>
+</table>
 
 <div class="line"></div>
 
 <h2>설명</h2>
-<p>input요소로 생성하는 버튼과 같지만, 이미지나 텍스트등을 포함하고 있어 유연한 디자인이 가능하다.</p>
-<p>버튼의 폼요소의 내부에 버튼을 생성하고 type를 지정하지 않으면 submit로 동작한다.</p>
+<p>input요소로 생성하는 버튼과 같지만, 이미지나 텍스트등을 포함하고 있어 유연한 디자인이 가능합니다.</p>
+<p>버튼의 폼요소의 내부에 버튼을 생성하고 type를 지정하지 않으면 submit로 동작합니다.</p>
+<p>팁 : 항상 &lt;button&gt; 요소의 type 속성을 지정하십시오. 다른 브라우저는 &lt;button&gt; 요소에 대해 다른 기본 유형을 사용합니다.</p>
+
+<div class="line"></div>
+
+<h2>예제</h2>
+<p><pre>
+&lt;button type="button"&gt;클릭하세요!&lt;/button&gt;
+</pre></p>
