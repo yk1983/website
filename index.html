@@ -30,12 +30,13 @@
             </div>
 
             <ul class="list-unstyled components">
-                <p>CATEGORY</p>
-                <li class="active">
+                <p>HTML</p>
+                <li>
                     <a href="#">소개</a>
                 </li>
                 <li>
-                    <a href="#submenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">HTML TAG LIST</a>
+                    <a href="#submenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">HTML TAG
+                        LIST</a>
                     <ul class="collapse list-unstyled" id="submenu">
                         <li>
                             <a href="#" data-target="html/001.html">&lt;a&gt;</a>
@@ -405,16 +406,16 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="nav navbar-nav ml-auto">
                             <li class="nav-item active">
-                                <a class="nav-link" href="#">Page</a>
+                                <a class="nav-link" href="#">HTML</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Page</a>
+                                <a class="nav-link" href="#">CSS</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Page</a>
+                                <a class="nav-link" href="#">JavaScript</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Page</a>
+                                <a class="nav-link" href="#">jQuery</a>
                             </li>
                         </ul>
                     </div>
@@ -422,66 +423,7 @@
             </nav>
 
             <div id="contents">
-                <h2>정의</h2>
-                <p>a 요소는 한 페이지에서 다른 페이지로 연결하는 데 사용되는 하이퍼 링크를 정의합니다.</p>
-                <p>a 요소의 가장 중요한 속성은 링크의 목적지를 나타내는 href 속성입니다.</p>
-                <p>기본적으로 링크는 모든 브라우저에서 다음과 같이 나타납니다.</p>
-                <ul>
-                    <li>방문하지 않은 링크에는 밑줄이 그어져 파란색으로 표시됩니다.</li>
-                    <li>방문한 링크에 밑줄이 그어지고 자주색입니다.</li>
-                    <li>활성 링크에는 밑줄이 그어지고 빨간색으로 표시됩니다.</li>
-                </ul>
                 
-                <div class="line"></div>
-                
-                <h2>지원 브라우저</h2>
-                <img src="img/chrome_48_on.png" alt="크롬"/>
-                <img src="img/internet_explorer_48_on.png" alt="인터넷 익스플로러"/>
-                <img src="img/firefox_48_on.png" alt="파이어 폭스"/>
-                <img src="img/safari_48_on.png" alt="사파리"/>
-                <img src="img/ofera_48_on.png" alt="오페라"/>
-                
-                <div class="line"></div>
-                
-                <h2>속성</h2>
-                <p>href : 링크 주소를 지정한다.</p>
-                
-                <p>target : 링크를 어떤 프레임에 열것인지를 결&lt정한다.
-                    <ul>
-                        <li>_blank : 새창에 열기</li>
-                        <li>_parent : 부모창에 열기</li>
-                        <li>_self : 자신의 창에 열기</li>
-                        <li>_top : 화면이 프레임단위로 이루어져 있는 경우 top 프레임에 열기</li>
-                        <li>[name] : 화면이 프레임단위로 이러어져 있는 경우 지정된 name에 열기</li>
-                    </ul>
-                </p>
-                
-                <div class="line"></div>
-                
-                <h2>설명</h2>
-                <p>a 요소는 문단, 목록, 테이블뿐만 아니라 섹션 전체를 감쌀 수도 있다.</p>
-                <p>a 요소안에 버튼이나 링크등 인터렉티브한 요소가 포함되지 않도록 한다.</p>
-                
-                <div class="line"></div>
-                
-                <h2>링크의 상태</h2>
-                <p>스타일을 정의할 때 링크 상태들은 순서대로 정의 해야 의도한 대로 스타일을 적용할 수 있다. active를 hover보다 먼저 정의 했다면 hover가 active를 오버라이드 하여 active상태를 볼 수가
-                    없게 된다.
-                    <ul>
-                        <li>link : 기본적인 링크 상태로 아직 방문한적이 없거나 아무런 행동도 하기전인 상태</li>
-                        <li>visited : 방문한 적이 있는 링크의 상태</li>
-                        <li>hover : 마우스 커서가 링크위에 올라가 있는 상태</li>
-                        <li>focus : 링크에 키보드등을 이용해서 포커스가 위치해있는 상태</li>
-                        <li>active : 마우스를 눌렀다가 놓는 동안의 상태</li>
-                    </ul>
-                </p>
-                
-                <div class="line"></div>
-                
-                <h2>예제</h2>
-                <p>
-                    <pre>&lt;a href="https://www.w3schools.com"&gt;Visit W3Schools.com!&lt;/a&gt;</pre>
-                </p>
             </div>
 
         </div>
@@ -502,7 +444,7 @@
                 $('#sidebar').toggleClass('active');
             });
 
-            $('#sidebar > ul > li > ul#submenu > li > a').on('click', function(e){
+            $('#sidebar > ul > li > ul#submenu > li > a').on('click', function (e) {
                 $("#contents").empty().load($(this).data('target'));
             });
         });
