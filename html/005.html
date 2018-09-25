@@ -1,32 +1,110 @@
 <h2>정의</h2>
-<p>area요소는 이미지맵의 영역을 지정하기 위한 요소이다.</p>
+<p>area요소는 이미지맵의 영역을 지정하기 위한 요소입니다.</p>
+<p>이미지 맵 내부의 영역을 정의합니다. (이미지 맵은 클릭 가능한 영역이있는 이미지입니다).</p>
+<p>area요소는 항상 &lt;map&gt; 태그 안에 중첩되어 있습니다.</p>
 
 <div class="line"></div>
 
 <h2>속성</h2>
-<p>shape : 영역의 형태를 지정한다.
-    <ul>
-        <li>default : 화면전체</li>
-        <li>rect : 사각형</li>
-        <li>circle : 원형</li>
-        <li>poly : 다각형</li>
-    </ul>
-</p>
-
-<p>coords : 영역의 좌표를 지정한다.
-    <ul>
-            <li>shape속성값이 rect일때 : 왼쪽위의 XY좌표와 오른쪽아래 XY좌표</li>
-            <li>shape속성값이 circle일때 : 중심의 XY좌표와 반경</li>
-            <li>shape속성값이 poly일때 : 첫번째 각의 XY좌표, 두번째각의 XY좌표, 세번째각의 XY좌표</li>
-    </ul>
-</p>
-    
-<p>href : 해당영역 클릭시 이동할 주소를 지정한다.<br>
-
-<p>alt : 영역을 설명할 대체 텍스트를 지정한다.</p>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Attribute</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>alt</td>
+            <td>영역의 대체 텍스트를 지정합니다. href 속성이 있는 경우 필요합니다.</td>
+        </tr>
+        <tr>
+            <td>coords</td>
+            <td>링크의 좌표를 지정합니다.
+                <ul>
+                    <li>shape속성값이 rect일때 : 왼쪽위의 XY좌표와 오른쪽아래 XY좌표</li>
+                    <li>shape속성값이 circle일때 : 중심의 XY좌표와 반경</li>
+                    <li>shape속성값이 poly일때 : 첫번째 각의 XY좌표, 두번째각의 XY좌표, 세번째각의 XY좌표</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>download</td>
+            <td>사용자가 하이퍼 링크를 클릭 할 때 대상을 다운로드하도록 지정합니다.</td>
+        </tr>
+        <tr>
+            <td>href</td>
+            <td>URL 링크가 연결되는 페이지의 URL을 지정합니다.</td>
+        </tr>
+        <tr>
+            <td>hreflang</td>
+            <td>링크 된 문서의 언어를 지정합니다.</td>
+        </tr>
+        <tr>
+            <td>media</td>
+            <td>링크 된 문서가 최적화되어있는 미디어 / 장치를 지정합니다.</td>
+        </tr>
+        <tr>
+            <td><del>nohref</del></td>
+            <td><del>영역에 관련 링크가 없음을 지정합니다.</del> HTML5에서는 지원되지 않습니다.</td>
+        </tr>
+        <tr>
+            <td>rel</td>
+            <td>현재 문서와 링크 된 문서 간의 관계를 지정합니다.</td>
+        </tr>
+        <tr>
+            <td>shape</td>
+            <td>영역의 모양을 지정합니다.
+                <ul>
+                    <li>default : 화면전체</li>
+                    <li>rect : 사각형</li>
+                    <li>circle : 원형</li>
+                    <li>poly : 다각형</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>target</td>
+            <td>링크 된 문서를 열 위치를 지정합니다.
+                <ul>
+                    <li>_blank</li>
+                    <li>_parent</li>
+                    <li>_self</li>
+                    <li>_top</li>
+                    <li>framename</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>type</td>
+            <td>링크 된 문서의 미디어 유형을 지정합니다.</td>
+        </tr>
+    </tbody>
+</table>
 
 <div class="line"></div>
 
 <h2>설명</h2>
 <p>href속성을 갖는다면 alt 속성을 반드시 사용하는것이 좋다. 반대로 href속성을 갖지 않는다면 alt속성역시 반드시 생략되는 것이 좋다.</p>
 <p>대체로 img요소와 map요소를 함께 사용한다.</p>
+<p>참고 : &lt;img&gt; 요소의 usemap 속성은 &lt;map&gt; 요소의 name 속성과 연결되어 있으며 이미지와 맵 사이에 관계를 만듭니다.</p>
+
+<div class="line"></div>
+
+<h2>기본 CSS 설정</h2>
+<p><pre>area { 
+    display: none;
+}</pre></p>
+
+<div class="line"></div>
+
+<h2>예제</h2>
+<p><pre>
+&lt;img src="planets.gif" width="145" height="126" alt="Planets" usemap="#planetmap"&gt;
+
+&lt;map name="planetmap"&gt;
+    &lt;area shape="rect" coords="0,0,82,126" href="sun.htm" alt="Sun"&gt;
+    &lt;area shape="circle" coords="90,58,3" href="mercur.htm" alt="Mercury"&gt;
+    &lt;area shape="circle" coords="124,58,8" href="venus.htm" alt="Venus"&gt;
+&lt;/map&gt;
+</pre></p>

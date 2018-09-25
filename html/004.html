@@ -1,5 +1,17 @@
 <h2>정의</h2>
-<p>address요소는 연락처 정보를 나타낸다.</p>
+<p>address요소는 문서 또는 기사의 작성자 / 소유자에 대한 연락처 정보를 정의합니다.</p>
+<p>address요소가 &lt;body&gt; 요소 안에 있으면 문서의 연락처 정보를 나타냅니다.</p>
+<p>address요소가 &lt;article&gt; 요소 안에 있으면 해당 article의 연락처 정보를 나타냅니다.</p>
+<p>address요소의 텍스트는 대개 <i>이탤릭체</i>로 표시 됩니다. 대부분의 브라우저는 주소 요소 앞뒤에 줄 바꿈을 추가합니다.</p>
+
+<div class="line"></div>
+
+<h2>지원 브라우저</h2>
+<img src="img/chrome_48_on.png" alt="크롬" />
+<img src="img/internet_explorer_48_on.png" alt="인터넷 익스플로러" />
+<img src="img/firefox_48_on.png" alt="파이어 폭스" />
+<img src="img/safari_48_on.png" alt="사파리" />
+<img src="img/ofera_48_on.png" alt="오페라" />
 
 <div class="line"></div>
 
@@ -9,12 +21,28 @@
 <div class="line"></div>
 
 <h2>설명</h2>
-<p>가장 가까운 상위의 &lt;article&gt;이나 &lt;body&gt;의 연락처(주소) 정보를 제공할 때 사용한다.</p>
-<p>일반적으로 기울임 꼴로 표시되며, 대부분의 브라우저는 요소 앞뒤에 줄 바꿈을 추가한다.</p>
+<p>도움말 : 연락처 정보의 일부가 아닌 경우 &lt;address&gt; 태그는 우편 주소를 설명하는데 사용하지 않도록 합니다.</p>
+<p>팁 : &lt;address&gt; 요소는 일반적으로 다른 정보와 함께 &lt;footer&gt; 요소에 포함됩니다.</p>
 
 <div class="line"></div>
-            
+
+<h2>기본 CSS 설정</h2>
+<p><pre>
+address { 
+    display: block;
+    font-style: italic;
+}
+</pre></p>
+
+<div class="line"></div>
+
 <h2>예제</h2>
-<address>
-    서울특별시 용산구 한강로2가 한강대로 148, KT 용산지사
-</address>
+<p><pre>
+&lt;address&gt;
+Written by &lt;a href="mailto:webmaster@example.com"&gt;Jon Doe&lt;/a&gt;.&lt;br&gt; 
+Visit us at:&lt;br&gt;
+Example.com&lt;br&gt;
+Box 564, Disneyland&lt;br&gt;
+USA
+&lt;/address&gt;
+</pre></p>
