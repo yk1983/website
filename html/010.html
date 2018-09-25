@@ -1,0 +1,46 @@
+<h2>정의</h2>
+<p>base요소는 HTML문서의 기준 URL을 명시한다.</p>
+
+<div class="line"></div>
+
+<h2>속성</h2>
+<p>
+    <ul>
+        <li>href : 문서의 기준이 되는 URL을 지정</li>
+        <li>target : 링크를 어떤 프레임에 열것인지를 결정
+            <ul>
+                <li>_blank : 새창에 열기</li>
+                <li>_parent : 부모창에 열기</li>
+                <li>_self : 자신의 창에 열기</li>
+                <li>_top : 화면이 여러 프레임으로 이루어져있는 경우 모든 프레임을 지우고 전체 화면에 열기</li>
+                <li>[name] : 지정된 이름에 링크를 열기</li>
+            </ul>
+        </li>
+    </ul>
+</p>
+
+<div class="line"></div>
+
+<h2>설명</h2>
+<p>문서의 head요소 안에서 사용</p>
+<p>base는 문서 당 하나만 지정 가능</p>
+<p>href 속성이나 target 속성중 반드시 하나 이상을 써야하며 둘 다 사용가능</p>
+
+<div class="line"></div>
+
+<h2>예제</h2>
+<p><pre>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;base href="https://www.w3schools.com/images/" target="_blank"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;p&gt;&lt;img src="stickman.gif" width="24" height="39" alt="Stickman"&gt; 이미지의 상대 주소만 지정했지만 head섹션에 base URL을 지정하였으므로 브라우저에서는 "https://www.w3schools.com/images/stickman.gif"에서 이미지를 검색한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="https://www.w3schools.com"&gt;W3Schools&lt;/a&gt; target="_blank" 속성을 지정하지 않았더라도 링크가 새 창에서 열린다. 이는 base요소의 대상이 "_blank"로 설정되어 있기 때문이다.&lt;/p&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</pre></p>
