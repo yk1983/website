@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="../Thread_08.html">Thread</a>
+				</li>
+				<li>
+					<a class="active">Source code</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">SynchronizedEx02</h1>
+				<p>
+					<code>SynchronizedEx01.java</code>를 수정하여 동기화한 예제입니다.
+				</p>
+
+				<h4>SynchronizedEx02.java</h4>
+				<pre><code>package chapter13;
+
+public class SynchronizedEx02 {
+	public static void main(String args[]) {
+		Runnable r = new RunnableEx();
+		new Thread(r).start();
+		new Thread(r).start();
+	}
+}
+</code></pre>
+
+				<h4>Account.java</h4>
+				<pre><code>package chapter13;
+
+public class Account {
+	<strong>private</strong> int balance = 1000; // private으로 해야 동기화가 의미가 있다.
+
+	public int getBalance() {
+		return balance;
+	}
+
+	public <strong>synchronized</strong> void withdraw(int money) { // synchronized로 메서드를 동기화
+		if (balance >= money) {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+			}
+			balance -= money;
+		}
+	}
+}</code></pre>
+
+				<h4>RunnableEx.java</h4>
+				<pre><code>package chapter13;
+
+public class RunnableEx implements Runnable {
+	Account acc = new Account();
+
+	public void run() {
+		while (acc.getBalance() > 0) {
+			// 100, 200, 300중의 한 값을 임으로 선택해서 출금(withdraw)
+			int money = (int) (Math.random() * 3 + 1) * 100;
+			acc.withdraw(money);
+			System.out.println("balance:" + acc.getBalance());
+		}
+	}
+}</code></pre>
+
+				<h4>실행결과</h4>
+				<pre><code>balance:900
+balance:800
+balance:600
+balance:500
+balance:200
+balance:100
+balance:100
+balance:0
+balance:0</code></pre>
+
+				<hr>
+
+				<ul class="actions fit">
+					<li></li>
+					<li></li>
+					<li>
+						<button class="button fit" id="btn-close" onclick="javascript:window.close();">Close</button>
+					</li>
+				</ul>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

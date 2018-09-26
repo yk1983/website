@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="../Thread_03.html">Thread</a>
+				</li>
+				<li>
+					<a class="active">Source code</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">MultiThreadEx</h1>
+				<p>
+					새로운 스레드하나를 생성해서 두 개의 스레드가 작업을 하나씩 나누어서 수행한 후 실행결과를 비교하는 예제입니다.
+				</p>
+
+				<h4>MultiThreadEx.java</h4>
+				<pre><code>package chapter13;
+
+public class MultiThreadEx {
+	static long startTime = 0;
+
+	public static void main(String args[]) {
+		ThreadA th1 = new ThreadA();
+		th1.start();
+		startTime = System.currentTimeMillis();
+
+		for(int i=0; i &lt; 300; i++) {
+			System.out.print("-");
+		}
+
+		System.out.print("소요시간1:" + (System.currentTimeMillis() - MultiThreadEx.startTime));
+	}
+}</code></pre>
+
+				<h4>ThreadA.java</h4>
+				<pre><code>package chapter13;
+
+public class ThreadA extends Thread {
+	public void run() {
+		for(int i=0; i &lt; 300; i++) {
+			System.out.print("|");
+		}
+
+		System.out.print("소요시간2:" + (System.currentTimeMillis() - MultiThreadEx.startTime));
+	}
+}</code></pre>
+
+				<h4>실행결과</h4>
+				<pre><code>-|||||||||||||||||||||||||------------||||||||||||||||||||||||||||||||||||||||||
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+|||||||||||||||||||||||||||||||||||---------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+||||||||||||||||||||||||||||||--||||||||||||||||||||||||||||||||||||||||||||||||
+||||||||||||||||||||||||||||||||||||||||소요시간1:5소요시간2:5</code></pre>
+
+				<hr>
+
+				<ul class="actions fit">
+					<li></li>
+					<li></li>
+					<li><button class="button fit" id="btn-close" onclick="javascript:window.close();">Close</button></li>
+				</ul>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

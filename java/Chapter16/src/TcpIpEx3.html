@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="../Networking_04.html">Networking</a>
+				</li>
+				<li>
+					<a class="active">Source code</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">TcpIpServer3.java</h1>
+				<p>
+					소켓으로 데이터를 송신하는 작업과 수신하는 작업을 별도의 스레드 Sender와 Receiver가 처리하도록 하여 송신과 시신이 동시에 이루어지도록 하엿습니다.
+				</p>
+
+				<h4>TcpIpServer3.java</h4>
+				<pre><code>package chapter16;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Scanner;
+
+public class TcpIpServer3 {
+	public static void main(String args[]) {
+		ServerSocket serverSocket = null;
+		Socket socket = null;
+
+		try {
+			// 서버소켓을 생성하여 7777번 포트와 결합(bind)시킨다.
+			serverSocket = new ServerSocket(7777);
+			System.out.println("서버가 준비되었습니다.");
+
+			socket = serverSocket.accept();
+
+			Sender sender = new Sender(socket);
+			Receiver receiver = new Receiver(socket);
+
+			sender.start();
+			receiver.start();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}
+
+class Sender extends Thread {
+	Socket socket;
+	DataOutputStream out;
+	String name;
+
+	Sender(Socket socket) {
+		this.socket = socket;
+		try {
+			out = new DataOutputStream(socket.getOutputStream());
+			name = "[" + socket.getInetAddress() + ":" + socket.getPort() + "]";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void run() {
+		Scanner scanner = new Scanner(System.in);
+		while (out != null) {
+			try {
+				out.writeUTF(name + scanner.nextLine());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+}
+
+class Receiver extends Thread {
+	Socket socket;
+	DataInputStream in;
+
+	Receiver(Socket socket) {
+		this.socket = socket;
+		try {
+			in = new DataInputStream(socket.getInputStream());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void run() {
+		while (in != null) {
+			try {
+				System.out.println(in.readUTF());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+}</code></pre>
+
+				<h4>TcpIpClient3.java</h4>
+				<pre><code>package chapter16;
+
+import java.io.IOException;
+import java.net.ConnectException;
+import java.net.Socket;
+
+public class TcpIpClient3 {
+	public static void main(String args[]) {
+		try {
+			String serverIp = "127.0.0.1";
+
+			// 소켓을 생성하여 연결을 요청한다.
+			Socket socket = new Socket(serverIp, 7777);
+
+			System.out.println("서버에 연결되었습니다.");
+			Sender sender = new Sender(socket);
+			Receiver receiver = new Receiver(socket);
+
+			sender.start();
+			receiver.start();
+		} catch (ConnectException ce) {
+			ce.printStackTrace();
+		} catch (IOException ie) {
+			ie.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}</code></pre>
+
+				<h4>실행결과</h4>
+				<div class="row">
+					<div class="6u 12u$(medium)">
+						<pre><code>서버가 준비되었습니다.
+안녕하세요.
+[/127.0.0.1:7777] 네! 안녕하세요.
+날씨가 추워요!</code></pre>
+					</div>
+					<div class="6u 12u$(medium)">
+						<pre><code>서버에 연결되었습니다.
+[/127.0.0.1:1355] 안녕하세요.
+네! 안녕하세요.
+[/127.0.0.1:1355] 날씨가 추워요!</code></pre>
+					</div>
+				</div>
+
+				<hr>
+
+				<ul class="actions fit">
+					<li></li>
+					<li></li>
+					<li><button class="button fit" id="btn-close" onclick="javascript:window.close();">Close</button></li>
+				</ul>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/sql">SQL</a>
+				</li>
+				<li>
+					<a href="/kinco/sql/Chapter02">DDL</a>
+				</li>
+				<li>
+					<a class="active">TABLE 생성</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">TABLE</h1>
+				<p>
+					테이블은 데이터베이스의 기본적인 데이터 저장 단위 입니다.
+					데이터베이스 테이블은 사용자가 접근 가능한 모든 데이터를 보유하며 레코드와 컬럼으로 구성 됩니다.
+					관계형 데이터베이스가 아닌 예전의 데이터베이스 용어에서는 파일과 테이블, 필드와 컬럼 그리고 레코드와 행이 동일시 되었습니다.
+					<br/>테이블은 시스템내에서 독립적으로 사용되길 원하는 엔티티를 표현할 수 있습니다. 예를 들면, 회사에서의 직원이나 고객, 제품에 대한 주문은 테이블로 표현 가능합니다.
+					테이블은 두 엔티티간의 관계를 표현할 수 있습니다. 즉, 테이블은 직원과 그들의 작업 혹은 고객과 제품과 주문과의 관계를 표현하는데 사용될 수 있습니다.
+					테이블내에 있는 <code>ForeIgn Key(외래 키)</code>는 두 엔티티 사이의 관계를 표현하는데 사용 됩니다.
+				</p>
+				<ul>
+					<li><strong>컬럼(colnum)</strong> : 테이블의 각 컬럼은 엔티티의 한 속성을 표현 합니다.</li>
+					<li><strong>행(ROW, 레코드)</strong> : 테이블의 데이타는 행에 저장 됩니다.</li>
+				</ul>
+
+				<hr>
+
+				<section>
+					<h2>CREATE TABLE 문</h2>
+					<p>
+						<code>CREATE TABLE 문</code>은 데이터베이스에 새 테이블을 만드는 데 사용됩니다.
+					</p>
+					<h4>CREATE TABLE Syntax</h4>
+					<pre><code><strong>CREATE TABLE</strong> [<em>schema</em>.]<em>table_name</em>
+(
+	column datatype
+	[, column datatype ...]
+)
+[<strong>TABLESPACE</strong> <em>tablespace</em>]
+[<strong>PCTFREE</strong> <em>integer</em>]
+[<strong>PCTUSED</strong> <em>integer</em>]
+[<strong>INITRANS</strong> <em>integer</em>]
+[<strong>MAXTRANS</strong> <em>integer</em>]
+[<strong>STORAGE</strong> <em>storage-clause</em>]
+[LOGGING | NOLOGGING]
+[CACHE | NOCACHE];</code></pre>
+
+
+					<h4>테이블 생성시 규칙</h4>
+					<ul>
+						<li>테이블 이름을 지정하고 각 컬럼들은 괄호 "()" 로 묶어 지정합니다.</li>
+						<li>테이블 이름과 컬럼은 항상 알파벳 문자로 시작해야 하며 문자(A ~ Z) , 숫자(0 ~ 9), 그리고 특수문자($, #, _)를 사용할 수 있습니다. (공백 사용 불가능)</li>
+						<li>테이블의 컬럼 이름은 30자를 초과할수 없고, 예약어를 사용할수 없습니다.</li>
+						<li>컬럼뒤에 데이터 타입은 꼭 지정되어야 합니다.</li>
+						<li>각 컬럼들은 콤마","로 구분되고, 항상 끝은 세미콜론";" 으로 끝납니다.</li>
+						<li>한 테이블 안에서 컬럼명은 중복될 수 없으며, 다른 테이블에서의 컬럼 이름과는 중복될 수 있습니다.</li>
+					</ul>
+
+					<h4>테이블 생성 예제</h4>
+					<pre><code><strong>CREATE TABLE</strong> EMP (
+--  (컬럼)    (데이터타입)   (제약조건)
+    EMPNO     NUMBER       <strong>CONSTRAINT</strong> emp_pk_empno <strong>PRIMARY KEY</strong>
+,   ENAME     VARCHAR2(20)
+,   JOB       VARCHAR2(40)
+,   MGR       NUMBER
+,   HIREDATE  DATE
+,   SAL       NUMBER
+,   COMM      NUMBER
+,   DEPTNO    NUMBER
+);
+
+<strong>CREATE TABLE</strong> DEPT (
+    DEPTNO    NUMBER        <strong>CONSTRAINT</strong> dept_pk_deptno  <strong>PRIMARY KEY</strong>
+,   DNAME     VARCHAR2(40)
+,   LOC       VARCHAR2(50)
+);</code></pre>
+                    
+                    <h4>사용자가 소유한 모든 테이블 조회</h4>
+                    <pre><code>-- USER_TABLES 데이터사전을 조회 하면 유저가 소유한 테이블을 확인 할 수 있습니다.
+<strong>SELECT</strong> table_name <strong>FROM USER_TABLES</strong>;</code></pre>
+				</section>
+
+				<hr>
+
+				<section>
+					<h2>ALTER TABLE 문</h2>
+					<p>
+						테이블의 컬럼은 <code>ADD</code>, <code>MODIFY</code>, <code>DROP</code>를 통해서 관리 할 수 있습니다.
+					</p>
+
+					<h4>ALTER TABLE - ADD COLUMN</h4>
+					<pre><Code><strong>ALTER TABLE</strong> <em>table_name</em>
+<strong>ADD</strong> <em>column_name datatype</em>;</Code></pre>
+				</section>
+
+				<hr>
+
+				<section>
+					<h4>ALTER TABLE - DROP COLUMN</h4>
+					<P>
+						테이블의 열을 삭제하려면 다음 구문을 사용하십시오. (일부 데이터베이스 시스템에서는 열 삭제가 허용되지 않음)
+					</P>
+					<pre><code><strong>ALTER TABLE</strong> <em>table_name</em>
+<strong>DROP COLUMN</strong> <em>column_name</em>;</code></pre>
+				</section>
+
+				<hr>
+
+				<section>
+					<h4>ALTER TABLE - ALTER / MODIFY COLUMN</h4>
+					<p>
+						테이블에있는 열의 데이터 형식을 변경하려면 다음 구문을 사용합니다.
+					</p>
+					
+					<h4>SQL Server / MS Access:</h4>
+					<pre><code><strong>ALTER TABLE</strong> <em>table_name</em>
+<strong>ALTER COLUMN</strong> <em>column_name datatype</em>;</code></pre>
+					
+					<h4>MySQL / Oracle (버전 10g 이전):</h4>
+
+					<pre><code><strong>ALTER TABLE</strong> <em>table_name</em>
+<strong>MODIFY COLUMN</strong> <em>column_name datatype</em>;</code></pre>
+
+					<h4>Oracle (버전 10g 이상):</h4>
+					<pre><code><strong>ALTER TABLE</strong> <em>table_name</em>
+<strong>MODIFY</strong> <em>column_name datatype</em>;</code></pre>
+				</section>
+
+				<hr>
+
+				<section>
+					<h2>테이블의 테이블스페이스 변경</h2>
+					<p>
+						오라클 버전 <code>8i</code>부터는 ALTER TABLE ~ MOVE TABLESPACE 명령어로 쉽게 테이블의 테이블스페이스를 변경 할 수 있습니다.
+					</p>
+					<h4>Syntax</h4>
+					<pre><code><strong>ALTER TALBE</strong> <em>table_name</em> <strong>MOVE TABLESPACE</strong> <em>tablespace_name</em>;</code></pre>
+				</section>
+
+				<hr>
+
+				<section>
+					<h2>DROP TABLE 문</h2>
+					<p>
+						<code>DROP TABLE 문</code>은 데이터베이스의 기존 테이블을 삭제하는 데 사용됩니다. 이 때 주의할 점은 테이블을 삭제하면 테이블에 저장된 완전한 정보가 모두 삭제된다는 것입니다.
+					</p>
+
+					<h4>DROP TABLE Syntax</h4>
+					<pre><code><strong>DROP TABLE</strong> <em>table_name</em>;</code></pre>
+				</section>
+
+				<hr>
+
+				<section>
+					<h2>TRUNCATE TABLE 문</h2>
+					<p>
+						<code>TRUNCATE TABLE 문</code>은 테이블을 삭제하지는 않지만 테이블 내부의 모든 데이터를 삭제합니다.
+						또한 TRUNCATE TABLE은 DDL명령이므로 롤백 데이터가 생성되지 않습니다.
+						롤백(되돌리기) 데이터가 생성이 되지 않는다는 것은 <code>DELETE 문</code>으로 데이터를 지우면 롤백명렁어로 복구 할 수 있지만, <code>TRUNCATE 문</code>으로 데이터를 삭제하면 롤백을 할 수가 없습니다.
+						<br/>삭제되는 것은 데이터 뿐만 아니라 행당 인덱스도 같이 삭제되며, 외래키가 참조중인 테이블은 TRUNCATE할 수 없습니다.
+						<br/>TRUNCATE 문을 사용하면 삭제 트리거가 실행되지 않습니다.
+					</p>
+
+					<h4>TRUNCATE TABLE Syntax</h4>
+					<pre><code><strong>TRUNCATE TABLE</strong> [<em>schema.</em>]<em>table_name</em>;</code></pre>
+				</section>
+
+				<hr>
+
+				<section>
+					<ul class="actions fit">
+						<li>
+                            <a href="sql_user.html" class="button fit">사용자</a>
+                        </li>
+						<li></li>
+						<li>
+							<a href="sql_notnull.html" class="button fit">NOT NULL</a>
+						</li>
+					</ul>
+				</section>
+			</div>
+		</section>
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

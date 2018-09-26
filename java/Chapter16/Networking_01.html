@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="index.html">Networking</a>
+				</li>
+				<li>
+					<a class="active">클라이언트/서버</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">클라이언트/서버</h1>
+
+				<p>
+					<strong>클라이이언트/서버</strong>는
+					<strong>컴퓨터간의 관계를 역활로 구분하는 개념</strong>입니다.
+					<br/>
+					<strong>서버(server)</strong>는
+					<strong>서비스를 제공하는 컴퓨터(service provider)</strong>이고,
+					<strong>클라이언트는(client)</strong>는
+					<strong>서비스를 사용하는 컴퓨터(service user)</strong>가 됩니다. (서버와 클라이언트를 모두 하나의 컴퓨터에 구성할 수도 있습니다.)
+					<br/>일반적으로 서버는 다수의 클라이언트에세 서비스를 제공하기 때문에 고사양의 하드웨어를 갖춘 컴퓨터이지만, 하드웨어의 사양으로 서버와 클라이언트를 구분하는 것이 아니기 때문에 하드웨어의 사양에 관계없이 서비스를
+					제공하는 소프트웨어가 실행되는 컴퓨터를 서버라고 합니다.
+					<br/>
+					<br/>
+					<strong>서비스(service)</strong>는
+					<strong>서버가 클라이언트로부터 요청받은 작업을 처리하여 그 결과를 제공하는 것</strong>을 뜻하며 서버가 제공하는 서비스의
+					<strong>종류에 따라 파일서버(file server), 메일서버(mail server), 어플리케이션 서버(application server)</strong>등이 있습니다.
+					<br/>서버에 접속하는 클라이언트의 수에 따라
+					<strong>하나의 서버가 여러 가지 서비스를 제공</strong>하기도 하고
+					<strong>하나의 서비스를 여러 대의 서버로 제공</strong>하기도 합니다.
+					<br/>
+					<br/> 서버가 서비스를 제공하기 위해서는 서버프로그램이 있어야 하고 클라이언트가 서비스를 제공받기 위해서는 서버프로그램과 연결할 수 있는 클라이언트 프로그램이 있어야 합니다.
+					<br/>네트워크를 구성할 때 전용서버를 두는 것을 서버기반 모델(server-based model)이라하 하고 별도의 전용서버없이 각 클라이언트가 서버역활을 하는 동시에 수행하는 것을 P2P모델(peer-to-peer)이라고
+					합니다.
+				</p>
+
+				<div class="row">
+					<div class="6u 12u$(medium)">
+						<h4>서버기반 모델(server-based model)</h4>
+						<ul>
+							<li>안정적인 서비스의 제공이 가능</li>
+							<li>공유 데이터의 관리와 보안이 용이</li>
+							<li>서버구축 비용 및 관리비용 필요</li>
+						</ul>
+					</div>
+					<div class="6u 12u$(medium)">
+						<h4>P2P모델(peer-to-peer)</h4>
+						<ul>
+							<li>서버구축 및 운용비용 절감</li>
+							<li>자원의 활용을 극대화</li>
+							<li>자원의 관리가 어려움</li>
+							<li>보안이 취약</li>
+						</ul>
+					</div>
+				</div>
+
+				<hr>
+
+				<section>
+					<h2>IP주소(IP address)</h2>
+					<p>
+						<strong>IP주소</strong>는
+						<strong>컴퓨터(호스트, host)를 구별하는데 사용되는 고유한 값</strong>으로 인터넷에 연결된 모든 컴퓨터는 IP주소를 갖습니다.
+						<br/>
+						<sub>* IP주소는 4byte(32bit)의 정수로 구성되어 있으며 4개의 정수가 마침표를 구분자로 "a.b.c.d"와 같은 형식으로 표현됩니다. a, b, c, d는 부호없는 1byte 값, 즉 0~255사이의
+							정수입니다.
+						</sub>
+						<br/>
+						<sub>* IP주소는 다시 네트워크주소와 호스트주소로 나눌 수 있는데, 4byte(32bit)의 IP주소 중에서 네트워크주소와 호스트주소가 각각 몇 bit를 차지하는 지는 네트워크를 어떻게 구성하는지에 따라 달라집니다.</sub>
+					</p>
+
+					<h4>ipconfig.exe</h4>
+					<pre><code>Windows IP 구성
+
+이더넷 어댑터 이더넷:
+
+	연결별 DNS 접미사. . . . :
+	IPv4 주소 . . . . . . . . . : 192.168.10.100
+	서브넷 마스크 . . . . . . . : 255.255.255.0
+	기본 게이트웨이 . . . . . . : 192.168.10.1</code></pre>
+
+					<div class="row">
+						<div class="6u 12u$(medium)">
+							<h4>IP주소</h4>
+							<span class="image">
+								<img src="images/img_ip_address.png" width="100%" alt="IP주소" />
+							</span>
+						</div>
+						<div class="6u 12u$(medium)">
+							<h4>서브넷 마스크</h4>
+							<span class="image">
+								<img src="images/img_subnet_mask.png" width="100%" alt="서브넷 마스크" />
+							</span>
+						</div>
+					</div>
+
+					<p>
+						IP주소와 서브넷 마스크를 비트연산자(&amp;)로 연산하면 IP주소에서 네트워크 주소만을 뽑아낼 수 있습니다. 이처럼 이 두 호스트가 같은 네트워크 상에 존재하는지를 확인할 수 있습니다.
+					</p>
+
+					<h4>네트워크 주소</h4>
+					<span class="image">
+						<img src="images/img_network_address.png" width="100%" alt="네트워크 주소" />
+					</span>
+				</section>
+
+				<hr>
+
+				<section>
+					<h2>InetAddress</h2>
+					<p>
+						자바에서는 IP주소를 다루기 위한 클래스로
+						<code>InetAddress</code>를 제공하여 다음과 같은 메서드가 정의되어 있습니다.
+					</p>
+					<table>
+						<tbody>
+							<tr>
+								<td>
+									<strong>
+										<em>byte[] getAddress()</em>
+									</strong>
+									<br/> : IP주소를 byte배열을 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>static InetAddress[] getA;;ByName(String host)</em>
+									</strong>
+									<br/> : 도메인명(host)에 지정된 모든 호스트의 IP주소를 배열에 담아 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>static InetAddress getByAddress(byte[] addr)</em>
+									</strong>
+									<br/> : byte배열을 통해 IP주소를 얻습니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>static InetAddress getByName(String host)</em>
+									</strong>
+									<br/> : 도메인명(host)을 통해 IP주소를 얻습니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>String getCanonicalHostName()</em>
+									</strong>
+									<br/> : FQDN(full qualified domain name)을 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>String getHostAddress()</em>
+									</strong>
+									<br/> : 호스트의 IP주소를 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>String getHostName()</em>
+									</strong>
+									<br/> : 호스트의 이름을 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>static InetAddress getLocalHost()</em>
+									</strong>
+									<br/> : 지역호스트의 IP주소를 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>boolean isMulticastAddress()</em>
+									</strong>
+									<br/> : IP주소가 멀티캐스트 주소인지 알려줍니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>boolean isLoopbackAddress()</em>
+									</strong>
+									<br/> : IP주소가 loopback 주소(127.0.0.1)인지 알려줍니다.</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<h4>Example sources</h4>
+					<ul class="icons source">
+						<li>
+							<a href="src/NetworkEx1.html" target="_blank">
+								<i class="fas fa-file-code"></i> NetworkEx1.java</a>
+						</li>
+					</ul>
+				</section>
+
+				<hr>
+
+				<section>
+					<ul class="actions fit">
+						<li></li>
+						<li></li>
+						<li>
+							<a href="Networking_02.html" class="button fit">URL</a>
+						</li>
+					</ul>
+				</section>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

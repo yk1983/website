@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!-- Latest compiled and minified CSS -->
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="index.html">제어문</a>
+				</li>
+				<li>
+					<a class="active">반복문</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">반복문 (iteration statements)</h1>
+				<p>
+					반복문은 어떤 작업이 반복적으로 수행되도록 할 때 사용되며
+					<strong>프로그램 내에서 똑같은 명령을 일정 횟수만큼 반복하여 수행하도록 제어하는 명령문</strong>입니다. 프로그램이 처리하는 대부분의 코드는 반복적인 형태가 많으므로, 가장 많이 사용되는 제어문 중 하나입니다.
+					<br/>자바에서 사용되는 대표적인 반복문의 형태는 다음과 같습니다.
+				</p>
+				<ul>
+					<li>for 문</li>
+					<li>Enhanced for 문</li>
+					<li>
+						<strong>while 문</strong>
+					</li>
+					<li>
+						<strong>do-while 문</strong>
+					</li>
+				</ul>
+
+				<hr>
+
+				<section>
+					<h2>while 문</h2>
+					<p>
+						<code>while 문</code>은 for문에 비해 구조가 간단합니다. while문은
+						<strong>조건식이 참(true)인 동안 즉, 조건식이 거짓이 될 때까지 블럭{}내의 문장을 실행</strong>합니다.
+					</p>
+
+					<div class="row">
+						<div class="8u 12u$(medium)">
+							<h4>Syntax</h4>
+							<pre><code>while (조건식) {
+	// 조건식의 결과가 참(true)인 동안 반복적으로 실행하고자 하는 문장들
+}</code></pre>
+							<ol>
+								<li>
+									<strong>조건식</strong> : 조건식이 참(true)이면 블럭{}안의 문장들을 실행, 거짓(false)이면 while문을 벗어납니다.</li>
+								<li>
+									<strong>블럭{}</strong> : 블럭{}의 문장을 수행하고 다시 조건식으로 돌아갑니다.</li>
+							</ol>
+						</div>
+						<div class="4u 12u$(medium)">
+							<h4>while문 실행흐름</h4>
+							<span class="image">
+								<img src="images/img_while_flow.png" width="100%" alt="while문 실행 흐름" />
+							</span>
+						</div>
+					</div>
+					<p>
+						for문을 while문으로 바꿔본 예제입니다. 이 예제를 통해서 for문과 while문의 차이점을 알아두세요.
+					</p>
+
+					<div class="row">
+						<div class="6u 12u$(medium)">
+							<h4>for문</h4>
+							<pre><code>// 초기식; 조건식; 증감식
+for (<u>int i = 1</u>; <u>i &lt;= 10</u>; <u>i++</u>) {
+	System.out.println(i);
+
+}</code></pre>
+						</div>
+						<div class="6u 12u$(medium)">
+							<h4>while문</h4>
+							<pre><code>int i = 1;           // 초기식
+while (i &lt;= 10) {    // 조건식
+	System.out.println(i);
+	i++;         // 증감식
+}</code></pre>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="6u 12u$(medium)">
+							<h4>for문</h4>
+							<pre><code>// 무한 for문
+for (;;) { ... }</code></pre>
+						</div>
+						<div class="6u 12u$(medium)">
+							<h4>while문</h4>
+							<pre><code>// 무한 while문
+while (true) { ... }</code></pre>
+						</div>
+					</div>
+
+					<p>
+						<strong>주의</strong> : while문의 조건식은 생략불가입니다. while문의 조건식이 항상 참(true)이 되도록 하려면 조건식에 true를 널어야 합니다.</p>
+				</section>
+
+				<hr>
+
+				<section>
+					<h2>do-while 문</h2>
+					<p>
+						<code>do-while 문</code>은 while문의 변형으로
+						<strong>기본적인 구조는 while문과 동일</strong>합니다. 단지 조건식과 블럭의 순서를 바꾼 것입니다. 그래서 while문과 반대로
+						<strong>블럭{}을 먼저 수행하고 조건식을 판단하여 반복문을 실행할 것인지 반복문을 벗어날 것인지를 판단</strong>합니다. 조건식을 판단하지 않고 while문의 블럭{}을 먼저 수행하기 때문에
+						<strong>최소 한번은 무조건 실행</strong>되는 구조입니다.
+					</p>
+					<div class="row">
+						<div class="8u 12u$(medium)">
+							<h4>Syntax</h4>
+							<pre><code>do {
+	// 조건식의 연산결과가 참(true)일 때 수행될 문장들;
+} while (조건식); // 끝에 세미콜론(;)을 잊지 않도록 주의.</code></pre>
+						</div>
+						<div class="4u 12u$(medium)">
+							<h4>do-while문 실행흐름</h4>
+							<span class="image">
+								<img src="images/img_do_while_flow.png" width="100%" alt="do-while문 실행 흐름" />
+							</span>
+						</div>
+					</div>
+				</section>
+
+				<hr>
+
+				<section>
+					<h2>break 문</h2>
+					<p>
+						switch문에서 사용한 break문은 반복문에서도 사용할 수 있습니다.
+						<code>break 문</code>은 루프 내에서 사용하여 해당 반복문을 완전히 종료시킨 뒤, 반복문 바로 다음에 위치한 명령문을 실행합니다. 즉
+						<strong>루프 내에서 조건식의 판단 결과와 상관없이 반복문을 완전히 빠져나가고 싶을 때 사용</strong>합니다. 주로 if문과 함께 사용되어 특정 조건을 만족하면 반복문을 벗어나도록 할 때 사용됩니다.
+					</p>
+				</section>
+
+				<hr>
+
+				<section>
+					<h2>continue 문</h2>
+					<p>
+						<code>continue 문</code>은
+						<strong>반복문 내에서만 사용</strong>될 수 있으며, 반복이 진행되는 도중에 continue문을 만나면
+						<strong>해당 반복문의 나머지 부분을 건너뛰고 반복문의 끝으로 이동하여 다음 반복 조건식의 판단으로 넘어가게 해줍니다.</strong>
+						보통 반복문 내에서 특정 조건에 대한 예외 처리를 하고자 할 때 자주 사용됩니다.
+					</p>
+				</section>
+
+				<hr>
+
+				<section>
+					<h2>이름 붙은 반복문 (break with label)</h2>
+					<p>
+						일반적인 break문은 단 하나의 반복문만을 빠져나가게 해줍니다. 따라서
+						<strong>여러 반복문이 중첩된 상황에서 한 번에 모든 반복문을 빠져나가거나, 특정 반복문까지만 빠져나가고 싶을 때</strong>는 다른 방법을 사용해야 합니다. 이때 사용할 수 있는 방법이 바로
+						<strong>반복문에 이름(label)을 설정</strong>하는 것입니다.
+						<strong>가장 바깥쪽 반복문이나 빠져나가고 싶은 특정 반복문에 이름을 설정한 후, break 키워드 다음에 해당 이름을 명시</strong>하면 됩니다. 그러면 해당 break 키워드는 현재 반복문이 아닌 해당 이름의
+						반복문 바로 다음으로 프로그램의 실행을 옮겨줍니다. 단, 이때 이름(label)은 가리키고자 하는 반복문의 키워드 바로 앞에 위치해야 합니다. 이름과 반복문의 키워드 사이에 명령문이 존재하면, 자바 컴파일러는
+						오류를 발생시킬 것입니다.
+					</p>
+				</section>
+
+				<hr>
+
+				<ul class="actions fit">
+					<li>
+						<a href="ControlFor.html" class="button fit">for문</a>
+					</li>
+					<li></li>
+					<li></li>
+				</ul>
+			</div>
+		</section>
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

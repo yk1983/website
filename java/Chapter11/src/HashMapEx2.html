@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="../Collection_05.html">HashMap</a>
+				</li>
+				<li>
+					<a class="active">Source code</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">HashMapEx2.java</h1>
+				<p>
+					HashMap의 기본적인 메서드를 이용해서 데이터를 저장하고 읽어오는 예제입니다.
+					<br/>entrySet()을 이용해서 키와 값을 함께 읽어 올 수도 있고 keySet()이나 values()를 이용해서 키와 값을 따로 읽어 올 수 있습니다.
+				</p>
+				<h4>소스코드</h4>
+				<pre><code>package kinco.java.std;
+
+import java.util.*;
+
+public class HashMapEx2 {
+	public static void main(String[] args) {
+		HashMap&lt;String, Integer&gt; map = new HashMap&lt;String, Integer&gt;();
+		map.put("김자바", new Integer(90));
+		map.put("김자바", new Integer(100));
+		map.put("이자바", new Integer(100));
+		map.put("강자바", new Integer(80));
+		map.put("안자바", new Integer(90));
+
+		Set&lt;?&gt; set = map.entrySet();
+		Iterator&lt;?&gt; it = set.iterator();
+
+		while (it.hasNext()) {
+			@SuppressWarnings("rawtypes")
+			Map.Entry e = (Map.Entry) it.next();
+			System.out.println("이름 : " + e.getKey() + ", 점수 : " + e.getValue());
+		}
+
+		set = map.keySet();
+		System.out.println("참가자 명단 : " + set);
+
+		Collection&lt;?&gt; values = map.values();
+		it = values.iterator();
+
+		int total = 0;
+
+		while (it.hasNext()) {
+			Integer i = (Integer) it.next();
+			total += i.intValue();
+		}
+
+		System.out.println("총점 : " + total);
+		System.out.println("평균 : " + (float) total / set.size());
+		System.out.println("최고점수 : " + Collections.max(values, null));
+		System.out.println("최저점수 : " + Collections.min(values, null));
+	}
+}</code></pre>
+
+				<h4>실행결과</h4>
+				<pre><code>이름 : 안자바, 점수 : 90
+이름 : 김자바, 점수 : 100
+이름 : 강자바, 점수 : 80
+이름 : 이자바, 점수 : 100
+참가자 명단 : [안자바, 김자바, 강자바, 이자바]
+총점 : 370
+평균 : 92.5
+최고점수 : 100
+최저점수 : 80</code></pre>
+				<hr>
+
+				<ul class="actions fit">
+					<li></li>
+					<li></li>
+					<li>
+						<button class="button fit" id="btn-close" onclick="javascript:window.close();">Close</button>
+					</li>
+				</ul>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

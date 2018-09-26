@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="index.html">Networking</a>
+				</li>
+				<li>
+					<a class="active">TCP와 UDP</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">TCP와 UDP</h1>
+
+				<p>
+					<strong>TCP/IP 프로토콜</strong>은 <strong>이기종 시스템간의 통신을 위한 표준 프로토콜로 프로토콜의 집합</strong>입니다.
+					TCP와 UDP 모두 TCP/IP 프로토콜(TCP/IP protocol suites)에 포함되어 있으며, OSI 7계층의 전송계층(transport layer)에 해당하는 프로토콜입니다.
+				</p>
+
+				<div class="row">
+					<div class="6u 12u$(medium)">
+						<h4>TCP</h4>
+						<table>
+							<tbody>
+								<tr>
+									<td>
+										연결기반(connection-oriented)
+										<ul>
+											<li>연결 후 통신</li>
+											<li>1:1 통신 방식</li>
+										</ul>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<ul class="list-unstyled">
+											<li>데이터의 경계를 구분안함(byte-stream)</li>
+											<li>신뢰성 있는 데이터 전송</li>
+											<li>UDP보다 전송속도가 느림
+												<ul>
+													<li>데이터의 전송순서가 보장</li>
+													<li>데이터의 수신여부를 확인<br/>(데이터 손실시 재전송)</li>
+													<li>패킷을 관리할 필요 없음</li>
+												</ul>
+											</li>
+										</ul>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<ul class="list-unstyled">
+											<li>Socket</li>
+											<li>ServerSocket</li>
+											<li>&nbsp;</li>
+										</ul>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="6u 12u$(medium)">
+						<h4>UDP</h4>
+						<table>
+							<tbody>
+								<tr>
+									<td>
+										비연결기반(connectionless-oriented)
+										<ul>
+											<li>연결없이 통신</li>
+											<li>n:m 통신 방식</li>
+										</ul>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<ul class="list-unstyled">
+											<li>데이터의 경계를 구분(datagram)</li>
+											<li>TCP보다 전송속도가 빠름</li>
+											<li>
+												신뢰성 없는 데이터 전송
+												<ul>
+													<li>데이터의 전송순서가 바뀔수 있음</li>
+													<li>데이터의 수신여부를 확인안함<br/>(데이터 손실)</li>
+													<li>패킷을 관리해주어야 함</li>
+												</ul>
+											</li>
+										</ul>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<ul class="list-unstyled">
+											<li>DatagramSocket</li>
+											<li>DatagramPacket</li>
+											<li>MulticastSocket</li>
+										</ul>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<hr>
+
+				<section>
+					<ul class="actions fit">
+						<li>
+							<a href="Networking_02.html" class="button fit">URL</a>
+						</li>
+						<li></li>
+						<li>
+							<a href="Networking_04.html" class="button fit">TCP</a>
+						</li>
+					</ul>
+				</section>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

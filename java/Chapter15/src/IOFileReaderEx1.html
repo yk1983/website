@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="../IO_02.html">I/O</a>
+				</li>
+				<li>
+					<a class="active">Source code</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">FileReaderEx1.java</h1>
+				<p>
+					바이트기반 스트림인 FileInputStream과 문자기반 스트림인 FileReader의 차이점을 보여주는 예제입니다.
+				</p>
+
+				<h4>FileReaderEx1.txt</h4>
+				<pre><code>Hello, 안녕하세요?</code></pre>
+
+				<h4>소스코드</h4>
+				<pre><code>package kinco.java.std;
+
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class FileReaderEx1 {
+	public static void main(String args[]) {
+		try {
+			String fileName = "src/FileReaderEx1.txt";
+			FileInputStream fis = new FileInputStream(fileName);
+			FileReader fr = new FileReader(fileName);
+
+			int data = 0;
+
+			// FileInputStream을 이용해서 파일내용을 읽어 화면에 출력
+			while ((data = fis.read()) != -1) {
+				System.out.print((char) data);
+			}
+			System.out.println();
+			fis.close();
+
+			// FileReader를 이용해서 파일내용을 읽어 화면에 출력
+			while ((data = fr.read()) != -1) {
+				System.out.print((char) data);
+			}
+			System.out.println();
+			fr.close();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+}</code></pre>
+
+				<h4>실행결과</h4>
+				<pre><code>Hello, ìëíì¸ì?
+Hello, 안녕하세요?</code></pre>
+				<hr/>
+
+				<ul class="actions fit">
+					<li></li>
+					<li></li>
+					<li><button class="button fit" id="btn-close" onclick="javascript:window.close();">Close</button></li>
+				</ul>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/sql">SQL</a>
+				</li>
+				<li>
+					<a href="/kinco/sql/Chapter02">DDL</a>
+				</li>
+				<li>
+					<a class="active">VIEW</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">VIEW</h1>
+
+				<p>
+					SQL에서 <strong>VIEW(뷰)</strong>는 SQL 문의 결과 세트를 기반으로하는 <strong>가상 테이블</strong>입니다.
+					뷰에는 실제 테이블과 마찬가지로 행과 열이 포함됩니다. 뷰의 필드는 데이터베이스에있는 하나 이상의 실제 테이블의 필드입니다.
+					SQL 함수, WHERE 및 JOIN 문을 뷰에 추가하고 데이터가 하나의 단일 테이블에서 오는 것처럼 데이터를 표시 할 수 있습니다.
+				</p>
+
+				<hr>
+
+				<section>
+					<h2>CREATE VIEW 문</h2>
+					<h4>CREATE VIEW Syntax</h4>
+					<pre><code><strong>CREATE VIEW</strong> <em>view_name</em> AS
+SELECT <em>column1, column2, ...</em>
+FROM   <em>table_name</em>
+WHERE  <em>condition</em>;</code></pre>
+				
+					<h2>SQL CREATE VIEW 예제</h2>
+					<p>
+						Northwind 데이터베이스가 있으면 기본적으로 여러 뷰가 설치되어 있음을 알 수 있습니다.
+						"Current Product List" 뷰에는 "Products"테이블의 모든 활성 제품 (중단되지 않은 제품)이 나열됩니다.
+						<br/>뷰는 다음 SQL로 작성됩니다.
+					</p>
+
+					<pre><code><strong>CREATE VIEW</strong> [Current Product List] AS
+SELECT ProductID, ProductName
+FROM Products
+WHERE Discontinued = No;</code></pre>
+
+					<p>
+						그런 다음 다음과 같이 뷰를 쿼리 할 수 ​​있습니다.
+					</p>
+					<pre><code>SELECT * FROM [Current Product List];</code></pre>
+
+					<p>
+						Northwind 예제 데이터베이스의 또 다른 뷰는 "Products"테이블의 모든 제품을 평균 단가보다 높은 단가로 선택합니다.
+					</p>
+					<pre><code><strong>CREATE VIEW</strong> [Products Above Average Price] AS
+SELECT ProductName, UnitPrice
+FROM Products
+WHERE UnitPrice > (SELECT AVG(UnitPrice) FROM Products);</code></pre>
+
+					<p>
+						위의 뷰는 다음과 같이 쿼리 할 수 ​​있습니다.
+					</p>
+
+					<pre><code>SELECT * FROM [Products Above Average Price];</code></pre>
+					<p>
+						Northwind 데이터베이스의 다른 뷰는 1997 년 각 범주의 총 ​​판매량을 계산합니다.
+						<br/>이 뷰는 "Category Sales For 1997"라는 다른 뷰에서 해당 데이터를 선택합니다.
+					</p>
+					<pre><code><strong>CREATE VIEW</strong> [Category Sales For 1997] AS
+SELECT DISTINCT CategoryName, Sum(ProductSales) AS CategorySales
+FROM [Product Sales for 1997]
+GROUP BY CategoryName;</code></pre>
+					<p>
+						위의 뷰는 다음과 같이 쿼리 할 수 ​​있습니다.
+					</p>
+
+					<pre><code>SELECT * FROM [Category Sales For 1997];</code></pre>
+					<p>
+						쿼리에 조건을 추가 할 수도 있습니다. "Beverages"카테고리에 대해서만 총 판매를 봅시다.
+					</p>
+					<pre><code>SELECT * FROM [Category Sales For 1997]
+WHERE CategoryName = 'Beverages';</code></pre>
+				</section>
+
+				<hr>
+
+				<section>
+					<h2>VIEW 업데이트</h2>
+					<p>
+						다음 구문을 사용하여 뷰를 업데이트 할 수 있습니다.
+					</p>
+						
+					<h4>CREATE OR REPLACE VIEW Syntax</h4>
+					<pre><code><strong>CREATE OR REPLACE VIEW</strong> <em>view_name</em> AS
+SELECT <em>column1, column2, ...</em>
+FROM   <em>table_name</em>
+WHERE  <em>condition</em>;</code></pre>
+					
+					<p>
+						이제 "Current Product List" 뷰에 "Category"열을 추가하려고합니다.
+						<br/>다음 SQL로 뷰를 업데이트합니다.
+					</p>
+						
+					<pre><code><strong>CREATE OR REPLACE VIEW</strong> [Current Product List] AS
+SELECT ProductID, ProductName, <strong>Category</strong>
+FROM   Products
+WHERE  Discontinued = No;</code></pre>
+				</section>
+
+				<hr>
+
+				<section>
+					<h2>VIEW 삭제</h2>
+					<P>
+						<strong>DROP VIEW</strong> 명령으로보기를 삭제할 수 있습니다.
+					</P>
+						
+					<h4>DROP VIEW Syntax</h4>
+					<pre><code><strong>DROP VIEW</strong> <em>view_name</em>;</code></pre>
+				</section>
+
+				<hr>
+
+				<section>
+					<ul class="actions fit">
+						<li>
+							<a href="sql_autoincrement.html" class="button fit">AUTO INCREMENT</a>
+						</li>
+						<li></li>
+						<li></li>
+					</ul>
+				</section>
+			</div>
+		</section>
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

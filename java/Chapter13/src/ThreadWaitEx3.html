@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="../Thread_08.html">Thread</a>
+				</li>
+				<li>
+					<a class="active">Source code</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">ThreadWaitEx2</h1>
+				<p>
+					<code>ThreadWaitEx2.java</code>의 예제에서 예외가 발생하지는 않지만 원활하게 진행되지 않는 문제를 해결하기 위한 예제입니다.
+					<br/>wait()와 notify()를 추가하였습니다. 그리고 테이블에 음식이 없을 때뿐만 아니라 원하는 음식이 없을 때 손님이 기다리도록 변경되었습니다.
+				</p>
+
+				<h4>ThreadWaitEx2.java</h4>
+				<pre><code>package chapter13;
+
+public class ThreadWaitEx2 {
+	public static void main(String[] args) throws Exception {
+		Table table = new Table(); // 여러 쓰레드가 공유하는 객체
+
+		new Thread(new Cook(table), "COOK1").start();
+		new Thread(new Customer(table, "donut"), "CUST1").start();
+		new Thread(new Customer(table, "burger"), "CUST2").start();
+
+		// 0.1초(100 밀리 세컨드) 후에 강제 종료시킨다.
+		Thread.sleep(100);
+		System.exit(0);
+	}
+}</code></pre>
+
+				<h4>Customer.java</h4>
+				<pre><code>package chapter13;
+
+public class Customer implements Runnable {
+	private Table table;
+	private String food;
+
+	Customer(Table table, String food) {
+		this.table = table;
+		this.food = food;
+	}
+
+	public void run() {
+		while (true) {
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+			}
+			String name = Thread.currentThread().getName();
+
+			<strong>table.remove(food);
+			System.out.println(name + " ate a " + food);</strong>
+		}
+	}
+}
+}</code></pre>
+
+				<h4>Cook.java</h4>
+				<pre><code>package chapter13;
+
+public class Cook implements Runnable {
+	private Table table;
+
+	Cook(Table table) {
+		this.table = table;
+	}
+
+	public void run() {
+		while (true) {
+			// 임의의 요리를 하나 선택해서 table에 추가한다.
+			int idx = (int) (Math.random() * table.dishNum());
+			table.add(table.dishNames[idx]);
+
+			try {
+				Thread.sleep(1);
+			} catch (InterruptedException e) {
+			}
+		}
+	}
+}</code></pre>
+
+				<h4>Table.java</h4>
+				<pre><code>package chapter13;
+
+import java.util.ArrayList;
+
+public class Table {
+	String[] dishNames = { "donut", "donut", "burger" }; // donut의 확률을 높인다.
+	final int MAX_FOOD = 6;
+	private ArrayList&lt;String&gt; dishes = new ArrayList&lt;&gt;();
+
+	public <strong>synchronized</strong> void add(String dish) {
+		<strong>while (dishes.size() >= MAX_FOOD) {
+			String name = Thread.currentThread().getName();
+			System.out.println(name + " is waiting.");
+			try {
+				wait(); // COOK쓰레드를 기다리게 한다.
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+			}
+		}
+		dishes.add(dish);
+		notify(); // 기다리고 있는 CUST를 깨우기 위함.
+		System.out.println("Dishes:" + dishes.toString());</strong>
+	}
+
+	public void remove(String dishName) {
+
+		synchronized (this) {
+			<strong>String name = Thread.currentThread().getName();
+
+			while (dishes.size() == 0) {
+				System.out.println(name + " is waiting.");
+				try {
+					wait(); // CUST쓰레드를 기다리게 한다.
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+				}
+			}
+
+			while (true) {
+				for (int i = 0; i &lt; dishes.size(); i++) {
+					if (dishName.equals(dishes.get(i))) {
+						dishes.remove(i);
+						notify(); // 잠자고 있는 COOK을 깨우기 위함
+						return;
+					}
+				} // for문의 끝
+
+				try {
+					System.out.println(name + " is waiting.");
+					wait(); // 원하는 음식이 없는 CUST쓰레드를 기다리게 한다.
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+				}
+			}</strong>
+		}
+	}
+
+	public int dishNum() {
+		return dishNames.length;
+	}
+}</code></pre>
+
+				<h4>실행결과</h4>
+				<pre><code>Dishes:[donut]
+Dishes:[donut, burger]
+Dishes:[donut, burger, burger]
+Dishes:[donut, burger, burger, donut]
+Dishes:[donut, burger, burger, donut, donut]
+Dishes:[donut, burger, burger, donut, donut, donut]
+COOK1 is waiting.
+CUST1 ate a donut
+Dishes:[burger, burger, donut, donut, donut, donut]
+CUST1 ate a donut
+CUST2 ate a burger
+Dishes:[burger, donut, donut, donut, donut]
+Dishes:[burger, donut, donut, donut, donut, donut]
+COOK1 is waiting.
+CUST2 ate a burger
+Dishes:[donut, donut, donut, donut, donut, donut]
+CUST2 is waiting.
+CUST1 ate a donut
+CUST2 is waiting.
+CUST1 ate a donut
+Dishes:[donut, donut, donut, donut, donut]</code></pre>
+
+				<hr>
+
+				<ul class="actions fit">
+					<li></li>
+					<li></li>
+					<li>
+						<button class="button fit" id="btn-close" onclick="javascript:window.close();">Close</button>
+					</li>
+				</ul>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

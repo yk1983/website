@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="index.html">Home</a>
+				</li>
+				<li>
+					<a href="/kinco/sql">SQL</a>
+				</li>
+				<li>
+					<a class="active">소개</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">SQL소개</h1>
+				<p>
+					SQL은 데이터베이스를 액세스하고 조작하기위한 표준 언어입니다.
+					<br/>SQL은 ANSI (American National Standards Institute) 표준이지만 다른 SQL 버전이 있습니다. 그러나
+					<strong>ANSI 표준을 준수하기 위해 이들은 모두
+						<code>SELECT</code>,
+						<code>UPDATE</code>,
+						<code>DELETE</code>,
+						<code>INSERT</code>,
+						<code>WHERE</code>와 같은 주요 명령을 비슷한 방식으로 지원</strong>합니다.
+					<br/><sub>* 대부분의 SQL 데이터베이스 프로그램은 SQL 표준 외에도 자체적 인 확장 기능을 가지고 있습니다.</sub>
+				</p>
+
+				<hr>
+
+				<section>
+					<h2>SQL이란 무엇입니까?</h2>
+					<ul>
+						<li>SQL은 구조화 된 쿼리 언어입니다.</li>
+						<li>SQL을 사용하면
+							<strong>데이터베이스에 액세스하고 조작</strong> 할 수 있습니다.</li>
+						<li>SQL은 ANSI(American National Standards Institute) 표준입니다.</li>
+					</ul>
+				</section>
+
+				<hr>
+
+				<section>
+					<h2>SQL은 무엇을 할 수 있습니까?</h2>
+					<ul>
+						<li>SQL은 데이터베이스에 대해
+							<strong>쿼리를 실행</strong>할 수 있습니다.</li>
+						<li>SQL은 데이터베이스에서
+							<strong>데이터를 검색</strong> 할 수 있습니다.</li>
+						<li>SQL은 데이터베이스에
+							<strong>레코드를 삽입</strong> 할 수 있습니다.</li>
+						<li>SQL은 데이터베이스의
+							<strong>레코드를 업데이트</strong> 할 수 있습니다.</li>
+						<li>SQL은 데이터베이스에서
+							<strong>레코드를 삭제</strong>할 수 있습니다.</li>
+						<li>SQL은
+							<strong>새로운 데이터베이스를 생성</strong> 할 수 있습니다.</li>
+						<li>SQL은 데이터베이스에
+							<strong>새로운 테이블을 생성</strong> 할 수 있습니다.</li>
+						<li>SQL은 데이터베이스에 저장
+							<strong>프로시저를 생성</strong> 할 수 있습니다.</li>
+						<li>SQL은 데이터베이스에
+							<strong>뷰를 생성</strong> 할 수 있습니다.</li>
+						<li>SQL은 테이블, 프로시저 및 뷰에 대한
+							<strong>사용 권한을 설정</strong>할 수 있습니다.</li>
+					</ul>
+				</section>
+
+				<hr>
+
+				<section>
+					<h2>SQL문의 작성 방법</h2>
+					<ul>
+						<li>SQL 문장은 대소문자를 구별하지 않습니다.</li>
+						<li>SQL 문장은 한 줄 또는 여러 줄에 입력될 수 있습니다.</li>
+						<li>일반적으로 키워드는 대문자로 입력합니다. 다른 모든 단어, 즉 테이블 이름, 열 이름은 소문자로 입력합니다. (권장사항입니다. 프로젝트마다 다를 수 있습니다.)</li>
+						<li>가장 최근의 명령어 한 개가 SQL buffer에 저장 됩니다. (캐싱되어 다시 검색할 경우 속도가 빠릅니다.)</li>
+						<li>SQL문 마지막 절의 끝에 세미콜론(;)를 기술하여 명령의 끝을 표시 합니다.</li>
+					</ul>
+
+					<p>
+						<sub>* RDBMS : RDBMS(관계형 데이터베이스 관리 시스템, relational database management system)는 SQL과 MS SQL Server, IBM DB2, Oracle, MySQL 및 Microsoft Access와 같은 모든 최신 데이터베이스 시스템의 기초입니다.
+							RDBMS의 데이터는 테이블이라는 데이터베이스 객체에 저장됩니다. 테이블은 관련 데이터 항목의 모음이며 열과 행으로 구성됩니다.</sub>
+					</p>
+				</section>
+
+				<hr>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

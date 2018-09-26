@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="index.html">Networking</a>
+				</li>
+				<li>
+					<a class="active">URL</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">URL(Uniform Resource Location)</h1>
+
+				<p>
+					URL은 인터넷에 존재하는 여러 서버들이 제공하는 자원에 접근할 수 있는 주소를 표현하기 위한 것으로
+					<strong>프로토콜://호스트명:포트번호/경로명/파일명?쿼리스티링#참조 (
+						<em>protocol://hostName:portNo/pathName/fileName?queryString#ref</em>)</strong>
+					의 형태로 이루어져 있습니다.
+					<br/>
+					<sub>* URL에서 포트번호, 쿼리스트링, 참조는 생략될 수 있습니다.</sub>
+					<br/>
+					<sub>* HTTP프로토콜에서는 80번 포트를 사용하기 때문에 URL에서 포트번호를 생략하는 경우 80으로 간주합니다. 각 프로토콜에 따라 통신에 사용되는 포트번호가 다르며 생략되면 각 프로토콜의 기본 포트가 사용됩니다.</sub>
+				</p>
+
+				<h4>https://www.w3schools.com/html/tryit.asp?filename=tryhtml_form_submit#index</h4>
+				<ul class="list-unstyled">
+					<li>
+						<strong>
+							<em>프로토콜 (protocol)</em>
+						</strong> : 자원에 접근하기 위해 서버와 통신하는데 사용되는 통신규약 (http, https)</li>
+					<li>
+						<strong>
+							<em>호스트명 (host name)</em>
+						</strong> : 자원을 제공하는 서버의 이름 (www.w3schools.com)</li>
+					<li>
+						<strong>
+							<em>포트번호 (port number)</em>
+						</strong> : 통신에 사용되는 서버의 포트번호 (80)</li>
+					<li>
+						<strong>
+							<em>경로명 (path name)</em>
+						</strong> : 접근하려는 자원이 저장된 서버상의 위치 (/html/)</li>
+					<li>
+						<strong>
+							<em>파일명 (file name)</em>
+						</strong> : 접근하려는 자원의 이름 (tryit.asp)</li>
+					<li>
+						<strong>
+							<em>쿼리스티링 (query string)</em>
+						</strong> : URL에서 '?' 이후의 부분 (filename=tryhtml_form_submit)</li>
+					<li>
+						<strong>
+							<em>참조 (ref)</em>
+						</strong> : URL에서 '#' 이후의 부분 (index)</li>
+				</ul>
+
+				<P>
+					자바에서는 URL을 다루기 위한 클래스로
+					<code>URL 클래스</code>를 제공하며 다음과 같은 메서드가 정의되어 있습니다.
+				</P>
+
+				<h4>URL의 메서드</h4>
+				<table>
+					<tbody>
+						<tr>
+							<td>
+								<strong>
+									<em>URL(String spec)</em>
+								</strong>
+								<br/> : 지정된 문자열 정보의 URL객체를 생성합니다.</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>
+									<em>URL(String protocol, String host, String file)</em>
+								</strong>
+								<br/> : 지정된 값으로 구성된 URL객체를 생성합니다.</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>
+									<em>URL(String protocol, String host, int port, String file)</em>
+								</strong>
+								<br/> : 지정된 값으로 구성된 URL객체를 생성합니다.</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>
+									<em>String getAuthority()</em>
+								</strong>
+								<br/> : 호스트명과 포트를 문자열로 반환합니다.</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>
+									<em>Object getContent()
+										<br/>Object getContent(Class[] classes)</em>
+								</strong>
+								<br/> : URL의 Content객체를 반환합니다.</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>
+									<em>int getDefaultPort()</em>
+								</strong>
+								<br/> : URL의 기본 포트를 반환합니다.(http는 80)</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>
+									<em>String getFile()</em>
+								</strong>
+								<br/> : 파일명을 반환합니다.</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>
+									<em>String getHost()</em>
+								</strong>
+								<br/> : 호스트명을 반환합니다.</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>
+									<em>String getPath()</em>
+								</strong>
+								<br/> : 경로명을 반환합니다.</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>
+									<em>int getPort</em>
+								</strong>
+								<br/> : 포트를 반환합니다.</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>
+									<em>String getProtocol()</em>
+								</strong>
+								<br/> : 프로토콜을 반환합니다.</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>
+									<em>String getQuery()</em>
+								</strong>
+								<br/> : 쿼리를 반환합니다.</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>
+									<em>String getRef()</em>
+								</strong>
+								<br/> : 참조(anchor)를 반환합니다.</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>
+									<em>String getUserInfo()</em>
+								</strong>
+								<br/> : 사용자정보를 반환합니다.</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>
+									<em>URLConnection openConnection()
+										<br/>URLConnection openConnection(Proxy proxy)</em>
+								</strong>
+								<br/> : URL과 연결된 URLConnection을 얻습니다.</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>
+									<em>InputStream openStream()</em>
+								</strong>
+								<br/> : URL과 연결된 URLConnection의 InputStream을 얻습니다.</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>
+									<em>boolean sameFile(URL other)</em>
+								</strong>
+								<br/> : 두 URL이 서로 같은 것인지 알려줍니다.</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>
+									<em>void set(String protocol, String host, int port, String file, String ref)
+										<br/>void set(String protocol, String host, int port, String authority, String userInfo, String path, String query,
+										String ref)</em>
+								</strong>
+								<br/> : URL객체의 속성을 지정된 값으로 설정합니다.</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>
+									<em>String toExternalForm()</em>
+								</strong>
+								<br/> : URL을 문자열로 변환하여 반환합니다.</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>
+									<em>URI toURI</em>
+								</strong>
+								<br/> : URL을 URI로 변환하여 반환합니다.</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<h4>Example sources</h4>
+				<ul class="icons source">
+					<li>
+						<a href="src/NetworkEx2.html" target="_blank">
+							<i class="fas fa-file-code"></i> NetworkEx2.java</a>
+					</li>
+				</ul>
+
+				<hr>
+
+				<section>
+					<h2>URLConnection</h2>
+					<p>
+						<code>URLConnection</code>은 어플리케이션과 URL간의 통신연결을 나타내는 클래스의 최상위 클래스로 추상클래스입니다. URLConnection을 상속받아 구현한 클래스로는 HttpURLConnection과
+						JarURLConnection이 있으며 URL의 프로토콜이 http프로토콜이라면 openConnection()은 Http URLConnection을 반환합니다. URLConnection을사용해서 연결하고자하는
+						자원에 접근하고 읽고 쓰기를 할 수 있습니다. 그 외에 관련된 정보를 읽고 쓸 수 있는 메서드가 제공합니다.
+					</p>
+
+					<h4>URLConnection의 메서드</h4>
+					<table>
+						<tbody>
+							<tr>
+								<td>
+									<strong>
+										<em>void addRequestProperty(String key, String value)</em>
+									</strong>
+									<br/> : 지정된 키와 값을 RequestProperty에 추가합니다. 기존에 같은 키가 있어도 값을 덮어쓰지 않습니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>void connect()</em>
+									</strong>
+									<br/> : URL에 지정된 자원에 대한 통신연결을 합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>boolean getAllowUserInteraction()</em>
+									</strong>
+									<br/> : UserInteraction의 허용여부를 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>int getConnectTimeout()</em>
+									</strong>
+									<br/> : 연결종료시간을 천분의 일초로 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>Object getConnect()
+											<br/>Object getConnect(Class[] classes)</em>
+									</strong>
+									<br/> : connect객체를 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>String getContentEncoding()</em>
+									</strong>
+									<br/> : content의 인코딩을 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>int getContentLength()</em>
+									</strong>
+									<br/> : content의 크기를 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>String getContentType()</em>
+									</strong>
+									<br/> : content의 type를 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>long getDate()</em>
+									</strong>
+									<br/> : 헤더(header)의 date필드의 값을 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>boolean getDefaultAllowUserInteraction()</em>
+									</strong>
+									<br/> : defaultAllowUserInteraction의 값을 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>String getDefaultRequestProperty(String key)</em>
+									</strong>
+									<br/> : RequestProperty에서 지정된 키의 디폴트값을 얻습니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>boolean getDefaultUseCaches()</em>
+									</strong>
+									<br/> : useCache의 디폴트 값을 얻습니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>boolean getDoInput()</em>
+									</strong>
+									<br/> : doInput필드 값을 얻습니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>boolean getDoOutput()</em>
+									</strong>
+									<br/> : doOutput필드 값을 얻습니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>long getExpiration()</em>
+									</strong>
+									<br/> : 자원(URL)의 만료일자를 얻습니다. (천분의 일초단위)</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>FileNameMap getFileNameMap()</em>
+									</strong>
+									<br/> : FileNameMap(mimetable)을 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>String getHeaderField(int n)</em>
+									</strong>
+									<br/> : 헤더의 n번째 필드를 읽어옵니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>String getHeaderField(String name)</em>
+									</strong>
+									<br/> : 헤더에서 지정된 이름의 필드를 읽어옵니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>long getHeaderFieldDate(String name, int Default)</em>
+									</strong>
+									<br/> : 지정된 필드의 값을 날짜 값으로 변환하여 반환합니다. 필드값이 유효하지 않을 경우 Default값을 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>int getHeaderFieldInt(String name, int Default)</em>
+									</strong>
+									<br/> : 지정된 필드의 값을 정수 값으로 변환하여 반환합니다. 필드값이 유효하지 않을 경우 Default값을 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>String getHeaderFieldKey(int n)</em>
+									</strong>
+									<br/> : 헤더의 n번째 필드를 읽어옵니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>Map getHeaderFields()</em>
+									</strong>
+									<br/> : 헤더의 모든 필드와 값이 저장된 Map을 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>long getIfModifiedSince()</em>
+									</strong>
+									<br/> : ifModifiedSince(변경여부)필드의 값을 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>InputStream getInputStream()</em>
+									</strong>
+									<br/> : URLConnection에서 InputStream을 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>long getLastModified()</em>
+									</strong>
+									<br/> : LastModified(최종변경일) 필드의 값을 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>OutputStream getOutputStream()</em>
+									</strong>
+									<br/> : URLConnection에서 OutputStram을 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>Permission getPermission()</em>
+									</strong>
+									<br/> : Permission(허용권한)을 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>int getReadTimeout()</em>
+									</strong>
+									<br/> : 읽기제한시간의 값을 반환합니다. (천분의 일초)</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>Map getRequestProperties()</em>
+									</strong>
+									<br/> : RequestProperties에 저장된 (키, 값)을 Map으로 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>String getRequestProperty(String key)</em>
+									</strong>
+									<br/> : RequestProperty에서 지정된 키의 값을 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>URL getURL()</em>
+									</strong>
+									<br/> : URLConnection의 URL을 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>boolean getUseCaches()</em>
+									</strong>
+									<br/> : 캐쉬의 사용여부를 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>String guessContentTypeFromName(String fname)</em>
+									</strong>
+									<br/> : 지정된 파일(fname)의 content-type을 추측하여 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>String guessContentTypeFromStream(InputStream is)</em>
+									</strong>
+									<br/> : 지정된 입력스트림(is)의 content-type을 추측하여 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>void setAllowUserInteraction(boolean allowuserinteraction)</em>
+									</strong>
+									<br/> : UserInteraction의 허용여부를 설정합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>void setConnectTimeout(int timeout)</em>
+									</strong>
+									<br/> : 연결종료시간을 설정합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>void setContentHandlerFactory
+											<br/>(ContentHandlerFactory fac)</em>
+									</strong>
+									<br/> : ContentHandlerFactory를 설정합니다.
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>void setDefaultAllowUserInteraction(boolean defaultallowuserinteraction)</em>
+									</strong>
+									<br/> : UserInteraction허용여부의 기본값을 설정합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>@Deprecated
+											<br/>
+											<del>void setDefaultRequestProperty(String key, String value)</del>
+										</em>
+									</strong>
+									<br/> : RequestProperty의 기본 키쌍(key-pair)을 설정합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>void setDefaultUseCaches(boolean defaultusecaches)</em>
+									</strong>
+									<br/> : 캐쉬 사용여부의 기본값을 설정합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>void setDoInput(boolean doinput)</em>
+									</strong>
+									<br/> : DoInput필드의 값을 설정합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>void setDoOutput(boolean dooutput)</em>
+									</strong>
+									<br/> : DoOutput필드의 값을 설정합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>void setFileNameMap(FileNameMap map)</em>
+									</strong>
+									<br/> : FileNameMap을 설정합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>void setIfModifiedSince(long ifmodifiedsince)</em>
+									</strong>
+									<br/> : ModifiedSince필드의 값을 설정합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>void setReadTimeout(int timeout)</em>
+									</strong>
+									<br/> : 읽기제한시간을 설정합니다. (천분의 일초)</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>void setRequestProperty(String key, String value)</em>
+									</strong>
+									<br/> : RequestProperty에 (key, value)를 저장합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>void setUseCaches(boolean usecaches)</em>
+									</strong>
+									<br/> : 캐쉬의 사용여부를 설정합니다.</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<h4>Example sources</h4>
+					<ul class="icons source">
+						<li>
+							<a href="src/NetworkEx3.html" target="_blank">
+								<i class="fas fa-file-code"></i> NetworkEx3.java</a>
+						</li>
+						<li>
+							<a href="src/NetworkEx4.html" target="_blank">
+								<i class="fas fa-file-code"></i> NetworkEx4.java</a>
+						</li>
+						<li>
+							<a href="src/NetworkEx5.html" target="_blank">
+								<i class="fas fa-file-code"></i> NetworkEx5.java</a>
+						</li>
+					</ul>
+				</section>
+
+				<hr>
+
+				<section>
+					<ul class="actions fit">
+						<li>
+							<a href="Networking_01.html" class="button fit">클라이언트/서버</a>
+						</li>
+						<li></li>
+						<li>
+							<a href="Networking_03.html" class="button fit">TCP&amp;UDP</a>
+						</li>
+					</ul>
+				</section>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

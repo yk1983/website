@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="IO.html">I/O</a>
+				</li>
+				<li>
+					<a class="active">File</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">File</h1>
+
+				<section>
+					<p>
+						파일은 기본적이면서도 가장 많이 사용되는 입출력 대상이기 때문에 중요합니다. 자바에서는
+						<strong>File클래스를 통해서 파일과 디렉토리를 다룰 수 있도록 하고 있습니다. 그래서 File인스턴스는 파일 일 수도 있고 디렉토리일 수도 있습니다.</strong>
+					</p>
+
+					<h4>File의 생성자와 경로와 관련 메서드</h4>
+					<table>
+						<tbody>
+							<tr>
+								<td>
+									<strong>
+										<em>File(String fileName)</em>
+									</strong>
+									<br/> : 주어진 문자열(fileName)을 이름으로 갖는 파일을 위한 File인스턴스를 생성합니다. 파일 뿐만아니라 디렉토리도 같은 방법으로 다룹니다.
+									<br/>여기서 fileName은 주로 경로(path)를 포함해서 지정해주지만, 파일 이름만 사용해도 되는 데 이 경우 프로그램이 실행되는 위치가 경로(parh)로 간주됩니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>File(String pathName, String fileName)
+											<br/>File(File pathName, String fileName)</em>
+									</strong>
+									<br/> : 파일의 경로와 이름을 따로 분리해서 지정할 수 있도록 한 생성자. 이 중 두 번째 것은 경로를 문자열이 아닌 File인스턴스인 경우를 위해서 제공된 것입니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>File(URL url)</em>
+									</strong>
+									<br/> : 지정된 url로 파일을 생성합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>String getName()</em>
+									</strong>
+									<br/> : 파일이름을 String으로 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>String getPath()</em>
+									</strong>
+									<br/> : 파일의 경로(path)를 String으로 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>String getAbsolutePath()
+											<br/>File getAbsoluteFile()</em>
+									</strong>
+									<br/> : 파일의 절대경로를 String 또는 File으로 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>String getParent()
+											<br/>File getParentFile()</em>
+									</strong>
+									<br/> : 파일의 조상 디렉토리를 String 또는 File으로 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>String getCanonicalPath()
+											<br/>File getCanonicalFile()</em>
+									</strong>
+									<br/> : 파일의 정규경로를 String 또는 File으로 반환합니다.</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<h4>경로와 관련된 File의 멤버변수</h4>
+					<table>
+						<tbody>
+							<tr>
+								<td>
+									<strong>
+										<em>static String pathSeparator</em>
+									</strong>
+									<br/> : OS에서 사용하는 경로(path) 구분자. (윈도우 "," , 유닉스 ".")</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>static char pathSeparatorChar</em>
+									</strong>
+									<br/> : OS에서 사용하는 경로(path) 구분자. (윈도우 ";" , 유닉스 ":")</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>static String separator</em>
+									</strong>
+									<br/> : OS에서 사용하는 이름 구분자. (윈도우 "\" , 유닉스 "/")</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>static char separatorChar</em>
+									</strong>
+									<br/> : OS에서 사용하는 이름 구분자 (윈도우 "\" , 유닉스 "/")</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<ul class="icons source">
+						<li>
+							<a href="src/IOFileEx1.html" target="_blank">
+								<i class="fas fa-file-code"></i> FileEx1.java</a>
+						</li>
+					</ul>
+
+					<h4>File의 메서드</h4>
+					<table>
+						<tbody>
+							<tr>
+								<td>
+									<strong>
+										<em>boolean canRead()</em>
+									</strong>
+									<br/> : 읽을 수 있는 파일인지 검사합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>boolean canWrite()</em>
+									</strong>
+									<br/> : 쓸 수 있는 파일인지 검사합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>boolean canExecute()</em>
+									</strong>
+									<br/> : 실행할 수 있는 파일인지 검사합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>int compareTo(File pathName)</em>
+									</strong>
+									<br/> : 지정된 파일(pathName)과 비교합니다. 주어진 파일 또는 디렉토리를 비교합니다. 같으면 0을 반환하며, 다르면 1 또는 -1을 반환합니다. (Unix시스템에서는 대소문자를 구별하며, Windows에서는
+									구별하지 않습니다.)</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>boolean exists()</em>
+									</strong>
+									<br/> : 파일이 존재하는지 검사합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>boolean isAbsolute()</em>
+									</strong>
+									<br/> : 파일 또는 디렉토리가 절대경로명으로 지정되었는지 확인합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>boolean isDirectory()</em>
+									</strong>
+									<br/> : 디렉토리인지 확인합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>boolean isFile()</em>
+									</strong>
+									<br/> : 파일인지 확인합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>boolean isHidden()</em>
+									</strong>
+									<br/> : 파일의 속성이 숨김(hidden)인지 확인합니다. 또한 파일이 존재하지 않으면 false를 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>boolean createNewFile()</em>
+									</strong>
+									<br/> : 아무런 내용이 없는 새로운 파일을 생성합니다. (단, 생성하려는 파일이 이미 존재하면 생성되지 않습니다.)</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>static File createTempFile(String prefix, String suffix)</em>
+									</strong>
+									<br/> : 임시파일을 시스템의 임시 디렉토리에 생성합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>static File createTempFile(String prefix, String suffix, Fuke directiry)</em>
+									</strong>
+									<br/> : 임시파일을 시스템의 지정된 디렉토리에 생성합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>boolean delete()</em>
+									</strong>
+									<br/> : 파일을 삭제합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>void deleteOnExit()</em>
+									</strong>
+									<br/> : 응용 프로그램 종료시 파일을 삭제합니다. 주로 실행 시 작업에 사용된 임시파일을 삭제하는데 사용됩니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>boolean equals(Object obj)</em>
+									</strong>
+									<br/> : 주어진 객체(주로 File인스턴스)가 같은 파일인지 비교합니다. (Unix시스템에서는 대소문자를 구별하며, Windows에서는 구별하지 않습니다.)</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>long lastModified()</em>
+									</strong>
+									<br/> : 파일의 마지막으로 수정된 시간을 지정된 시간을 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>long length()</em>
+									</strong>
+									<br/> : 파일의 크기를 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>String[] list()</em>
+									</strong>
+									<br/> : 디렉토리의 파일목록(디렉토리 포함)을 String배열로 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>String[] list(FilenameFilter filter)
+											<br/>File[] list(FilenameFilter filter)</em>
+									</strong>
+									<br/> : FilenameFilter인스턴스에 구현된 조건에 맞는 파일을 String배열(File배열)로 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>File[] listFiles()
+											<br/>File[] listFiles(FileFilter filter)
+											<br/>File[] listFiles(FilenameFilter f)</em>
+									</strong>
+									<br/> : 디렉토리의 파일목록(디렉토리 포함)을 File배열로 반환합니다. (filter가 지정된 경우에는 filter의 조건과 일치하는 파일만 반환합니다.)</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>static File[] listRoots()
+											<br/>long getFreeSpace()
+											<br/>long getTotalSpace()
+											<br/>long getUsableSpace()</em>
+									</strong>
+									<br/> : 컴퓨터의 파일시스템의 root의 목록(floppy, CD-ROM, HDD drive)을 반환합니다.
+									<br/>get으로 시작하는 메서드들은 File이 root일 때, 비어있는 공간, 전체 공간, 사용가능한 공간을 바이트 단위로 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>boolean renameTo(File dest)</em>
+									</strong>
+									<br/> : 지정된 파일(dest)로 이름을 변경합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>boolean mkdir()
+											<br/>boolean mkdirs()</em>
+									</strong>
+									<br/> : 파일에 지정된 경로로 디렉토리(폴더)를 생성합니다. 성공하면 true를 반환합니다.
+									<br/>mkdirs는 필요하면 부모 디렉토리까지 생성합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>boolean setExecutable(boolean executable)
+											<br/>boolean setExecutable(boolean executable, boolean ownerOnly)
+											<br/>boolean setReadable(boolean readable)
+											<br/>boolean setReadable(boolean readable, boolean ownerOnly)
+											<br/>boolean setReadOnly()
+											<br/>boolean setWritable(boolean writable)
+											<br/>boolean setWritable(boolean writable, boolean ownerOnly)
+										</em>
+									</strong>
+									<br/> : 파일의 속성을 변경합니다. OwnerOnly가 true면, 파일의 소유자만 해당 속성을 변경할 수 있습니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>boolean setLastModified(long t)</em>
+									</strong>
+									<br/> : 파일의 마지막으로 수정된 시간을 지정된 시간(t)으로 변경합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>Path toPath()</em>
+									</strong>
+									<br/> : 파일을 Path로 변환해서 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>URI toURI()</em>
+									</strong>
+									<br/> : 파일을 URI로 변환해서 반환합니다.</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<ul class="icons source">
+						<li>
+							<a href="src/IOFileEx2.html" target="_blank">
+								<i class="fas fa-file-code"></i> FileEx2.java</a>
+						</li>
+						<li>
+							<a href="src/IOFileEx3.html" target="_blank">
+								<i class="fas fa-file-code"></i> FileEx3.java</a>
+						</li>
+						<li>
+							<a href="src/IOFileEx4.html" target="_blank">
+								<i class="fas fa-file-code"></i> FileEx4.java</a>
+						</li>
+						<li>
+							<a href="src/IOFileEx5.html" target="_blank">
+								<i class="fas fa-file-code"></i> FileEx5.java</a>
+						</li>
+						<li>
+							<a href="src/IOFileEx6.html" target="_blank">
+								<i class="fas fa-file-code"></i> FileEx6.java</a>
+						</li>
+						<li>
+							<a href="src/IOFileEx7.html" target="_blank">
+								<i class="fas fa-file-code"></i> FileEx7.java</a>
+						</li>
+						<li>
+							<a href="src/IOFileEx8.html" target="_blank">
+								<i class="fas fa-file-code"></i> FileEx8.java</a>
+						</li>
+						<li>
+							<a href="src/IOFileEx9.html" target="_blank">
+								<i class="fas fa-file-code"></i> FileEx9.java</a>
+						</li>
+						<li>
+							<a href="src/IOFileSplit.html" target="_blank">
+								<i class="fas fa-file-code"></i> FileSplit.java</a>
+						</li>
+						<li>
+							<a href="src/IOFileMerge.html" target="_blank">
+								<i class="fas fa-file-code"></i> FileMerge.java</a>
+						</li>
+					</ul>
+				</section>
+
+				<hr/>
+
+				<section>
+					<ul class="actions fit">
+						<li>
+							<a href="IO_04.html" class="button fit">표준입출력</a>
+						</li>
+						<li></li>
+						<li>
+							<a href="IO_06.html" class="button fit">직렬화</a>
+						</li>
+					</ul>
+				</section>
+			</div>
+		</section>
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

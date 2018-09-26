@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="../IO_05.html">I/O</a>
+				</li>
+				<li>
+					<a class="active">Source code</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">FileEx8.java</h1>
+				<p>
+					재귀호출을 이용해서 지정된 디렉토리와 하위 디렉토리에 있는 파일 중에서 지정된 확장자를 가진 파일을 <code>delete()</code>를 호출해서 삭제하는 예제입니다.
+					<br/>삭제 메서드는 해당 파일을 삭제하고 성공하면 <code>true</code>를 실패하면 <code>false</code>를 반환합니다.
+				</p>
+
+				<h4>소스코드</h4>
+				<pre><code>package chapter15;
+
+import java.io.File;
+
+public class FileEx8 {
+	static int deletedFiles = 0;
+
+	public static void main(String[] args) {
+
+		String extension = "bak";
+		
+		String currDir = System.getProperty("user.dir");
+
+		File dir = new File(currDir);
+		String ext = "." + extension;
+
+		delete(dir, ext);
+		System.out.println(deletedFiles + "개의 파일이 삭제되었습니다.");
+	}
+
+	public static void delete(File dir, String ext) {
+		File[] files = dir.listFiles();
+
+		for (int i = 0; i &lt; files.length; i++) {
+			if (files[i].isDirectory()) {
+				delete(files[i], ext);
+			} else {
+				String filename = files[i].getAbsolutePath();
+
+				if (filename.endsWith(ext)) {
+					System.out.print(filename);
+					if (files[i].delete()) {
+						System.out.println(" - 삭제 성공");
+						deletedFiles++;
+					} else {
+						System.out.println(" - 삭제 실패");
+					}
+				}
+			}
+		}
+	}
+}</code></pre>
+
+				<h4>실행결과</h4>
+				<pre><code>C:\workspace\kinco\bin\chapter15\score2.bak - 삭제 성공
+C:\workspace\kinco\bin\chapter15\UserInfo.bak - 삭제 성공
+C:\workspace\kinco\src\chapter15\score2.bak - 삭제 성공
+C:\workspace\kinco\src\chapter15\UserInfo.bak - 삭제 성공
+4개의 파일이 삭제되었습니다.</code></pre>
+
+				<hr/>
+
+				<ul class="actions fit">
+					<li></li>
+					<li></li>
+					<li><button class="button fit" id="btn-close" onclick="javascript:window.close();">Close</button></li>
+				</ul>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

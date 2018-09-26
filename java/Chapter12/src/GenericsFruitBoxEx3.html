@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="../Generics_01.html">Generics</a>
+				</li>
+				<li>
+					<a class="active">Source code</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">FruitBoxEx3.java</h1>
+				<p>
+					
+				</p>
+
+				<h4>Box.java</h4>
+				<pre><code>package chapter12;
+
+import java.util.ArrayList;
+
+public class Box&lt;T&gt; {
+	ArrayList&lt;T&gt; list = new ArrayList&lt;T&gt;();
+
+	void add(T item) {
+		list.add(item);
+	}
+
+	T get(int i) {
+		return list.get(i);
+	}
+
+	ArrayList&lt;T&gt; getList() {
+		return list;
+	}
+
+	int size() {
+		return list.size();
+	}
+
+	public String toString() {
+		return list.toString();
+	}
+}</code></pre>
+
+				<h4>Fruit.java</h4>
+				<pre><code>package chapter12;
+
+public class Fruit {
+	public String toString() {
+		return "Fruit";
+	}
+}</code></pre>
+
+				<h4>Apple.java</h4>
+				<pre><code>package chapter12;
+
+public class Apple extends Fruit {
+	public String toString() {
+		return "Apple";
+	}
+}</code></pre>
+
+				<h4>Grape.java</h4>
+				<pre><code>package chapter12;
+
+public class Grape extends Fruit {
+	public String toString() {
+		return "Grape";
+	}
+}</code></pre>
+
+				<h4>FruitBox.java</h4>
+				<pre><code>package chapter12;
+
+public class FruitBox&lt;T extends Fruit&gt; extends Box&lt;T&gt; {}</code></pre>
+
+				<h4>Juicer.java</h4>
+				<pre><code>package chapter12;
+
+public class Juicer {
+	static Juice makeJuice(FruitBox&lt;? extends Fruit&gt; box) {
+		String tmp = "";
+		
+		for(Fruit f : box.getList()) {
+			tmp += f + " ";
+		}
+
+		return new Juice(tmp);
+	}
+}</code></pre>
+
+				<h4>Juice.java</h4>
+				<pre><code>package chapter12;
+
+public class Juice {
+	String name;
+
+	Juice(String name) {
+		this.name = name + "Juice";
+	}
+
+	public String toString() {
+		return name;
+	}
+}</code></pre>
+				
+				<h4>FruitBoxEx3.java</h4>
+				<pre><code>package chapter12;
+
+public class FruitBoxEx3 {
+	public static void main(String[] args) {
+		FruitBox&lt;Fruit&gt; fruitBox = new FruitBox&lt;Fruit&gt;();
+		FruitBox&lt;Apple&gt; appleBox = new FruitBox&lt;Apple&gt;();
+
+		fruitBox.add(new Apple());
+		fruitBox.add(new Grape());
+		appleBox.add(new Apple());
+		appleBox.add(new Apple());
+
+		System.out.println(Juicer.makeJuice(fruitBox));
+		System.out.println(Juicer.makeJuice(appleBox));
+	}
+}</code></pre>
+
+				<h4>실행결과</h4>
+				<pre><code>Apple Grape Juice
+Apple Apple Juice</code></pre>
+
+				<hr/>
+
+				<ul class="actions fit">
+					<li></li>
+					<li></li>
+					<li><button class="button fit" id="btn-close" onclick="javascript:window.close();">Close</button></li>
+				</ul>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

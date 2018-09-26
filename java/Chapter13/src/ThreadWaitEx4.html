@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="../Thread_08.html">Thread</a>
+				</li>
+				<li>
+					<a class="active">Source code</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">ThreadWaitEx2</h1>
+				<p>
+					<strong>기아현상</strong>이나 <strong>경쟁상태</strong>가 개선된 예제입니다.
+					<br/><code>ThreadWaitEx2.java</code>의 예제에서 요리사 스레드가 통지를 받아야하는 상황에서 손님 스레드가 통지를 받는 경우가 없어졌습니다.
+					<br/>손님이 원하는 음식의 종류로 Condition을 더 세분화하면, 통지를 받고도 원하는 음식이 없어서 다시 기다리는 일이 없도록 할 수 있습니다. (직접구현)
+				</p>
+
+				<h4>ThreadWaitEx2.java</h4>
+				<pre><code>package chapter13;
+
+public class ThreadWaitEx2 {
+	public static void main(String[] args) throws Exception {
+		Table table = new Table();
+
+		new Thread(new Cook(table), "COOK1").start();
+		new Thread(new Customer(table, "donut"), "CUST1").start();
+		new Thread(new Customer(table, "burger"), "CUST2").start();
+
+		Thread.sleep(2000);
+		System.exit(0);
+	}
+}</code></pre>
+
+				<h4>Customer.java</h4>
+				<pre><code>package chapter13;
+
+public class Customer implements Runnable {
+	private Table table;
+	private String food;
+
+	Customer(Table table, String food) {
+		this.table = table;
+		this.food = food;
+	}
+
+	public void run() {
+		while (true) {
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+			}
+			String name = Thread.currentThread().getName();
+
+			table.remove(food);
+			System.out.println(name + " ate a " + food);
+		}
+	}
+}</code></pre>
+
+				<h4>Cook.java</h4>
+				<pre><code>package chapter13;
+
+public class Cook implements Runnable {
+	private Table table;
+
+	Cook4(Table table) {
+		this.table = table;
+	}
+
+	public void run() {
+		while (true) {
+			int idx = (int) (Math.random() * table.dishNum());
+			table.add(table.dishNames[idx]);
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+			}
+		}
+	}
+}</code></pre>
+
+				<h4>Table.java</h4>
+				<pre><code>package chapter13;
+
+import java.util.ArrayList;
+
+public class Table {
+	String[] dishNames = { "donut", "donut", "burger" }; // donut의 확률을 높인다.
+	final int MAX_FOOD = 6;
+	private ArrayList&lt;String&gt; dishes = new ArrayList&lt;&gt;();
+	<strong>
+	private ReentrantLock lock = new ReentrantLock();
+	private Condition forCook = lock.newCondition();
+	private Condition forCust = lock.newCondition();
+	</strong>
+	public <del>synchronized</del> void add(String dish) {
+		<strong>lock.lock();</strong>
+		
+		<strong>try {</strong>
+			while (dishes.size() &gt;= MAX_FOOD) {
+				String name = Thread.currentThread().getName();
+				System.out.println(name + " is waiting.");
+				try {
+					<strong>forCook.await();</strong> // <del>wait();</del> COOK쓰레드를 기다리게 한다.
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+				}
+			}
+
+			dishes.add(dish);
+			<strong>forCust.signal();</strong> // <del>notify();</del> 기다리고 있는 CUST를 깨우기 위함.
+			System.out.println("Dishes:" + dishes.toString());
+		<strong>} finally {
+			lock.unlock();
+		}</strong>
+	}
+
+	public void remove(String dishName) {
+		<strong>lock.lock();</strong> // <del>synchronized(this) {</del>
+		String name = Thread.currentThread().getName();
+
+		<strong>try {</strong>
+			while (dishes.size() == 0) {
+				System.out.println(name + " is waiting.");
+				try {
+					<strong>forCust.await();</strong> // <del>wait();</del> CUST쓰레드를 기다리게 한다.
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+				}
+			}
+
+			while (true) {
+				for (int i = 0; i &lt; dishes.size(); i++) {
+					if (dishName.equals(dishes.get(i))) {
+						dishes.remove(i);
+						<strong>forCook.signal();</strong> // <del>notify();</del> 잠자고 있는 COOK을 깨움
+						return;
+					}
+				}
+
+				try {
+					System.out.println(name + " is waiting.");
+					<strong>forCust.await();</strong> // <del>wait();</del> CUST쓰레드를 기다리게 한다.
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+				}
+			}
+		<strong>} finally {
+			lock.unlock();
+		}</strong>
+	}
+
+	public int dishNum() {
+		return dishNames.length;
+	}
+}</code></pre>
+
+				<h4>실행결과</h4>
+				<pre><code>Dishes:[donut]
+Dishes:[donut, burger]
+Dishes:[donut, burger, donut]
+Dishes:[donut, burger, donut, donut]
+Dishes:[donut, burger, donut, donut, donut]
+Dishes:[donut, burger, donut, donut, donut, burger]
+COOK1 is waiting.
+CUST1 ate a donut
+CUST2 ate a burger
+Dishes:[donut, donut, donut, burger, donut]
+CUST2 ate a burger
+CUST1 ate a donut
+Dishes:[donut, donut, donut, burger]
+Dishes:[donut, donut, donut, burger, donut]
+Dishes:[donut, donut, donut, burger, donut, donut]
+COOK1 is waiting.
+CUST2 ate a burger
+CUST1 ate a donut
+Dishes:[donut, donut, donut, donut, donut]
+CUST1 ate a donut
+CUST2 is waiting.
+Dishes:[donut, donut, donut, donut, donut]
+CUST2 is waiting.
+Dishes:[donut, donut, donut, donut, donut, donut]
+CUST1 ate a donut</code></pre>
+
+				<hr>
+
+				<ul class="actions fit">
+					<li></li>
+					<li></li>
+					<li>
+						<button class="button fit" id="btn-close" onclick="javascript:window.close();">Close</button>
+					</li>
+				</ul>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

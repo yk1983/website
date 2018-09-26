@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="../Generics_01.html">Generics</a>
+				</li>
+				<li>
+					<a class="active">Source code</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">FruitBoxEx4.java</h1>
+				<p>
+					<code>Collections.sort()</code>를 이용해서 <code>appleBox</code>와 <code>grapeBox</code>에 담긴 과일을 무게별로 정렬하는 예제입니다.
+					<br/>이 메서드의 선언부는 다음과 같습니다.
+				</p>
+				<pre><code>static &lt;T&gt; void sort(List&lt;T&gt; list, Comparator&lt;? super T&gt; c)</code></pre>
+
+				<p>
+					static 옆에 있는 &lt;T&gt;는 메서드에 선언된 지네릭 타입입니다. 이런 메서드를 지네릭 메서드라고 합니다.
+					<br/>첫 번째 매개변수는 정렬할 대상이고, 두 번째 매개변수는 정렬할 방법이 정의된 Comparator입니다.
+					타입 매개변수 T에 Apple 또는 Grape이 대입되면 아래와 같이 변경되어 List&lt;Apple&gt;을 정렬하기 위해서는 Comparator&lt;Apple&gt;이 필요하다는 것을 의미합니다.
+				</p>
+				<pre><code>static void sort(List&lt;Apple&gt; list, Comparator&lt;Apple&gt; c)</code></pre>
+
+				<h4>Box.java</h4>
+				<pre><code>package chapter12;
+
+import java.util.ArrayList;
+
+public class Box&lt;T&gt; {
+	ArrayList&lt;T&gt; list = new ArrayList&lt;T&gt;();
+
+	void add(T item) {
+		list.add(item);
+	}
+
+	T get(int i) {
+		return list.get(i);
+	}
+
+	ArrayList&lt;T&gt; getList() {
+		return list;
+	}
+
+	int size() {
+		return list.size();
+	}
+
+	public String toString() {
+		return list.toString();
+	}
+}</code></pre>
+
+				<h4>Fruit.java</h4>
+				<pre><code>package chapter12;
+
+public class Fruit {
+	String name;
+	int weight;
+
+	Fruit(String name, int weight) {
+		this.name = name;
+		this.weight = weight;
+	}
+
+	public String toString() {
+		return name + "(" + weight + ")";
+	}
+}</code></pre>
+
+				<h4>Apple.java</h4>
+				<pre><code>package chapter12;
+
+public class Apple extends Fruit {
+	Apple(String name, int weight) {
+		super(name, weight);
+	}
+}</code></pre>
+
+				<h4>Grape.java</h4>
+				<pre><code>package chapter12;
+
+public class Grape extends Fruit {
+	Grape(String name, int weight) {
+		super(name, weight);
+	}
+}</code></pre>
+
+				<h4>FruitComp.java</h4>
+				<pre><code>package chapter12;
+
+import java.util.Comparator;
+
+public class FruitComp implements Comparator&lt;Fruit&gt; {
+	public int compare(Fruit t1, Fruit t2) {
+		return t1.weight - t2.weight;
+	}
+}</code></pre>
+
+				<p>
+					<code>AppleComp.java</code>와 <code>GrapeComp.java</code>는 타입만 다를 뿐 같은 코드입니다.
+					코드의 중복도 문제지만 새로운 Fruit의 자손이 생길 때마다 다음과 같은 코드를 반복해서 만들어야 한다는 것도 문제이기 때문에 이를 해결하기 위해서는 타입 매개변수에 하한 제한의 와일드 카드를 적용해야 합니다.
+				</p>
+
+				<h4>AppleComp.java</h4>
+				<pre><code>package chapter12;
+
+import java.util.Comparator;
+
+public class AppleComp implements Comparator&lt;Apple&gt; {
+	public int compare(Apple t1, Apple t2) {
+		return t2.weight - t1.weight;
+	}
+}</code></pre>
+
+				<h4>GrapeComp.java</h4>
+				<pre><code>package chapter12;
+
+import java.util.Comparator;
+
+public class GrapeComp implements Comparator&lt;Grape&gt; {
+	public int compare(Grape t1, Grape t2) {
+		return t2.weight - t1.weight;
+	}
+}</code></pre>
+
+				<h4>FruitBox.java</h4>
+				<pre><code>package chapter12;
+
+public class FruitBox&lt;T extends Fruit&gt; extends Box&lt;T&gt; {}</code></pre>
+
+				<h4>Juicer.java</h4>
+				<pre><code>package chapter12;
+
+public class Juicer {
+	static Juice makeJuice(FruitBox&lt;? extends Fruit&gt; box) {
+		String tmp = "";
+		
+		for(Fruit f : box.getList()) {
+			tmp += f + " ";
+		}
+
+		return new Juice(tmp);
+	}
+}</code></pre>
+
+				<h4>Juice.java</h4>
+				<pre><code>package chapter12;
+
+public class Juice {
+	String name;
+
+	Juice(String name) {
+		this.name = name + "Juice";
+	}
+
+	public String toString() {
+		return name;
+	}
+}</code></pre>
+				
+				<h4>FruitBoxEx4.java</h4>
+				<pre><code>package chapter12;
+
+import java.util.Collections;
+
+public class FruitBoxEx4 {
+	public static void main(String[] args) {
+		FruitBox&lt;Apple&gt; appleBox = new FruitBox&lt;Apple&gt;();
+		FruitBox&lt;Grape&gt; grapeBox = new FruitBox&lt;Grape&gt;();
+
+		appleBox.add(new Apple("GreenApple", 300));
+		appleBox.add(new Apple("GreenApple", 100));
+		appleBox.add(new Apple("GreenApple", 200));
+
+		grapeBox.add(new Grape("GreenGrape", 400));
+		grapeBox.add(new Grape("GreenGrape", 300));
+		grapeBox.add(new Grape("GreenGrape", 200));
+
+		Collections.sort(appleBox.getList(), new AppleComp());
+		Collections.sort(grapeBox.getList(), new GrapeComp());
+		System.out.println(appleBox);
+		System.out.println(grapeBox);
+		System.out.println();
+		Collections.sort(appleBox.getList(), new FruitComp());
+		Collections.sort(grapeBox.getList(), new FruitComp());
+		System.out.println(appleBox);
+		System.out.println(grapeBox);
+	}
+}</code></pre>
+
+				<h4>실행결과</h4>
+				<pre><code>[GreenApple(300), GreenApple(200), GreenApple(100)]
+[GreenGrape(400), GreenGrape(300), GreenGrape(200)]
+
+[GreenApple(100), GreenApple(200), GreenApple(300)]
+[GreenGrape(200), GreenGrape(300), GreenGrape(400)]</code></pre>
+
+				<hr/>
+
+				<ul class="actions fit">
+					<li></li>
+					<li></li>
+					<li><button class="button fit" id="btn-close" onclick="javascript:window.close();">Close</button></li>
+				</ul>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

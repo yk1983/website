@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/sql">SQL</a>
+				</li>
+				<li>
+					<a href="/kinco/sql/Chapter02">DDL</a>
+				</li>
+				<li>
+					<a class="active">제약조건</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">제약조건</h1>
+
+				<h2>PRIMARY KEY(기본키)</h2>
+				<p>
+					<strong>PRIMARY KEY 제약 조건</strong>은 데이터베이스 테이블의 각 레코드를 고유하게 식별합니다. 기본키는 UNIQUE 와 NOT NULL의 결합입니다. 따라서 기본 키는 UNIQUE 값을 포함해야하며
+					NULL 값을 포함 할 수 없습니다.
+					<br/>기본키는 그 데이터 행을 대표하는 컬럼으로서의 역할을 수행하여 다른 테이블에서 외래키들이 참조할 수 있는 키로서의 자격을 가지고 있습니다. 이를 참조 무결성이라 합니다.
+					<br/>UNIQUE 조건과 마찬가지로 기본키를 정의하면 자동으로 인덱스를 생성하며, 그 이름은 기본 키 제약 조건의 이름과 같습니다.
+					<strong>INDEX</strong>는 검색 키로서 검색 속도를 향상 시킵니다. (UNIQUE, PRIMARY KEY 생성시 자동적으로 생성됩니다.)
+				</p>
+				
+				<hr>
+
+				<section>
+					<h2>CREATE TABLE의 PRIMARY KEY</h2>
+					<p>
+						다음 SQL은 "Person"테이블이 생성 될 때 "ID"열에 PRIMARY KEY를 만듭니다.
+					</p>
+
+					<h4>MySQL:</h4>
+					<pre><code>CREATE TABLE Persons (
+    ID int NOT NULL
+,   LastName varchar(255) NOT NULL
+,   FirstName varchar(255)
+,   Age int
+,   <strong>PRIMARY KEY</strong> (ID)
+);</code></pre>
+
+					<h4>SQL Server / Oracle / MS Access:</h4>
+					<pre><code>CREATE TABLE Persons (
+    ID int NOT NULL <strong>PRIMARY KEY</strong>
+,   LastName varchar(255) NOT NULL
+,   FirstName varchar(255)
+,   Age int
+);</code></pre>
+
+					<p>
+						PRIMARY KEY 제약 조건의 이름 지정을 허용하고 여러 열에 대해 PRIMARY KEY 제약 조건을 정의하려면 다음 SQL 구문을 사용합니다.
+					</p>
+					<h4>MySQL / SQL Server / Oracle / MS Access:</h4>
+					<pre><code>CREATE TABLE Persons (
+    ID int NOT NULL
+,   LastName varchar(255) NOT NULL
+,   FirstName varchar(255)
+,   Age int
+,   <strong>CONSTRAINT</strong> <em>person_pk</em> <strong>PRIMARY KEY</strong> (ID,LastName)
+);</code></pre>
+
+				</section>
+
+				<hr>
+
+				<section>
+					<h2>ALTER TABLE의 PRIMARY KEY</h2>
+					<p>
+						테이블이 이미 만들어 졌을 때 "ID"열에 PRIMARY KEY 제약 조건을 만들려면 다음 SQL을 사용하십시오.
+					</p>
+
+					<h4>MySQL / SQL Server / Oracle / MS Access:</h4>
+					<pre><code>ALTER TABLE Persons <strong>ADD PRIMARY KEY</strong> (ID);</code></pre>
+
+					<p>
+						PRIMARY KEY 제약 조건의 이름 지정을 허용하고 여러 열에 대해 PRIMARY KEY 제약 조건을 정의하려면 다음 SQL 구문을 사용합니다.
+					</p>
+					<h4>MySQL / SQL Server / Oracle / MS Access:</h4>
+					<pre><code>ALTER TABLE Persons <strong>ADD CONSTRAINT</strong> <em>person_pk</em> <strong>PRIMARY KEY</strong> (ID,LastName);</code></pre>
+					<p>
+						<sup>* ALTER TABLE 문을 사용하여 기본 키를 추가하는 경우 기본 키 열은 (테이블이 처음 작성되었을 때) NULL 값을 포함하지 않도록 이미 선언되어 있어야합니다.</sup>
+					</p>
+				</section>
+
+				<hr>
+
+				<section>
+					<h2>PRIMARY KEY 제약 조건 삭제</h2>
+					<p>
+						PRIMARY KEY 제약 조건을 삭제하려면 다음 SQL을 사용하십시오.
+					</p>
+					<h4>MySQL:</h4>
+					<pre><code>ALTER TABLE Persons <strong>DROP PRIMARY KEY</strong>;</code></pre>
+
+					<h4>SQL Server / Oracle / MS Access:</h4>
+					<pre><code>ALTER TABLE Persons <strong>DROP CONSTRAINT</strong> <em>person_pk</em>;</code></pre>
+				</section>
+
+				<hr>
+
+				<section>
+					<ul class="actions fit">
+						<li>
+							<a href="sql_unique.html" class="button fit">UNIQUE</a>
+						</li>
+						<li></li>
+						<li>
+							<a href="sql_foreignkey.html" class="button fit">FOREIGN KEY</a>
+						</li>
+					</ul>
+				</section>
+			</div>
+		</section>
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

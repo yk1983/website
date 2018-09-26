@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="Collection.html">Collection</a>
+				</li>
+				<li>
+					<a class="active">Set</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">Set</h1>
+
+				<!-- Text -->
+				<section>
+					<h2>Set 컬렉션</h2>
+					<p>
+						Set 인터페이스를 구현한 모든 Set 컬렉션 클래스는 요소의 저장 순서를 유지하지 않으며, 같은 요소의 중복 저장을 허용하지 않습니다.
+						<br/>대표적인 Set 컬렉션 클래스에 속하는 클래스는 다음과 같습니다.
+					</p>
+					<ul>
+						<li>HashSet&lt;E&gt;</li>
+						<li>TreeSet&lt;E&gt;</li>
+					</ul>
+				</section>
+
+				<hr/>
+
+				<section>
+					<h2>해시 알고리즘(hash algorithm)</h2>
+					<p>
+						해싱이란 해시함수(hash function)을 이용해서 데이터를 해시테이블(hash table)에 저장하고 검색하는 기법을 말합니다.
+						해시함수는 데이터가 저장되어 있는 곳을 알려 주기 때문에 다량의 데이터 중에서도 원하는 데이터를 빠르게 찾을 수 있습니다.
+						<br/>해싱에서 사용하는 자료구조는 배열과 연결 리스트의 조합으로 구현되어 있습니다. 저장할 데이터의 키를 해시함수에 넣으면 배열의 한 요소를 얻게 되고, 다시 그 곳에 연결되어 있는 연결 리스트에 저장됩니다.
+					</p>
+				</section>
+
+				<hr/>
+
+				<section>
+					<h2>HashSet</h2>
+					<p>
+						HashSet은 Set인터페이스를 구현한 가장 대표적인 컬렉션이며, Set인터페이스의 특징대로 <strong>HashSet은 중복된 요소를 저장하지 않습니다.</strong>
+						<br/>HashSet에 새로운 요소를 추가할 때는 add메서드나 addAll메서드를 사용하고,
+						이미 저장되어 있는 요소나 중복된 요소를 추가하고자 한다면 이 메서드들은 false를 반환하므로써 중복된 요소이기 때문에 추가에 실패했다고 알려줍니다.
+						<br/>만약 <strong>저장순서를 유지하고자 한다면 LinkedHashSet을 사용</strong>해야 합니다.
+					</p>
+
+					<h4>HashSetLotto.java</h4>
+					<pre><code>package kinco.java.std;
+						
+import java.util.*;
+
+public class HashSetLotto {
+
+	public static void main(String[] args) {
+		// Set 객체를 생성
+		Set&lt;Integer&gt; set = new HashSet&lt;&gt;();
+		
+		while (set.size() &lt; 6) {
+			int num = (int) ((Math.random() * 45) + 1);
+			set.add(num);
+		}
+		// List 객체를 생성, set을 담습니다.
+		List&lt;Integer&gt; list = new LinkedList&lt;&gt;(set);
+		// 정렬
+		Collections.sort(list);
+		System.out.println(list);
+	}
+	
+}</code></pre>
+
+					<h4>Console</h4>
+					<pre><code>[3, 18, 24, 30, 40, 43]</code></pre>
+				</section>
+
+				<hr/>
+
+				<section>
+					<h2>이진 검색 트리(BST, binary search tree)</h2>
+					<p>
+						이진 검색 트리(binary search tree)는 다음과 같은 특징을 가집니다.
+					</p>
+					<div class="row">
+						<div class="6u 12u$(medium)">
+							<span class="image">
+								<img src="images/img_binary_search_tree.png" width="100%" height="220" alt="이진 검색 트리(BST, binary search tree)" />
+							</span>
+						</div>
+						<div class="6u$ 12u$(medium)">
+							<ul>
+								<li>모든 노드는 최대 두 개의 자식노드를 가질 수 있습니다.</li>
+								<li>각 노드에 값이 있습니다.</li>
+								<li>각 노드의 키값은 모두 달라야 합니다. (중복된 노드가 없음)</li>
+								<li>왼쪽 자식노드의 값은 부모노드의 값보다 작습니다.</li>
+								<li>오른쪽 자식노드의 값은 보모노드의 값보다 큽니다.</li>
+								<li>노드의 추가 삭제에 시간이 걸립니다. (비순차적인 저장)</li>
+								<li>검색(범위검색)과 정렬에 유리합니다.</li>
+							</ul>
+						</div>
+					</div>
+				</section>
+
+				<section>
+					<h2>TreeSet</h2>
+					<p>
+						TreeSet은 이진 검색 트리(binary search tree)라는 자료구조의 형태로 데이터를 저장하는 컬렉션 클랙스입니다.
+						<br/>이진 검색 트리는 정렬, 검색, 범위검색(range search)에 높은 성능을 보이는 자료구조이며 TreeSet은 이진 검색 트리의 성능을 향상시킨 레드-블랙 트리(Red-Black tree)로 구현되어 있습니다.
+						<br/>그리고 Set인터페이스를 구현했으므로 <strong>중복된 데이터의 저장을 허용하지 않으며 정렬된 위치에 저장하므로 저장순서를 유지하지도 않습니다.</strong>
+					</p>
+
+					<h4>TreeSetLotto.java</h4>
+					<pre><code>package kinco.java.std;
+
+import java.util.*;
+
+public class TreeSetLotto {
+
+	public static void main(String[] args) {
+		// Set 객체를 생성
+		Set&lt;Integer&gt; set =  new TreeSet&lt;&gt;();
+		
+		while (set.size() &lt; 6) {
+			int num = (int) ((Math.random() * 45) + 1);
+			set.add(num);	
+		}
+		// 이미 정렬된 상태이므로 따로 정렬이 필요없음
+		System.out.println(set);
+	}
+}</code></pre>
+
+					<h4>Console</h4>
+					<pre><code>[3, 20, 29, 35, 40, 44]</code></pre>
+				</section>
+
+				<hr/>
+
+				<section>
+					<ul class="actions fit">
+						<li>
+							<a href="Collection_03.html" class="button fit">Stack &amp; Queue</a>
+						</li>
+						<li></li>
+						<li>
+							<a href="Collection_05.html" class="button fit">Map</a>
+						</li>
+					</ul>
+				</section>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

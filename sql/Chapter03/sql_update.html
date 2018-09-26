@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/sql">SQL</a>
+				</li>
+				<li>
+					<a href="/kinco/sql/Chapter03">DML</a>
+				</li>
+				<li>
+					<a class="active">UPDATE</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">UPDATE - 데이터 수정</h1>
+
+				<p>
+					<code>UPDATE 문</code>은 테이블의 기존 레코드를 수정하는 데 사용됩니다.
+				</p>
+
+				<hr>
+				
+				<section>
+					<p>
+						UPDATE 문을 사용하는 경우에는 테이블에서 레코드를 업데이트 할 때 다음과 같은 부분을 주의해야합니다.
+						<br/><strong>UPDATE 문에서 WHERE 절을 확인</strong>해야합니다.
+						<br/><code>WHERE 절</code>은 갱신해야하는 레코드를 지정하는데, <strong>WHERE 절을 생략하면 테이블의 모든 레코드가 업데이트</strong>됩니다.
+						업데이트 될 레코드 수를 결정하는 것은 WHERE 절입니다.
+					</p>
+
+					<h4>Syntax</h4>
+					<pre><code><strong>UPDATE</strong> <em>table_name</em>
+<strong>SET</strong>    <em>column1 = value1, column2 = value2, ...</em>
+<strong>WHERE</strong>  <em>condition</em>;</code></pre>
+
+					<ul>
+						<li>수정될 열(column)은 <code>SET</code> 문 다음에 위치합니다. </li>
+						<li>값(value)는 수정되어 변경될 값입니다.</li>
+						<li>각각의 테이터 구분은 콤마(,)로 구분합니다.</li>
+					</ul>
+				
+					<h4>Example</h4>
+					<pre><code>-- 첫 번째 고객(CustomerID의 값이 1인 데이터)을 새 담당자 및 새 도시로 업데이트합니다.
+UPDATE Customers
+SET    ContactName = 'Alfred Schmidt', City= 'Frankfurt'
+WHERE  CustomerID = 1;
+
+-- country가 "Mexico"인 모든 레코드에 대해 연락처 이름을 "Juan"으로 업데이트합니다.
+UPDATE Customers
+SET    ContactName = 'Juan'
+WHERE  Country = 'Mexico';
+
+-- WHERE 절을 생략하면 모든 레코드가 업데이트됩니다.
+UPDATE Customers
+SET    ContactName = 'Juan';</code></pre>
+				</section>
+
+				<hr>
+
+				<section>
+					<ul class="actions fit">
+						<li>
+							<a href="sql_insert.html" class="button fit">INSERT</a>
+						</li>
+						<li></li>
+						<li>
+							<a href="sql_delete.html" class="button fit">DELETE</a>
+						</li>
+					</ul>
+				</section>
+			</div>
+		</section>
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

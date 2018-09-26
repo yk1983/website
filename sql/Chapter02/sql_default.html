@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/sql">SQL</a>
+				</li>
+				<li>
+					<a href="/kinco/sql/Chapter02">DDL</a>
+				</li>
+				<li>
+					<a class="active">제약조건</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">제약조건</h1>
+
+				<p>
+					<strong>DEFAULT 제약 조건</strong>은 열의 기본값을 제공하는 데 사용됩니다. 다른 값을 지정하지 않으면 기본값이 모든 새 레코드에 추가됩니다.
+				</p>
+
+				<hr>
+
+				<section>
+					<h2>CREATE TABLE의 DEFAULT</h2>
+					<p>
+						다음 SQL은 "Persons"테이블을 만들 때 "City"열의 DEFAULT 값을 설정합니다.
+					</p>
+
+					<h4>My SQL / SQL Server / Oracle / MS Access:</h4>
+					<pre><code>CREATE TABLE Persons (
+    ID int NOT NULL
+,   LastName varchar(255) NOT NULL
+,   FirstName varchar(255)
+,   Age int
+,   City varchar(255) <strong>DEFAULT</strong> '<em>Sandnes</em>'
+);</code></pre>
+					<p>
+						DEFAULT 제약 조건은 <code>GETDATE()</code>와 같은 함수를 사용하여 시스템 값을 삽입하는 데에도 사용할 수 있습니다.
+					</p>
+					<pre><code>CREATE TABLE Orders (
+    ID int NOT NULL
+,   OrderNumber int NOT NULL
+,   OrderDate date <strong>DEFAULT GETDATE()</strong>
+);</code></pre>
+				</section>
+
+				<hr>
+
+				<section>
+					<h2>ALTER TABLE에 대한 DEFAULT</h2>
+					<P>
+						테이블이 이미 만들어 졌을 때 "도시"열에 DEFAULT 제약 조건을 만들려면 다음 SQL을 사용하십시오.
+					</P>
+
+					<h4>MySQL:</h4>
+					<pre><code>ALTER TABLE Persons
+<strong>ALTER</strong> City <strong>SET DEFAULT</strong> '<em>Sandnes</em>';</code></pre>
+
+					<h4>SQL Server / MS Access:</h4>
+					<pre><code>ALTER TABLE Persons
+<strong>ALTER COLUMN</strong> City <strong>SET DEFAULT</strong> '<em>Sandnes</em>';</code></pre>
+
+					<h4>Oracle:</h4>
+					<pre><code>ALTER TABLE Persons
+<strong>MODIFY</strong> City <strong>DEFAULT</strong> '<em>Sandnes</em>';</code></pre>
+				</section>
+
+				<hr>
+
+				<section>
+					<h2>DEFAULT 제약 조건 삭제</h2>
+					<p>
+						DEFAULT 제약 조건을 삭제하려면 다음 SQL을 사용합니다.
+					</p>
+
+					<h4>MySQL:</h4>
+					<pre><code>ALTER TABLE Persons
+ALTER City <strong>DROP DEFAULT</strong>;</code></pre>
+						
+					<h4>SQL Server / Oracle / MS Access:</h4>
+					<pre><code>ALTER TABLE Persons
+ALTER <strong>COLUMN</strong> City <strong>DROP DEFAULT</strong>;</code></pre>
+				</section>
+
+				<hr>
+
+				<section>
+					<ul class="actions fit">
+						<li>
+							<a href="sql_check.html" class="button fit">CHECK</a>
+						</li>
+						<li></li>
+						<li>
+							<a href="sql_create_index.html" class="button fit">INDEX</a>
+						</li>
+					</ul>
+				</section>
+			</div>
+		</section>
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

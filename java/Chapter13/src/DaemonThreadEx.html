@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="../Thread_03.html">Thread</a>
+				</li>
+				<li>
+					<a class="active">Source code</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">DaemonThreadEx2</h1>
+				<p>
+					<code>getAllStackTraces()</code>를 이용하면 실행 중 또는 대기상태, 즉 작업이 완료되지 않은 모든 스레드의 호출스택을 출력할 수 있습니다.
+				</p>
+
+				<h4>DaemonThreadEx2.java</h4>
+				<pre><code>package chapter13;
+
+public class DaemonThreadEx2 {
+	public static void main(String args[]) throws Exception {
+		DaemonThreadA t1 = new DaemonThreadA("Thread1");
+		DaemonThreadB t2 = new DaemonThreadB("Thread2");
+		t1.start();
+		t2.start();
+	}
+}</code></pre>
+
+				<h4>DaemonThreadA.java</h4>
+				<pre><code>package chapter13;
+
+public class DaemonThreadA extends Thread {
+	DaemonThreadA(String name) {
+		super(name);
+	}
+
+	public void run() {
+		try {
+			sleep(5 * 1000);	// 5초 동안 기다린다.
+		} catch(InterruptedException e) {}
+	}
+}</code></pre>
+
+				<h4>DaemonThreadB.java</h4>
+				<pre><code>package chapter13;
+
+import java.util.Iterator;
+import java.util.Map;
+
+public class DaemonThreadB extends Thread {
+	DaemonThreadB(String name) {
+		super(name);
+	}
+
+	public void run() {
+		Map map = getAllStackTraces();
+		Iterator it = map.keySet().iterator();
+
+		int x=0;
+		while(it.hasNext()) {
+			Object obj = it.next();
+			Thread t = (Thread)obj;
+			StackTraceElement[] ste = (StackTraceElement[])(map.get(obj));
+
+			System.out.println( "["+ ++x + "] name : " + t.getName() 
+										+ ", group : "  + t.getThreadGroup().getName() 
+										+ ", daemon : " + t.isDaemon());
+
+			for(int i=0; i &lt; ste.length; i++) {
+				System.out.println(ste[i]);
+			}
+
+			System.out.println();
+		}
+	}
+}</code></pre>
+
+				<h4>실행결과</h4>
+				<pre><code>[1] name : Signal Dispatcher, group : system, daemon : true
+
+[2] name : Finalizer, group : system, daemon : true
+java.lang.Object.wait(Native Method)
+java.lang.ref.ReferenceQueue.remove(Unknown Source)
+java.lang.ref.ReferenceQueue.remove(Unknown Source)
+java.lang.ref.Finalizer$FinalizerThread.run(Unknown Source)
+
+[3] name : Thread2, group : main, daemon : false
+java.lang.Thread.dumpThreads(Native Method)
+java.lang.Thread.getAllStackTraces(Unknown Source)
+chapter13.DaemonThreadB.run(DaemonThreadB.java:12)
+
+[4] name : Attach Listener, group : system, daemon : true
+
+[5] name : Reference Handler, group : system, daemon : true
+java.lang.Object.wait(Native Method)
+java.lang.Object.wait(Unknown Source)
+java.lang.ref.Reference.tryHandlePending(Unknown Source)
+java.lang.ref.Reference$ReferenceHandler.run(Unknown Source)
+
+[6] name : Thread1, group : main, daemon : false
+java.lang.Thread.sleep(Native Method)
+chapter13.DaemonThreadA.run(DaemonThreadA.java:10)</code></pre>
+
+				<hr>
+
+				<ul class="actions fit">
+					<li></li>
+					<li></li>
+					<li>
+						<button class="button fit" id="btn-close" onclick="javascript:window.close();">Close</button>
+					</li>
+				</ul>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

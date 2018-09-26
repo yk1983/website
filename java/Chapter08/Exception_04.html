@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="Exception.html">Exception</a>
+				</li>
+				<li>
+					<a class="active">사용자정의 예외</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">사용자정의 예외</h1>
+
+				<section>
+					<h2>사용자정의 예외 만들기</h2>
+					<p>
+						기존의 정의된 예외 클래스 외에 필요에 따라서 <strong>프로그래머가 새로운 예외 클래스를 정의하여 사용</strong>할 수 있습니다.
+						이 때 보통은 Exception클래스로부터 상속받는 클래스를 만들게 되지만 필요에 따라서 알맞은 예외 클래스를 선택할 수 있습니다.
+					</p>
+					<h4>사용자 정의 예외</h4>
+					<pre><code>package kinco.java.std;
+
+public class MyException extends Exception {
+	// 문자열을 매개변수로 받는 생성자
+	public MyException(String msg) {
+		// 조상인 Exception클래스의 생성자를 호출
+		super(msg);
+	}
+}</code></pre>
+
+					<h4>사용자 정의 예외 메서드 추가</h4>
+					<pre><code>package kinco.java.std;
+
+public class MyException extends Exception {
+	/**
+	 * serialVersionUID 는 직렬화에 사용되는 고유 아이디
+	 * 선언하지 않으면 JVM에서 디폴트로 자동 생성
+	 * 선언하지 않아도 동작하는데 문제는 없음
+	 * JAVA에서는 명시적으로 serialVersionUID를 선언할 것을 권장
+	 */
+	private static final long serialVersionUID = 1L;
+	// 에러코드 값을 저장하기 위한 필드를 추가
+	private final int ERR_CODE;
+	
+	/**
+	 * 생성자
+	 * @param msg
+	 */
+	public MyException(String msg) {
+		this(msg, 100);  // ERR_CODE를 100(기본값)으로 초기화
+	}
+	
+	/**
+	 * 생성자
+	 * @param msg
+	 * @param errCode
+	 */
+	public MyException(String msg, int errCode) {
+		super(msg);
+		ERR_CODE = errCode;
+	}
+	
+	/**
+	 * 에러코드를 얻어옴
+	 * 이 메서드는 주로 getMessage()와 함께 사용됨
+ 	 * @return ERR_CODE
+	 */
+	public int getErrCode() {
+		return ERR_CODE;
+	}
+}</code></pre>
+					<ul class="icons source">
+						<li>
+							<a href="src/UserExceptionEx.html" target="_blank">
+								<i class="fas fa-file-code"></i> UserExceptionEx.java</a>
+						</li>
+					</ul>
+				</section>
+
+				<hr/>
+
+				<section>
+					<ul class="actions fit">
+						<li>
+							<a href="Exception_03.html" class="button fit">예외발생과 회피</a>
+						</li>
+						<li></li>
+						<li>
+							<a href="Exception_05.html" class="button fit">자동 자원 반환</a>
+						</li>
+					</ul>
+				</section>
+			</div>
+		</section>
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

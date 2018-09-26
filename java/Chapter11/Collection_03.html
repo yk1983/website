@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="Collection.html">Collection</a>
+				</li>
+				<li>
+					<a class="active">Stack &amp; Queue</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">Stack &amp; Queue</h1>
+
+				<!-- Text -->
+				<section>
+					<h2>스택(Stack)</h2>
+					<p>
+						스택(Stack)은 마지막에 저장한 데이터를 가장 먼저 꺼내게 되는
+						<strong>LIFO(Last In First Out)구조</strong>로 되어있습니다. 즉, 가장 늦게 저장(push)한 데이터가 가장 먼저 출력(pop)되는 구조의 자료구조입니다.
+					</p>
+
+					<h4>LIFO(Last In First Out)</h4>
+					<div class="box alt">
+						<span class="image">
+							<img src="images/img_LIFO.png" width="100%" height="219" alt="LIFO(Last In First Out)구조" />
+						</span>
+					</div>
+
+					<h4>Stack 메서드</h4>
+					<table>
+						<tbody>
+							<tr>
+								<td>
+									<strong>
+										<em>boolean empty()</em>
+									</strong>
+									<br/> : Stack이 비어있는지 알려줍니다. 해당 스택이 비어 있으면 true를, 비어 있지 않으면 false를 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>Object peek()</em>
+									</strong>
+									<br/> : Stack의 맨 위에 저장된 객체를 반환합니다. pop()과 달리 Stack에서 객체를 꺼내지는 않습니다. (비어있을 때는 EmptyStackException이 발생합니다.)</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>Object pop()</em>
+									</strong>
+									<br/> : Stack의 맨 위에 저장된 객체를 꺼냅니다. (비었을 때는 EmptyStackException이 발생됩니다.)</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>Object push(Object item)</em>
+									</strong>
+									<br/> : Stack에 객체(item)을 저장합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>int search(Object o)</em>
+									</strong>
+									<br/> : Stack에서 주어진 객체(o)를 찾아서 그 위치를 반환합니다. 못찾으면 -1을 반환합니다. (배열과 달리 위치는 0이 아닌 1부터 시작합니다.)</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+
+				<hr>
+
+				<section>
+					<h2>큐(Queue)</h2>
+					<p>
+						큐(Queue)는 처음에 저장한 데이터를 가장 먼저 꺼내게 되는
+						<strong>FIFO(First In First Out)구조</strong>로 되어있습니다. 즉, 가장 먼저 저장된(offer) 데이터가 가장 먼저 인출(poll)되는 구조를 자료구조입니다.
+					</p>
+
+					<h4>FIFO(First In First Out)</h4>
+					<div class="box alt">
+						<span class="image">
+							<img src="images/img_FIFO.png" width="100%" height="159" alt="FIFO(First In First Out)구조" />
+						</span>
+					</div>
+
+					<h4>Queue 메서드</h4>
+					<table>
+						<tbody>
+							<tr>
+								<td>
+									<strong>
+										<em>boolean add(Object e)</em>
+									</strong>
+									<br/> : 해당 큐의 맨 뒤에 전달된 요소를 삽입함. 만약 삽입에 성공하면 true를 반환하고, 큐에 여유 공간이 없어 삽입에 실패하면 IllegalStateException을 발생시킴.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>Object element()</em>
+									</strong>
+									<br/> : 해당 큐의 맨 앞에 있는(제일 먼저 저장된) 요소를 반환함.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>boolean offer(Object e)</em>
+									</strong>
+									<br/> : 해당 큐의 맨 뒤에 전달된 요소를 삽입함.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>Object peek()</em>
+									</strong>
+									<br/> : 해당 큐의 맨 앞에 있는(제일 먼저 저장된) 요소를 반환함.(만약 큐가 비어있으면 null을 반환함.)</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>Object poll()</em>
+									</strong>
+									<br/> : 해당 큐의 맨 앞에 있는(제일 먼저 저장된) 요소를 반환하고, 해당 요소를 큐에서 제거함.(만약 큐가 비어있으면 null을 반환함.)</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>Object remove()</em>
+									</strong>
+									<br/> : 해당 큐의 맨 앞에 있는(제일 먼저 저장된) 요소를 제거함.</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<h4>StackQueueEx.java</h4>
+					<pre><code>package kinco.java.std;
+
+import java.util.*;
+
+class StackQueueEx {
+	public static void main(String[] args) {
+		// Stack 선언
+		Stack<String> st = new Stack<String>();
+		// Queue 인터페이스의 구현체인 LinkedList를 사용
+		Queue<String> q = new LinkedList<String>();
+		
+		//Stack에 데이터 저장
+		st.push("0");
+		st.push("1");
+		st.push("2");
+
+		// Queue에 데이터 저장
+		q.offer("0");
+		q.offer("1");
+		q.offer("2");
+
+		// Stack 출력
+		System.out.println("### Stack ###");
+		while(!st.empty()) {
+			System.out.println(st.pop());
+		}
+
+		// Queue 출력
+		System.out.println("### Queue ###");
+		while(!q.isEmpty()) {
+			System.out.println(q.poll());
+		}
+	}
+}</code></pre>
+					<h4>Console</h4>
+					<pre><code>### Stack ###
+2
+1
+0
+### Queue ###
+0
+1
+2</code></pre>
+				</section>
+
+				<section>
+					<h2>디큐(Deque)</h2>
+					<p>
+						디큐(Deque)는 큐(Queue)의 변형으로, 양쪽 끝에 추가/삭제가 가능합니다. 디큐의 조상은 큐이며, 구현체로는 ArrayDeque와 LinkedList등이 있습니다.
+						<br/>즉, 큐와 스택을 하나로 합쳐놓은 것과 같으며 스택으로 사용할 수 있고, 큐로도 사용할 수 있습니다.
+					</p>
+
+					<h4>Deque</h4>
+					<div class="box alt">
+						<span class="image">
+							<img src="images/img_deque.png" width="100%" height="280" alt="DEQUE 구조" />
+						</span>
+					</div>
+
+					<h4>Deque &amp; Queue &amp; Stack</h4>
+					<table>
+						<thead>
+							<tr>
+								<th>Deque</th>
+								<th>Stack</th>
+								<th>Queue</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>offerLast()</td>
+								<td>push()</td>
+								<td>offer()</td>
+							</tr>
+							<tr>
+								<td>pollLast()</td>
+								<td>pop()</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>pollFirst()</td>
+								<td></td>
+								<td>poll()</td>
+							</tr>
+							<tr>
+								<td>peekFirst()</td>
+								<td></td>
+								<td>peek()</td>
+							</tr>
+							<tr>
+								<td>peekLast()</td>
+								<td>peek()</td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+
+				<hr>
+
+				<section>
+					<ul class="actions fit">
+						<li>
+							<a href="Collection_02.html" class="button fit">List 인터페이스</a>
+						</li>
+						<li></li>
+						<li>
+							<a href="Collection_04.html" class="button fit">Set</a>
+						</li>
+					</ul>
+				</section>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

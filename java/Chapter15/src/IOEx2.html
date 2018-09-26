@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="../IO_02.html">I/O</a>
+				</li>
+				<li>
+					<a class="active">Source code</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">IOEx2.java</h1>
+				<p>
+					byte배열을 사용해서 한 번에 배열의 크기만큼 읽고 쓸 수 있습니다. (바구니를 이용하여 한 번에 더 많은 물건을 옮길 수 있는 것과 같습니다.)
+					<code>IOEx1.java</code>보다 작업의 효율을 증가시킵니다. 그낭하면 입출력 대상에 따라 알맞은 크기의 배열을 사용하는 것이 좋습니다.
+				</p>
+				<h4>소스코드</h4>
+				<pre><code>package kinco.java.std;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.util.Arrays;
+
+public class IOEx2 {
+	public static void main(String[] args) {
+		byte[] inSrc = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+		byte[] outSrc = null;
+		byte[] temp = new byte[10];
+
+		ByteArrayInputStream input = new ByteArrayInputStream(inSrc);
+		ByteArrayOutputStream output = new ByteArrayOutputStream();
+
+		// 읽어 온 데이터를 배열 temp에 담음
+		input.read(temp, 0, temp.length);
+		// temp[5]부터 5개의 데이터를 write
+		output.write(temp, 5, 5);
+
+		outSrc = output.toByteArray();
+
+		System.out.println("Input Source  : " + Arrays.toString(inSrc));
+		System.out.println("temp          : " + Arrays.toString(temp));
+		System.out.println("Output Source : " + Arrays.toString(outSrc));
+	}
+}</code></pre>
+
+				<h4>실행결과</h4>
+				<pre><code>Input Source  : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+temp          : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Output Source : [5, 6, 7, 8, 9]</code></pre>
+
+				<hr/>
+
+				<ul class="actions fit">
+					<li></li>
+					<li></li>
+					<li><button class="button fit" id="btn-close" onclick="javascript:window.close();">Close</button></li>
+				</ul>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

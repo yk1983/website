@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Sidebar -->
+	<section id="sidebar">
+		<div class="inner">
+			<nav>
+				<ul>
+					<li>
+						<a href="#intro">Chapter 15</a>
+					</li>
+					<li>
+						<a href="#one">Learn</a>
+					</li>
+					<li>
+						<a href="#two">What we do</a>
+					</li>
+					<li>
+						<a href="#three">Q&amp;A</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</section>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Intro -->
+		<section id="intro" class="wrapper style1 fullscreen fade-up">
+			<div class="inner">
+				<h1>Chapter 15. 입출력(I/O)</h1>
+				<p>
+					I/O는 Input과 Output의 약자입니다. 간단히 줄여서 입출력이라고 하며, <strong>입출력은 컴퓨터 내부 또는 장치와 프로그램간의 데이터를 주고 받는 것</strong>을 말합니다.
+					지금까지 사용한 <strong><code>Scanner</code></strong>를 이용하여 키보드로 데이터를 입력받는다거나 <strong><code>System.out.println</code></strong>을 이용하여 화면에 출력하는 것이 가장 기본적인 입출력의 예입니다.
+					<br/>Chapter 15. 입출력(I/O)에서 배울 내용은 다음과 같습니다.
+					<ul>
+						<li>스트림 (stream)</li>
+						<li>바이트기반 스트림</li>
+						<li>문자기반 스트림</li>
+						<li>표준입출력</li>
+						<li>File</li>
+						<li>직렬화 (Serialization)</li>
+					</ul>
+				</p>
+				<ul class="actions">
+					<li>
+						<a href="#one" class="button scrolly">시작하기</a>
+					</li>
+				</ul>
+			</div>
+		</section>
+
+		<!-- One -->
+		<section id="one" class="wrapper style2 spotlights">
+			<section>
+				<!-- <a href="#" class="image">
+					<img src="../images/pic01.jpg" alt="" data-position="center center" />
+				</a> -->
+				<div class="content">
+					<div class="inner">
+						<h2>스트림 (stream)</h2>
+						<p>
+							스트림이 무엇인지 정의를 알아봅니다.
+						</p>
+						<ul class="actions">
+							<li>
+								<a href="IO_01.html" class="button">자세히보기</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</section>
+			<section>
+				<div class="content">
+					<div class="inner">
+						<h2>바이트기반 스트림</h2>
+						<p>
+							바이트기반의 스트림과 보조스트림을 학습
+						</p>
+						<ul class="actions">
+							<li>
+								<a href="IO_02.html" class="button">자세히보기</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</section>
+			<section>
+				<div class="content">
+					<div class="inner">
+						<h2>문자기반 스트림</h2>
+						<p>
+							문자기반의 스트림과 보조스트림을 학습
+						</p>
+						<ul class="actions">
+							<li>
+								<a href="IO_03.html" class="button">자세히보기</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</section>
+		</section>
+		<section id="one" class="wrapper style2 spotlights">
+			<section>
+				<div class="content">
+					<div class="inner">
+						<h2>표준입출력</h2>
+						<p>
+							콘솔을 통한 데이터 입력과 콘솔로의 데이터 출력
+						</p>
+						<ul class="actions">
+							<li>
+								<a href="IO_04.html" class="button">자세히보기</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</section>
+			<section>
+				<div class="content">
+					<div class="inner">
+						<h2>File</h2>
+						<p>
+							
+						</p>
+						<ul class="actions">
+							<li>
+								<a href="IO_05.html" class="button">자세히보기</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</section>
+			<section>
+				<div class="content">
+					<div class="inner">
+						<h2>직렬화 (Serialization)</h2>
+						<p>
+							객체를 데이터 스트림으로 읽고 쓰는 방법인 직렬화에 대한 학습
+						</p>
+						<ul class="actions">
+							<li>
+								<a href="IO_06.html" class="button">자세히보기</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</section>
+		</section>
+
+		<!-- Two -->
+		<section id="two" class="wrapper style3 fade-up">
+			<div class="inner">
+				<h2>What we do</h2>
+				<p>Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam turpis mauris, eu ultricies erat malesuada quis. Aliquam
+					dapibus, lacus eget hendrerit bibendum, urna est aliquam sem, sit amet imperdiet est velit quis lorem.</p>
+				<div class="features">
+					<section>
+						<span class="icon major fa-code"></span>
+						<h3>Lorem ipsum amet</h3>
+						<p>Phasellus convallis elit id ullam corper amet et pulvinar. Duis aliquam turpis mauris, sed ultricies erat dapibus.</p>
+					</section>
+					<section>
+						<span class="icon major fa-lock"></span>
+						<h3>Aliquam sed nullam</h3>
+						<p>Phasellus convallis elit id ullam corper amet et pulvinar. Duis aliquam turpis mauris, sed ultricies erat dapibus.</p>
+					</section>
+					<section>
+						<span class="icon major fa-cog"></span>
+						<h3>Sed erat ullam corper</h3>
+						<p>Phasellus convallis elit id ullam corper amet et pulvinar. Duis aliquam turpis mauris, sed ultricies erat dapibus.</p>
+					</section>
+					<section>
+						<span class="icon major fa-desktop"></span>
+						<h3>Veroeros quis lorem</h3>
+						<p>Phasellus convallis elit id ullam corper amet et pulvinar. Duis aliquam turpis mauris, sed ultricies erat dapibus.</p>
+					</section>
+					<section>
+						<span class="icon major fa-chain"></span>
+						<h3>Urna quis bibendum</h3>
+						<p>Phasellus convallis elit id ullam corper amet et pulvinar. Duis aliquam turpis mauris, sed ultricies erat dapibus.</p>
+					</section>
+					<section>
+						<span class="icon major fa-diamond"></span>
+						<h3>Aliquam urna dapibus</h3>
+						<p>Phasellus convallis elit id ullam corper amet et pulvinar. Duis aliquam turpis mauris, sed ultricies erat dapibus.</p>
+					</section>
+				</div>
+				<ul class="actions">
+					<li>
+						<a href="#" class="button">Learn more</a>
+					</li>
+				</ul>
+			</div>
+		</section>
+
+		<!-- Three -->
+		<section id="three" class="wrapper style1 fade-up">
+			<div class="inner">
+				<h2>도움받기</h2>
+				<p>학습중 이해가 되지 않는 부분이나 궁금한 점이 있는 경우 언제든지 연락하세요.</p>
+				<div class="split style1">
+					<section>
+						<form method="post" action="#">
+							<div class="field half first">
+								<label for="name">Name</label>
+								<input type="text" name="name" id="name" />
+							</div>
+							<div class="field half">
+								<label for="email">Email</label>
+								<input type="text" name="email" id="email" />
+							</div>
+							<div class="field">
+								<label for="message">Message</label>
+								<textarea name="message" id="message" rows="5"></textarea>
+							</div>
+							<ul class="actions">
+								<li>
+									<a href="" class="button submit">Send Message</a>
+								</li>
+							</ul>
+						</form>
+					</section>
+					<section>
+						<ul class="contact">
+							<li>
+								<h3>Address</h3>
+								<span>(12223) 경춘로1286번안길 4-18</span>
+							</li>
+							<li>
+								<h3>Email</h3>
+								<a href="mailto:yong1983@naver.com">yong1983@naver.com</a>
+							</li>
+							<li>
+								<h3>Phone</h3>
+								<span>(+82) 10-5970-5586</span>
+							</li>
+							<li>
+								<h3>Social</h3>
+								<ul class="icons">
+									<li>
+										<a href="#" class="fa-twitter">
+											<span class="label">Twitter</span>
+										</a>
+									</li>
+									<li>
+										<a href="#" class="fa-facebook">
+											<span class="label">Facebook</span>
+										</a>
+									</li>
+									<li>
+										<a href="#" class="fa-github">
+											<span class="label">GitHub</span>
+										</a>
+									</li>
+									<li>
+										<a href="#" class="fa-instagram">
+											<span class="label">Instagram</span>
+										</a>
+									</li>
+									<li>
+										<a href="#" class="fa-linkedin">
+											<span class="label">LinkedIn</span>
+										</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</section>
+				</div>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

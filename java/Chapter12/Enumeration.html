@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!-- Latest compiled and minified CSS -->
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/javaindex.html">Java</a>
+				</li>
+				<li>
+					<a href="Generics.html">Enumeration</a>
+				</li>
+				<li>
+					<a class="active">열거형</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">열거형 (Enumeration)</h1>
+				<p>
+					열거형은
+					<code>JDK 1.5</code>부터 추가되었습니다. 자바의 열거형은 다음과 같은 장점을 가집니다.
+				</p>
+				<ul>
+					<li>열거체를 비교할 때 실제 값뿐만 아니라 타입까지도 체크합니다.</li>
+					<li>열거체의 상수값이 재정의되더라도 다시 컴파일할 필요가 없습니다.</li>
+				</ul>
+
+				<hr>
+
+				<section>
+					<h2>열거형의 정의와 사용</h2>
+					<p>
+						열거형을 정의하는 방법은 간단합니다. 다음과 같이 괄호{}안에 상수의 이름을 나열하기만 하면 됩니다.
+					</p>
+					<pre><code>enum 열거형이름 {상수명1, 상수명2, ...}</code></pre>
+
+					<p>
+						이 열거형에 정의된 상수를 사용하는 방법은
+						<code>열거형이름.상수이름</code>입니다. 클래스의 static변수를 참조하는 것과 동일합니다.
+						<br/>또한 열거형 상수간의 비교에는
+						<code>==</code>을 사용할 수 있습니다.
+						<code>equals()</code>가 아닌 비교연산자로 비교가 가능하다는 것은그만큼 빠른 성능을 제공한다는 것입니다. 하지만
+						<code>&lt;</code>,
+						<code>&gt;</code>와 같은 비교연산자는 사용할 수 없고
+						<code>compareTo()</code>는 사용가능합니다.
+						<br/>
+						<sub>* compareTo() : 두 비교대상이 같으면 0, 왼쪽이 크면 양수, 오른쪽이 크면 음수를 반환</sub>
+						<br/>
+						<br/>조건식에 열거형을 사용할 수 있으므로
+						<code>switch문</code>의 조건식에도 열거형을 사용할 수 있습니다. 이 때 주의할 점은
+						<code>case문</code>에 열거형의 이름은 적지 않고 상수의 이름만 적어야 한다는 제약이 있습니다.
+					</p>
+				</section>
+
+				<hr>
+
+				<section>
+					<h2>모든 열거형의 조상</h2>
+					<p>
+						모든 열거형의 조상은
+						<code>java.lang.Enum</code>입니다. 열거형 Direction에 정의된 모든 상수를 출력하려면 다음과 같이 합니다.
+					</p>
+					<pre><code>Direction[] dArr = Direction.values();
+
+// for (Direction d : Direction.values())
+for (Direction d : dArr) {
+	System.out.printf("%s = %d%n", d.name(), d.ordinal());
+}</code></pre>
+					<p>
+						<code>values()</code>는 열거형의 모든 상수를 배열에 담아 반환합니다. 이 메서드는 모든 열거형이 가지고 있는 것으로 컴파일러가 자동으로 추가해 줍니다. 그리고
+						<code>ordinal()</code>은 모든 열거형의 조상인
+						<code>java.lang.Enum</code>클래스에 정의된 것으로 열거형 상수가 정의된 순서(0부터 시작)를 정수로 반환합니다.
+					</p>
+
+					<h4>Enum클래스에 정의된 메서드</h4>
+					<table>
+						<tbody>
+							<tr>
+								<td>
+									<strong>
+										<em>Class&lt;E&gt; getDeclaringClass()</em>
+									</strong>
+									<br/> : 열거형의 Class객체를 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>String name()</em>
+									</strong>
+									<br/> : 열거형 상수의 이름을 문자열로 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>int ordinal()</em>
+									</strong>
+									<br/> : 열거형 상수가 정의된 순서를 반환합니다. (0부터 시작)</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>T valueOf(Class&lt;T&gt; enumType, String name)</em>
+									</strong>
+									<br/> : 지정된 열거형에서 name과 일치하는 열거형 상수를 반환합니다.</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<p>
+						이외에도 values()처럼 컴파일러가 자동적으로 추가해주는 메서드가 하나 더 있습니다.
+					</p>
+					<pre><code>static E values()
+static E valueOf(String name)</code></pre>
+
+					<p>
+						이 메서드는 열거형 상수의 이름으로 문자열 상수에 대한 참조를 얻을 수 있도록 해줍니다.
+					</p>
+					<pre><code>Direction d = Direction.valueOf("WEST");
+System.out.println(d);  // WEST
+System.out.println(Direction.WEST == Direction.valueOf("WEST"));  // true</code></pre>
+
+					<ul class="icons source">
+						<li>
+							<a href="src/EnumEx1.html" target="_blank">
+								<i class="fas fa-file-code"></i> EnumEx1.java</a>
+						</li>
+					</ul>
+				</section>
+
+				<hr>
+
+				<section>
+					<h2>열거형에 멤버 추가하기</h2>
+					<p>
+						Enum클래스에 정의된 ordinal()이 열거형 상수가 정의된 순서를 반환하지만, 이 값을 열거형 상수의 값으로 사용하지 않는 것이 좋습니다. 이 값은 내부적인 용도로만 사용되기 위한 것이기 때문입니다.
+						<br/>열거형 상수의 값이 불규칙적인 경우에는 이때는 다음과 같이 열거형 상수의 이름 옆에 원하는 값을 괄호()와 함께 적어주면 됩니다.
+					</p>
+					<pre><code>enum Direction { EAST(1), SOUTH(5), WEST(-1), NORTH(10) }</code></pre>
+
+					<p>
+						그리고 지정된 값을 저장할 수 있는 인스턴스 변수와 생성자를 새로 추가해 주어야 합니다. 이 때 주의할 점은, 먼저 열거형 상수를 모두 정의한 다음에 다른 멤버들을 추가해야 한다는 점입니다. 그리고 열거형 상수의 마지막에
+						세미콜론(;)도 잊지 말아야 합니다.
+					</p>
+					<pre><code>enum Direction {
+	EAST(1), SOUTH(5), WEST(-1), NORTH(10);    // 세미콜론 추가
+
+	private final int value;    // 정수를 저장할 필드(인스턴스 변수)를 추가
+
+	// 생성자를 추가
+	Direction(int value) {
+		this.value = value;
+	}
+
+	public int getValue() {
+		return value;
+	}
+}</code></pre>
+					<p>
+						열거형의 인스턴스 변수는 반드시 final이어야 한다는 제약은 없지만, value는 열거형 상수의 값을 저장하기 위한 것이므로 final을 붙였습니다.
+						그리고 외부에서 이 값을 얻을 수 있게 <code>getValue()</code>도 추가하였습니다.
+						<br/>열거형에 새로운 생성자가 추가되었지만 열거형의 객체를 생성할 수는 없습니다. 열거형의 생성자는 제어자가 묵시적으로 private이기 때문입니다.
+					</p>
+
+					<pre><code>Direction d = new Direction(1);  // Error. 열거형의 생성자는 외부에서 호출불가</code></pre>
+
+					<ul class="icons source">
+						<li>
+							<a href="src/EnumEx2.html" target="_blank">
+								<i class="fas fa-file-code"></i> EnumEx2.java</a>
+						</li>
+					</ul>
+				</section>
+
+				<hr>
+
+				<ul class="actions fit">
+					<li>
+						<a href="Generics_01.html" class="button fit">지네릭스</a>
+					</li>
+					<li></li>
+					<li>
+						<a href="Annotation.html" class="button fit">애너테이션</a>
+					</li>
+				</ul>
+			</div>
+		</section>
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

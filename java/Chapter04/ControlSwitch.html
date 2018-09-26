@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!-- Latest compiled and minified CSS -->
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="index.html">제어문</a>
+				</li>
+				<li>
+					<a class="active">조건문</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">조건문 (conditional statements)</h1>
+				<p>
+					조건문은
+					<strong>조건식의 연산결과에 따라서 실행할 문장이 달라져서 프로그램의 실행흐름을 변경</strong>할 수 있습니다. (조건에 따라서 다른 문장이 수행되거나, 특정 조건에만 실행 또는 실행을 건너뛰게하는 등)
+					<br/>조건문에는
+					<code>if 문</code>과
+					<code>switch 문</code> 두 가지가 있으며 주로 if문이 많이 사용됩니다. 처리하고자 하는 경우의 수가 많을 경우 if문보다 switch문이 효율적이지만, switch문은 if문보다 제약이 많습니다. 자바에서
+					사용되는 대표적인 조건문의 형태는 다음과 같습니다.
+				</p>
+				<ul>
+					<li>if 문</li>
+					<li>if ~ else 문</li>
+					<li>if ~ else if 문</li>
+					<li>삼항연산자</li>
+					<li>
+						<strong>switch 문</strong>
+					</li>
+					
+				</ul>
+
+				<hr>
+
+				<section>
+					<h2>switch 문</h2>
+					<p>
+						<code>if 문</code>은 조건식의 결과가 참(true)과 거짓(false), 두 가지 밖에 없기 때문에 경우의 수가 많아질수록
+						<code>else if 문</code>를 계속 추가해야하므로 조건식이 많아져서 복잡해지고 여러 개의 조건식을 계산해야하므로 처리시간도 많이 걸립니다.
+						<br/>
+						<code>switch 문</code>은
+						<strong>단 하나의 조건식으로 많은 경우의 수를 처리</strong>할 수 있고,
+						<strong>표현도 간결</strong>하므로 알아보기 쉽습니다. 하지만
+						<strong>switch 문의 조건 값으로는 int형으로 승격할 수 있는(integer promotion) 값만이 사용</strong>될 수 있습니다. 즉, 자바에서는
+						<strong>switch 문의 조건 값으로
+							<code>byte</code>
+							<code>short</code>
+							<code>char</code>
+							<code>int</code>의 변수나 리터럴을 사용</strong>할 수 있습니다.
+						<br/>또한, 이러한
+						<strong>기본 타입에 해당하는 데이터를 객체로 포장해 주는 래퍼 클래스(Wrapper class) 중에서 위에 해당하는
+							<code>Byte</code>
+							<code>Short</code>
+							<code>Character</code>
+							<code>Integer</code> 클래스의 객체도 사용</strong>할 수 있습니다. 그리고
+						<strong>enum 키워드를 사용한 열거체(enumeration type)와 String 클래스의 객체도 사용</strong>할 수 있습니다.
+						<br/>
+						<sub>* switch 문은 if ~ else 문보다는 사용할 수 있는 상황이 적습니다. 처리할 조건의 경우가 많은 경우에는 if문보다 switch문으로 작성하는 것이 좋습니다.</sub>
+					</p>
+
+					<div class="row">
+						<div class="8u 12u$(medium)">
+							<h4>Syntax</h4>
+							<pre><code>switch (조건식) {
+	case 값1:
+		// 조건식의 결과가 값1과 같을 경우 수행될 문장
+		// ...
+		break;
+	case 값2:
+		// 조건식의 결과가 값2와 같을 경우 수행될 문장
+		break;
+	...
+	default:
+		// 조건식의 결과와 일치하는 case문이 없을 때 수행될 문장
+		// ...
+}</code></pre>
+						</div>
+						<div class="4u 12u$(medium)">
+							<span class="image">
+								<img src="images/img_switch_flow.png" width="100%" alt="if문 순서도" />
+							</span>
+						</div>
+					</div>
+					<ol>
+						<li>조건식을 계산합니다.</li>
+						<li>조건식의 결과와 일치하는 case문으로 이동합니다.(일치하는 case문이 없으면 default문을 실행합니다.)</li>
+						<li>이후의 문장들을 수행합니다.</li>
+						<li>break문이나 switch문의 끝을 만나면 switch문 전체를 빠져나갑니다.</li>
+					</ol>
+
+					<h4>Example</h4>
+					<pre><code>public class FlowSwitchEx {
+	public static void main(String[] args) {
+		char ch = 'i';
+		switch (ch) {
+			case 'a':
+				System.out.println("해당 문자는 'A'입니다.");
+				break;
+			case 'e':
+				System.out.println("해당 문자는 'E'입니다.");
+				break;
+			case 'i':
+				System.out.println("해당 문자는 'I'입니다.");
+				break;
+			case 'o':
+				System.out.println("해당 문자는 'O'입니다.");
+				break;
+			case 'u':
+				System.out.println("해당 문자는 'U'입니다.");
+				break;
+			default:
+				System.out.println("해당 문자는 모음이 아닙니다.");
+				break;
+		}
+	}
+}</code></pre>
+					<p>
+						<code>default 절</code>은 위의 예제와 같이 맨 마지막에 위치하는 것이 일반적이지만, case 절 사이에 위치해도 상관없습니다. 각 case 절 및 default 절은 반드시 break 키워드를 포함하고
+						있어야 합니다.
+						<strong>
+						<br/><code>break 키워드</code>는
+						조건 값에 해당하는 case 절이나 default 절이 실행된 뒤에 전체 switch 문을 빠져나가게 해줍니다.</strong>
+						만약에
+						<strong>break 키워드가 없다면, 조건에 해당하는 switch 문의 case 절 이후의 모든 case 절이 전부 실행</strong>될 것입니다.
+					</p>
+				</section>
+
+				<hr>
+
+				<section>
+					<h2>switch문의 제약조건</h2>
+					<ul>
+						<li>switch문의 조건식 결과는 정수 또는 문자열(JDK 1.7 이전에는 문자열이 허용되지 않습니다.)이어야 합니다.</li>
+						<li>case문의 값은 정수 상수만 가능하며, 중복되지 않아야 합니다.</li>
+						<li>break문이 없으면 아래 문장이 계속 실행됩니다.</li>
+					</ul>
+				</section>
+
+				<hr>
+
+				<section>
+					<h2>switch문의 중첩</h2>
+					<p>
+						if문처럼 switch문도 중첩이 가능합니다. 한 가지 주의할 점은 중첩 switch문에서 break문을 잊어버리지 않도록 조심해야 합니다.
+					</p>
+				</section>
+
+				<hr>
+
+				<ul class="actions fit">
+					<li>
+						<a href="ControlIF.html" class="button fit">if문</a>
+					</li>
+					<li></li>
+					<li>
+						<a href="ControlFor.html" class="button fit">반복문</a>
+					</li>
+				</ul>
+			</div>
+		</section>
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

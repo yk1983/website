@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="Variable.html">Variable</a>
+				</li>
+				<li>
+					<a class="active">형변환</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">형변환</h1>
+
+				<p>
+					프로그램을 작성하다 보면 같은 타입뿐만 아니라
+					<strong>서로 다른 타입간의 연산을 수행해야 하는 경우</strong>가 있습니다. 이럴 경우에는
+					<strong>연산을 수행하기 전에 타입을 일치</strong>시켜야 하는데,
+					<strong>변수나 리터럴의 타입을 다른 타입으로 변환하는 것</strong>을
+					<strong>형변환(캐스팅, casting)</strong>이라고 합니다.
+				</p>
+
+				<section>
+					<h2>형변환 방법</h2>
+					<p>
+						형변환 방법은 간단합니다. 형변환하고자 하는 변수나 리터럴의 앞에 변환하고자 하는 타입을 괄호와 함께 붙여주기만 하면 됩니다. 이 때 사용되는 괄호()는
+						<strong>캐스트 연산자</strong> 또는
+						<strong>형변환 연산자</strong>라고 하며, 형변환을
+						<strong>캐스팅(casting)</strong>이라고 합니다.
+					</p>
+					<pre><code>// (타입) 피연산자
+double d = 3.14;
+// double타입의 변수 d를 int타입으로 형변환
+// 이 때 형변환의 결과인 3이 score애 저장
+int score = (int) d;</code></pre>
+
+					<h4>CastingEx1.java</h4>
+					<pre><code>package kinco.java.std;
+
+public class CastingEx1 {
+	public static void main(String[] args) {
+		double d = 3.14;
+		int score = (int) d;
+		
+		System.out.println("score = " + score);
+		System.out.println("d = " + d);
+	}
+}</code></pre>
+					<h4>Console</h4>
+					<pre><code>score = 3
+d = 3.14  // 형변환 후에도 피연산자에는 아무런 영향이 없습니다.</code></pre>
+					<p>
+						기본형 타입에서 boolean을 제외한 나머지 타입들은 서로 형변환이 가능합니다. 그리고 기본형과 참조형간의 형변환은 불가능합니다.
+						<br/>참조형 타입에 대해서는 아직 배우지 않았으므로 이번에는 기본형간의 형변환만 배우도록 하겠습니다.
+					</p>
+				</section>
+
+				<hr/>
+
+				<section>
+					<h2>정수형 간의 형변환</h2>
+					<p>
+						큰 타입에서 작은 타입으로의 변환, 예를 들어 int타입(4byte)의 값을 byte타입(1byte)으로 변환하는 경우 값의 손실이 발생합니다.
+					</p>
+
+					<h4>CastingEx2.java</h4>
+					<pre><code>package kinco.java.std;
+
+public class CastingEx2 {
+	public static void main(String[] args) {
+		// 큰 수에서 작은 수로 형변환 (작은수가 포함할 수 있는 수)
+		int i = 10;
+		byte b = (byte) i;
+		System.out.printf("[int -> byte] i=%d -> b=%d%n", i, b);
+		
+		// 큰 수에서 작은 수로 형변환 (작은수가 포함할 수 없는 수 : 데이터 손실)
+		i = 300;
+		b = (byte) i;
+		System.out.printf("[int -> byte] i=%d -> b=%d%n", i, b);
+		
+		b = 10;
+		i = (int) b;
+		System.out.printf("[byte -> int] b=%d -> i=%d%n", b, i);
+		
+		b = -2;
+		i = (int) b;
+		System.out.printf("[byte -> int] b=%d -> i=%d%n", b, i);
+		
+		// 10진수 정수를 2진 전수로 변환한 문자열
+		System.out.println("i = " + Integer.toBinaryString(i));
+	}
+}</code></pre>
+					<h4>Console</h4>
+					<pre><code>[int -> byte] i=10 -> b=10
+[int -> byte] i=300 -> b=44
+[byte -> int] b=10 -> i=10
+[byte -> int] b=-2 -> i=-2
+i = 11111111111111111111111111111110</code></pre>
+				</section>
+
+				<hr/>
+
+				<section>
+					<h2>실수형 간의 형변환</h2>
+					<p>
+						실수형에서도 정수형처럼 작은 타입에서 큰 타입으로 변환하는 경우, 빈 공간을 0으로 채웁니다.
+					</p>
+
+					<h4>CastingEx3</h4>
+					<pre><code>package kinco.java.std;
+
+public class CastingEx3 {
+	public static void main(String[] args) {
+		float f = 9.1234567f;
+		double d = 9.1234567;
+		double d2 = (double) f;
+		
+		System.out.printf("f = %20.18f\n", f);
+		System.out.printf("d = %20.18f\n", d);
+		System.out.printf("d2 = %20.18f\n", d2);
+	}
+}</code></pre>
+					<h4>Console</h4>
+					<pre><code>f = 9.123456954956055000
+d = 9.123456700000000000
+d2 = 9.123456954956055000</code></pre>
+				</section>
+
+				<hr/>
+
+				<section>
+					<h2>정수형과 실수형 간의 형변환</h2>
+					<p>
+						정수형과 실수형은 저장형식이 완전히 다르기 때문에 정수형간의 변환처럼 간단히 값을 채우고 자르는 식으로는 할 수 없습니다.
+					</p>
+
+					<h4>정수형을 실수형으로 변환</h4>
+					<p>
+						정수는 소수점이하의 값이 없으므로 비교적 변환이 간단합니다. 실수형은 정수형보다 휠씬 큰 저장범위를 갖고 있기 때문에, 정수형을 실수형으로 변환하는 것은 무리가 없습니다.
+					</p>
+
+					<h4>실수형을 정수형으로 변환</h4>
+					<p>
+						실수형을 정수형으로 변환하면, 실수형의 수수점이하 값은 버려집니다. 정수형의 표현 형식으로 소수점 이하의 값은 표현할 수 없기 때문입니다.
+					</p>
+
+					<pre><code>package kinco.java.std;
+
+public class CastingEx4 {
+	public static void main(String[] args) {
+		// 8자리의 10진수
+		int i = 91234567;
+		// int를 float로 형변환
+		float f = (float) i;
+		// float를 다시 int로 형변환
+		int i2 = (int) f;
+		// int를 double로 형변환
+		double d = (double) i;
+		// double을 다시 int로 형변환
+		int i3 = (int) d;
+		
+		float f2 = 1.666f;
+		int i4 = (int) f2;
+		
+		System.out.printf("i = %d\n", i);
+		System.out.printf("f = %f, i2 = %d\n", f, i2);
+		System.out.printf("d = %f, i3 = %d\n", d, i3);
+		System.out.printf("(int) %f = %d\n", f2, i4);
+	}
+}</code></pre>
+					<pre><code>i = 91234567
+f = 91234568.000000, i2 = 91234568
+d = 91234567.000000, i3 = 91234567
+(int) 1.666000 = 1</code></pre>
+				</section>
+
+				<hr/>
+
+				<section>
+					<h2>자동 형변환</h2>
+					<p>
+						서로 다른 타입간의 대입이나 연산을 할 때, 형변환으로 타입을 일치시키는 것이 원칙입니다. 하지만, 경우에 따라 편의상의 이유로 형변환을 생략할 수 있습니다.
+						<br/>그렇다고 형변환이 이루어지지 않는 것은 아니며, 컴파일러가 생략된 형변환을 자동적으로 추가합니다.
+					</p>
+					<pre><code>float f = 1234;  // 형변환의 생략. float f = (float) 1234;</code></pre>
+					<p>
+						그러나 변수가 저장할 수 있는 값의 범위보다 더 큰 값을 저장하려는 경우에 형변환을 생략하면 에러가 발생합니다.
+					</p>
+					<pre><code>byte b = 1000;  // Error. byte의 범위 (-125 ~ 127)를 넘는 값을 저장.</code></pre>
+					<p>
+						그러나 다음과 같이 명시적으로 형변환을 해줬을 경우, 형변환이 프로그래머의 실수가 아닌 의도적인 것으로 간주하여 컴파일러는 에러를 발생하지 않습니다.
+					</p>
+					<pre><code>char ch = (char) 1000;  // OK. 명시적 형변환.</code></pre>
+					<P>
+						또 다른 예로 다음과 같은 계산식에서 자주 형변환이 생략됩니다. 서로 다른 두 타입의 연산에서는 먼저 타입을 일치시킨 다음에 연산을 수행해야 하므로, 연산과정에서 형변환이 자동적으로 이루어집니다.
+						<br/>서로 다른 두 타입간의 덧셈에서는 두 타입 중 표현볌위가 더 넓은 타입으로 형변환하여 타입을 일치시킨 다음에 연산을 수행합니다. 그렇게 함으로써 값손실의 위험이 더 적어서 올바른 결과를 얻을 확율이 높기 때문입니다.
+					</P>
+					<pre><code>int i = 3;
+double d = 1.0 + i;  //  double d = 1.0 + (double) i; 에서 형변환이 생략
+// double d = 1.0 + (double) i;
+// double d = 1.0 + (double) 3;  // i의 값은 3
+// double d = 1.0 + 3.0  // 3을 double타입으로 형변환
+// double d = 4.0 // double = double + double</code></pre>
+					<p>
+						연산과정에서 자동적으로 발생하는 형변환을 <strong>산술변환</strong>이라고 합니다.
+						<br/><br/>
+						이러한 자동 형변환에는 규칙이 있습니다. 컴파일러는 <strong>기존의 값을 최대한 보존할 수 잇는 타입으로 자동 형변환</strong>합니다.
+					</p>
+					<h4>기본형의 자동 형변환이 가능한 방향</h4>
+					<span class="image">
+						<img src="images/img_casting.png" width="100%" alt="기본형의 자동 형변환이 가능한 방향" />
+					</span>
+				</section>
+
+				<hr/>
+
+				<section>
+					<ul class="actions fit">
+						<li>
+							<a href="Variable_03.html" class="button fit">기본형 타입</a>
+						</li>
+						<li></li>
+						<li></li>
+					</ul>
+				</section>
+			</div>
+		</section>
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="../Collection_05.html">HashMap</a>
+				</li>
+				<li>
+					<a class="active">Source code</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">HashMapEx3.java</h1>
+				<p>
+					전화번호를 저장할 그룹을 만들고 그룹 안에 다시 이름과 전화번호를 저장하는 예제입니다. 이름은 중복이 있을 수 있지만 전화번호는 유일한 번호이어야 합니다.
+				</p>
+				<h4>소스코드</h4>
+				<pre><code>package kinco.java.std;
+
+import java.util.*;
+
+public class HashMapEx3 {
+	static HashMap&lt;String, HashMap&lt;?, ?&gt; phoneBook = new HashMap&lt;String, HashMap&lt;?, ?&gt;();
+
+	public static void main(String[] args) {
+		addPhoneNo("친구", "이자바", "010-111-1111");
+		addPhoneNo("친구", "김자바", "010-222-2222");
+		addPhoneNo("친구", "김자바", "010-333-3333");
+		addPhoneNo("회사", "김대리", "010-444-4444");
+		addPhoneNo("회사", "김대리", "010-555-5555");
+		addPhoneNo("회사", "박대리", "010-666-6666");
+		addPhoneNo("회사", "이과장", "010-777-7777");
+		addPhoneNo("세탁", "010-888-8888");
+
+		printList();
+	}
+
+	// 그룹을 추가하는 메서드
+	@SuppressWarnings("rawtypes")
+	static void addGroup(String groupName) {
+		if (!phoneBook.containsKey(groupName)) {
+			phoneBook.put(groupName, new HashMap());	
+		}
+	}
+
+	// 그룹에 전화번호를 추가하는 메서드
+	static void addPhoneNo(String groupName, String name, String tel) {
+		addGroup(groupName);
+		@SuppressWarnings("unchecked")
+		HashMap&lt;String, String&gt; group = (HashMap&lt;String, String&gt;) phoneBook.get(groupName);
+		group.put(tel, name); // 이름은 중복될 수 있으니 전화번호를 key로 저장한다.
+	}
+
+	static void addPhoneNo(String name, String tel) {
+		addPhoneNo("기타", name, tel);
+	}
+
+	// 전화번호부 전체를 출력하는 메서드
+	static void printList() {
+		Set&lt;?&gt; set = phoneBook.entrySet();
+		Iterator&lt;?&gt; it = set.iterator();
+
+		while (it.hasNext()) {
+			@SuppressWarnings("rawtypes")
+			Map.Entry e = (Map.Entry) it.next();
+
+			Set&lt;?&gt; subSet = ((HashMap&lt;?, ?&gt;) e.getValue()).entrySet();
+			Iterator&lt;?&gt; subIt = subSet.iterator();
+
+			System.out.println(" * " + e.getKey() + "[" + subSet.size() + "]");
+
+			while (subIt.hasNext()) {
+				@SuppressWarnings("rawtypes")
+				Map.Entry subE = (Map.Entry) subIt.next();
+				String telNo = (String) subE.getKey();
+				String name = (String) subE.getValue();
+				System.out.println(name + " " + telNo);
+			}
+			System.out.println();
+		}
+	}
+}</code></pre>
+
+				<h4>실행결과</h4>
+				<pre><code> * 기타[1]
+세탁 010-888-8888
+
+ * 친구[3]
+이자바 010-111-1111
+김자바 010-222-2222
+김자바 010-333-3333
+
+ * 회사[4]
+이과장 010-777-7777
+김대리 010-444-4444
+김대리 010-555-5555
+박대리 010-666-6666</code></pre>
+				<hr>
+
+				<ul class="actions fit">
+					<li></li>
+					<li></li>
+					<li>
+						<button class="button fit" id="btn-close" onclick="javascript:window.close();">Close</button>
+					</li>
+				</ul>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

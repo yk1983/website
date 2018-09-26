@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="../Networking_01.html">Networking</a>
+				</li>
+				<li>
+					<a class="active">Source code</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">NetworkEx1.java</h1>
+				<p>
+					<code>InetAddress</code>의 주요 메서드들을 활용하는 예제입니다.
+				</p>
+
+				<h4>NetworkEx1.java</h4>
+				<pre><code>package chapter16;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.Arrays;
+
+public class NetworkEx1 {
+	public static void main(String[] args) {
+		InetAddress ip = null;
+		InetAddress[] ipArr = null;
+		String url = "www.naver.com";
+
+		try {
+			ip = InetAddress.getByName(url);
+			System.out.println("getHostName() : " + ip.getHostName());
+			System.out.println("getHostAddress() : " + ip.getHostAddress());
+			System.out.println("toString() : " + ip.toString());
+
+			byte[] ipAddr = ip.getAddress();
+			System.out.println("getAddress() : " + Arrays.toString(ipAddr));
+
+			String result = "";
+			for (int i = 0; i &lt; ipAddr.length; i++) {
+				result += (ipAddr[i] &lt; 0) ? ipAddr[i] + 256 : ipAddr[i];
+				result += ".";
+			}
+			System.out.println("getAddress()+256 : " + result);
+			System.out.println();
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			ip = InetAddress.getLocalHost();
+			System.out.println("getHostName() : " + ip.getHostName());
+			System.out.println("getHostAddress() : " + ip.getHostAddress());
+			System.out.println();
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			ipArr = InetAddress.getAllByName(url);
+
+			for (int i = 0; i &lt; ipArr.length; i++) {
+				System.out.println("ipArr[" + i + "] : " + ipArr[i]);
+			}
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
+	}
+}</code></pre>
+
+				<h4>실행결과</h4>
+				<pre><code>getHostName() : www.naver.com
+getHostAddress() : 210.89.160.88
+toString() : www.naver.com/210.89.160.88
+getAddress() : [-46, 89, -96, 88]
+getAddress()+256 : 210.89.160.88.
+
+getHostName() : DESKTOP-5TFRS4U
+getHostAddress() : 172.30.1.23
+
+ipArr[0] : www.naver.com/210.89.160.88
+ipArr[1] : www.naver.com/125.209.222.141</code></pre>
+
+				<hr>
+
+				<ul class="actions fit">
+					<li></li>
+					<li></li>
+					<li><button class="button fit" id="btn-close" onclick="javascript:window.close();">Close</button></li>
+				</ul>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

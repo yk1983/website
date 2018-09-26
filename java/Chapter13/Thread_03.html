@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="index.html">Thread</a>
+				</li>
+				<li>
+					<a class="active">싱글스레드/멀티스레드</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">싱글스레드/멀티스레드</h1>
+
+				<p>
+					두 개의 작업을 하나의 스레드(th1)로 처리하는 경우와 두 개의 스레드(th1, th2)로 처리하는 경우를 가정해보면,
+					하나의 스레드로 두 작업을 처리하는 경우는 한 작업을 마친수 다른작업을 시작하지만 두 개의 스레드로 작업하는 경우에는 짧은 시간동안 2개의 스레드(th1, th2)가 번갈아 가면서 작업을 수행해서 동시에 두 작업이 처리되는 것과 같이 느끼게 합니다.
+					<br/>따라서 싱글 코어에서는 단순히 CPU만을 사용하는 계산작업이라면 오히려 멀티스레드보다는 싱글 스레드가 더 효율적입니다.
+				</p>
+				<div class="row">
+					<div class="6u 12u$(medium)">
+						<h4>싱글스레드</h4>
+						<span class="image">
+							<img src="images/img_single_thread.png" width="100%" alt="SingleThread" />
+						</span>
+					</div>
+					<div class="6u 12u$(medium)">
+						<h4>멀티스레드</h4>
+						<span class="image">
+							<img src="images/img_multi_thread.png" width="100%" alt="MultiThread" />
+						</span>
+					</div>
+				</div>
+				<p>
+					하나의 스레드로 두 개의 작업을 수행한 시간과 두개의 스레드로 두 개의 작업을 수행한 시간은 거의 같지만,
+					<strong>스레드간의 작업전환(contextn switching)에 시간이 걸리기 때문에 두 개의 스레드로 작업한 시간이 싱글스레드로 작업한 시간보다 더 걸리게 됩니다.</strong>
+				</p>
+				<h4>Example sources</h4>
+				<ul class="icons source">
+					<li>
+						<a href="src/SingleThreadEx.html" target="_blank">
+							<i class="fas fa-file-code"></i> SingleThreadEx.java</a>
+					</li>
+					<li>
+						<a href="src/MultiThreadEx.html" target="_blank">
+							<i class="fas fa-file-code"></i> MultiThreadEx.java</a>
+					</li>
+					<li>
+						<a href="src/ThreadEx01.html" target="_blank">
+							<i class="fas fa-file-code"></i> ThreadEx01.java</a>
+					</li>
+					<li>
+						<a href="src/ThreadEx02.html" target="_blank">
+							<i class="fas fa-file-code"></i> ThreadEx02.java</a>
+					</li>
+				</ul>
+
+				<hr>
+
+				<ul class="actions fit">
+					<li>
+						<a href="Thread_02.html" class="button fit">구현&amp;실행</a>
+					</li>
+					<li></li>
+					<li>
+						<a href="Thread_04.html" class="button fit">우선순위</a>
+					</li>
+				</ul>
+			</div>
+		</section>
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

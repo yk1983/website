@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="../IO_02.html">I/O</a>
+				</li>
+				<li>
+					<a class="active">Source code</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">FileViewer.java</h1>
+				<p>
+					입력받은 파일의 내용을 읽어서 그대로 화면에 출력하는 예제입니다.
+					<br/><sub>* <code>read()</code>의 반환값이 int형(4byte)이지만, 더 이상 입력값이 없음을 알리는 -1을 제외하고는 0~255(1byte)범위의 정수값이기 때문에, char형(2byte)으로 변환하더라도 손실 값은 없습니다.</sub>
+				</p>
+				<h4>소스코드</h4>
+				<pre><code>package kinco.java.std;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+
+public class FileViewer {
+	private static FileInputStream fis;
+
+	public static void main(String args[]) throws IOException {
+		fis = new FileInputStream("src/kinco/java/std/FileViewer.java");
+		int data = 0;
+
+		while ((data = fis.read()) != -1) {
+			char c = (char) data;
+			System.out.print(c);
+		}
+	}
+}</code></pre>
+
+				<h4>실행결과</h4>
+				<pre><code>package kinco.java.std;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+
+public class FileViewer {
+	private static FileInputStream fis;
+
+	public static void main(String args[]) throws IOException {
+		fis = new FileInputStream("src/kinco/java/std/FileViewer.java");
+		int data = 0;
+
+		while ((data = fis.read()) != -1) {
+			char c = (char) data;
+			System.out.print(c);
+		}
+	}
+}</code></pre>
+
+				<hr/>
+
+				<ul class="actions fit">
+					<li></li>
+					<li></li>
+					<li><button class="button fit" id="btn-close" onclick="javascript:window.close();">Close</button></li>
+				</ul>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

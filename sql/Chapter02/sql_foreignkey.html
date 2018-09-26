@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/sql">SQL</a>
+				</li>
+				<li>
+					<a href="/kinco/sql/Chapter02">DDL</a>
+				</li>
+				<li>
+					<a class="active">제약조건</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">제약조건</h1>
+
+				<h2>FOREIGN KEY(외래 키)</h2>
+				<p>
+					<strong>FOREIGN KEY(외래 키)</strong>는 참조키라고도 하며, 두 테이블을 서로 연결하는 데 사용되는 키입니다. 외래 키는 다른 테이블의 PRIMARY KEY를 참조하는 테이블의 필드 (또는 필드 모음)입니다. 외래 키가
+					들어있는 테이블을 하위 테이블이라고하고 후보 키가 들어있는 테이블을 참조 된 테이블 또는 상위 테이블이라고합니다.
+					<br/>외래 키를 가지는 컬럼의 데이터 형은 외래키가 참조하는 기본키의 컬럼과 데이터형과 일치해야 합니다. 이를 어기면
+					<strong>참조무결성 제약</strong>에 의해 테이블을 생성할수 없습니다.
+					<br/>외래키에 의해 참조되고 있는 기본 키는 삭제 할 수 없으며,
+					<code>ON DELETE CASCADE 연산자</code>와 함께 정의된 외래키의 데이터는 그 기본키가 삭제 될 때 같이 삭제됩니다.
+				</p>
+
+				<div class="row">
+					<div class="6u 12u$(medium)">
+						<h4>Persons TABLE</h4>
+						<table class="alt">
+							<thead>
+								<tr>
+									<th>PersonID</th>
+									<th>LastName</th>
+									<th>FirstName</th>
+									<th>Age</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>1</td>
+									<td>Hansen</td>
+									<td>Ola</td>
+									<td>30</td>
+								</tr>
+								<tr>
+									<td>2</td>
+									<td>Svendson</td>
+									<td>Tove</td>
+									<td>25</td>
+								</tr>
+								<tr>
+									<td>3</td>
+									<td>Pettersen</td>
+									<td>Kari</td>
+									<td>33</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="6u 12u$(medium)">
+						<h4>Orders TABLE</h4>
+						<table class="alt">
+							<thead>
+								<tr>
+									<th>OrderID</th>
+									<th>OrderNumber</th>
+									<th>PersonID</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>1</td>
+									<td>77895</td>
+									<td>3</td>
+								</tr>
+								<tr>
+									<td>2</td>
+									<td>44678</td>
+									<td>3</td>
+								</tr>
+								<tr>
+									<td>3</td>
+									<td>22456</td>
+									<td>2</td>
+								</tr>
+								<tr>
+									<td>4</td>
+									<td>24562</td>
+									<td>1</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<P>
+					<sub>"Orders"테이블의 "PersonID"열이 "Person"테이블의 "PersonID"열을 가리키고 있습니다.
+					"Person"테이블의 "PersonID"열은 "Person"테이블의 PRIMARY KEY입니다.
+					"Orders"테이블의 "PersonID"열은 "Orders"테이블의 FOREIGN KEY입니다입니다.
+					<br/>FOREIGN KEY 제약 조건은 테이블 간의 연결을 파괴하는 작업을 방지하는 데 사용됩니다.
+					FOREIGN KEY 제약 조건은 또한 가리키는 테이블에 포함 된 값 중 하나 여야하기 때문에 잘못된 데이터가 외부 키 열에 삽입되는 것을 방지합니다.</sub>
+				</P>
+
+				<hr>
+
+				<section>
+					<h2>CREATE TABLE의 FOREIGN KEY</h2>
+					<p>
+						다음 SQL은 "Orders"테이블을 만들 때 "PersonID"열에 FOREIGN KEY를 만듭니다.
+					</p>
+					<h4>MySQL:</h4>
+					<pre><code>CREATE TABLE Orders (
+    OrderID int NOT NULL
+,   OrderNumber int NOT NULL
+,   PersonID int
+,   <strong>PRIMARY KEY</strong> (OrderID)
+,   <strong>FOREIGN KEY</strong> (PersonID) <strong>REFERENCES</strong> Persons(PersonID)
+);</code></pre>
+
+					<h4>SQL Server / Oracle / MS Access:</h4>
+					<pre><code>CREATE TABLE Orders (
+    OrderID int NOT NULL <strong>PRIMARY KEY</strong>
+,   OrderNumber int NOT NULL
+,   PersonID int <strong>FOREIGN KEY REFERENCES</strong> Persons(PersonID)
+);</code></pre>
+
+					<p>
+						FOREIGN KEY 제약 조건의 이름 지정 및 여러 열의 FOREIGN KEY 제약 조건 정의를 허용하려면 다음 SQL 구문을 사용합니다.
+					</p>
+					<h4>MySQL / SQL Server / Oracle / MS Access:</h4>
+					<pre><code>CREATE TABLE Orders (
+    OrderID int NOT NULL
+,   OrderNumber int NOT NULL
+,   PersonID int
+,   <strong>PRIMARY KEY</strong> (OrderID)
+,   <strong>CONSTRAINT</strong> <em>order_fk_persionid</em> <strong>FOREIGN KEY</strong> (PersonID)
+    <strong>REFERENCES</strong> Persons(PersonID)
+);</code></pre>
+				</section>
+
+				<hr>
+
+				<section>
+					<h2>ALTER TABLE의 FOREIGN KEY</h2>
+					<p>
+						"Orders"테이블이 이미 생성 된 경우 "PersonID"열에 FOREIGN KEY 제약 조건을 만들려면 다음 SQL을 사용하십시오.
+					</p>
+
+					<p>
+						FOREIGN KEY 제약 조건의 이름 지정 및 여러 열의 FOREIGN KEY 제약 조건 정의를 허용하려면 다음 SQL 구문을 사용합니다.
+					</p>
+					<h4>MySQL / SQL Server / Oracle / MS Access:</h4>
+					<pre><code>ALTER TABLE Orders
+ADD <strong>FOREIGN KEY</strong> (PersonID) <strong>REFERENCES</strong> Persons(PersonID);</code></pre>
+
+					<p>
+						FOREIGN KEY 제약 조건의 이름 지정 및 여러 열의 FOREIGN KEY 제약 조건 정의를 허용하려면 다음 SQL 구문을 사용합니다.
+					</p>
+					<h4>MySQL / SQL Server / Oracle / MS Access:</h4>
+					<pre><code>ALTER TABLE Orders
+ADD <strong>CONSTRAINT</strong> <em>order_fk_persionid</em>
+<strong>FOREIGN KEY</strong> (PersonID) <strong>REFERENCES</strong> Persons(PersonID);</code></pre>
+				</section>
+
+				<hr>
+
+				<section>
+					<h2>FOREIGN KEY 제약 조건 삭제</h2>
+					<p>
+						FOREIGN KEY 제약 조건을 삭제하려면 다음 SQL을 사용하십시오.
+					</p>
+					<h4>MySQL:</h4>
+					<pre><code>ALTER TABLE Orders <strong>DROP FOREIGN KEY</strong> <em>order_fk_persionid</em>;</code></pre>
+
+					<h4>SQL Server / Oracle / MS Access:</h4>
+					<pre><code>ALTER TABLE Orders <strong>DROP CONSTRAINT</strong> <em>order_fk_persionid</em>;</code></pre>
+				</section>
+
+				<hr>
+
+				<section>
+					<ul class="actions fit">
+						<li>
+							<a href="sql_primarykey.html" class="button fit">PRIMARY KEY</a>
+						</li>
+						<li></li>
+						<li>
+							<a href="sql_check.html" class="button fit">CHECK</a>
+						</li>
+					</ul>
+				</section>
+			</div>
+		</section>
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

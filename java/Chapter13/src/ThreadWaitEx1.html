@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="../Thread_08.html">Thread</a>
+				</li>
+				<li>
+					<a class="active">Source code</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">ThreadWaitEx1</h1>
+				<p>
+					식당에서 음식(Dish)을 만들어서 테이블(Table)에 추가(add)하는 요리사(Cook)와 테이블의 음식을 소비(remove)하는 손님(Customer)을 스레드로 구현한 예제입니다.
+					<br/>실행결과는 예외가 발생할 수도 있고 발생하지 않을 수도 있습니다.
+					<br/>요리사 스레드가 테이블에 음식을 놓는 도중에, 손님 스레드가 음식을 가져가려고 했을 때 발생할 수 있는 예외(ConcurrentModificationException),
+					손님 스레드가 테이블의 마지막 남은 음식을 가져가는 도중에 다른 손님 스레드가 먼저 음식을 낚아채버려 있지 않은 음식을 테이블에서 제거하려 할 때 발생하는 예외(IndexOutOfBoundsException)가 있습니다.
+					<br/>이러한 예외가 발생할 수 있는 이유는 스레드가 테이블을 공유하는데 동기화를 하지 않았기 때문입니다.
+				</p>
+
+				<h4>ThreadWaitEx1.java</h4>
+				<pre><code>package chapter13;
+
+public class ThreadWaitEx1 {
+	public static void main(String[] args) throws Exception {
+		Table table = new Table(); // 여러 쓰레드가 공유하는 객체
+
+		new Thread(new Cook(table), "COOK1").start();
+		new Thread(new Customer(table, "donut"), "CUST1").start();
+		new Thread(new Customer(table, "burger"), "CUST2").start();
+
+		// 0.1초(100 밀리 세컨드) 후에 강제 종료시킨다.
+		Thread.sleep(100);
+		System.exit(0);
+	}
+}</code></pre>
+
+				<h4>Customer.java</h4>
+				<pre><code>package chapter13;
+
+public class Customer implements Runnable {
+	private Table table;
+	private String food;
+
+	Customer(Table table, String food) {
+		this.table = table;
+		this.food = food;
+	}
+
+	public void run() {
+		while (true) {
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+			}
+			String name = Thread.currentThread().getName();
+
+			if (eatFood()) {
+				System.out.println(name + " ate a " + food);
+			}
+			else {
+				System.out.println(name + " failed to eat. :(");
+			}
+		}
+	}
+
+	boolean eatFood() {
+		return table.remove(food);
+	}
+}</code></pre>
+
+				<h4>Cook.java</h4>
+				<pre><code>package chapter13;
+
+public class Cook implements Runnable {
+	private Table table;
+
+	Cook(Table table) {
+		this.table = table;
+	}
+
+	public void run() {
+		while (true) {
+			// 임의의 요리를 하나 선택해서 table에 추가한다.
+			int idx = (int) (Math.random() * table.dishNum());
+			table.add(table.dishNames[idx]);
+
+			try {
+				Thread.sleep(1);
+			} catch (InterruptedException e) {
+			}
+		}
+	}
+}</code></pre>
+
+				<h4>Table.java</h4>
+				<pre><code>package chapter13;
+
+import java.util.ArrayList;
+
+public class Table {
+	String[] dishNames = { "donut", "donut", "burger" }; // donut이 더 자주 나온다.
+	final int MAX_FOOD = 6; // 테이블에 놓을 수 있는 최대 음식의 개수
+
+	private ArrayList<String> dishes = new ArrayList&lt;&gt;();
+
+	public void add(String dish) {
+		// 테이블에 음식이 가득찼으면, 테이블에 음식을 추가하지 않는다.
+		if (dishes.size() >= MAX_FOOD) {
+			return;
+		}
+		dishes.add(dish);
+		System.out.println("Dishes:" + dishes.toString());
+	}
+
+	public boolean remove(String dishName) {
+		// 지정된 요리와 일치하는 요리를 테이블에서 제거한다.
+		for (int i = 0; i &lt; dishes.size(); i++)
+			if (dishName.equals(dishes.get(i))) {
+				dishes.remove(i);
+				return true;
+			}
+
+		return false;
+	}
+
+	public int dishNum() {
+		return dishNames.length;
+	}
+}</code></pre>
+
+				<h4>실행결과</h4>
+				<pre><code>Dishes:[burger]
+Dishes:[burger, burger]
+Dishes:[burger, burger, donut]
+Dishes:[burger, burger, donut, donut]
+Dishes:[burger, burger, donut, donut, donut]
+Dishes:[burger, burger, donut, donut, donut, donut]
+CUST1 ate a donut
+CUST2 ate a burger
+Dishes:[burger, donut, donut, donut, donut, donut]
+CUST1 ate a donut
+CUST2 ate a burger
+Exception in thread "COOK1" java.util.ConcurrentModificationException
+	at java.util.ArrayList$Itr.checkForComodification(Unknown Source)
+	at java.util.ArrayList$Itr.next(Unknown Source)
+	at java.util.AbstractCollection.toString(Unknown Source)
+	at chapter13.Table.add(Table.java:16)
+	at chapter13.Cook.run(Cook.java:14)
+	at java.lang.Thread.run(Unknown Source)
+CUST1 ate a donut
+CUST2 failed to eat. :(
+CUST1 ate a donut
+CUST2 failed to eat. :(
+CUST1 ate a donut
+CUST2 failed to eat. :(
+CUST1 ate a donut
+CUST2 failed to eat. :(
+CUST1 ate a donut
+CUST2 failed to eat. :(
+CUST1 failed to eat. :(
+CUST2 failed to eat. :(
+CUST2 failed to eat. :(
+CUST1 failed to eat. :(</code></pre>
+
+				<hr>
+
+				<ul class="actions fit">
+					<li></li>
+					<li></li>
+					<li>
+						<button class="button fit" id="btn-close" onclick="javascript:window.close();">Close</button>
+					</li>
+				</ul>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

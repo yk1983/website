@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="Exception.html">Exception</a>
+				</li>
+				<li>
+					<a class="active">예외처리</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">예외처리</h1>
+				<p>
+					<strong>예외처리 (exception handling)</strong>란? 프로그램 실행 시 발생할 수 있는 예기치 못한 예외의 발생에 대비한 코드를 작성하는 것이며, 예외처리의 목적은
+					<strong>예외의 발생으로 인한 실행 중인 프로그램의 갑작스런 비정상 종료를 막고 정상적인 실행상태를 유지할 수 있도록 하는 것</strong>입니다.
+				</p>
+
+				<section>
+					<h2>try-catch문</h2>
+					<p>
+						예외를 처리하기 위해서는
+						<strong>try-catch문</strong>을 사용하며, 구조는 다음과 같습니다.
+					</p>
+
+					<h4>try-catch Syntax</h4>
+					<pre><code>try {
+	// 예외가 발생할 가능성이 있는 문장들을 넣습니다.
+} catch (Exception1 e1) {
+	// Exception1이 발생했을 경우, 이를 처리하기 위한 문장;
+} catch (Exception2 e2) {
+	// Exception2가 발생했을 경우, 이를 처리하기 위한 문장;
+} catch (ExceptionN eN) {
+	// ExceptionN이 발생했을 경우, 이를 처리하기 위한 문장;
+}</code></pre>
+					<p>
+						<strong>하나의 try블럭</strong> 다음에는 여러 종류의 예외를 처리할 수 있도록
+						<strong>하나 이상의 catch블럭</strong>이 올 수 있으며, 이 중
+						<strong>발생한 예외의 종류와 일치하는 단 한 개의 catch블럭만 수행</strong>됩니다.
+						<br/>발생한 예외의 종류와 일치하는 catch블럭이 없으면 예외는 처리되지 않습니다.
+					</p>
+
+					<h4>Example sources</h4>
+					<ul class="icons source">
+						<li>
+							<a href="src/ExceptionEx1.html" target="_blank">
+								<i class="fas fa-file-code"></i> ExceptionEx1.java</a>
+						</li>
+						<li>
+							<a href="src/ExceptionEx2.html" target="_blank">
+								<i class="fas fa-file-code"></i> ExceptionEx2.java</a>
+						</li>
+					</ul>
+				</section>
+
+				<hr/>
+
+				<section>
+					<h2>try-catch문에서의 흐름</h2>
+
+					<h4>try블럭 내에서 예외가 발생하지 않은 경우</h4>
+					<ol>
+						<li>catch블럭을 거치지 않고 전체 try-catch문을 빠져나가서 그 다음 문장을 계속해서 수행합니다.</li>
+					</ol>
+
+					<h4>try블럭 내에서 예외가 발생한 경우</h4>
+					<ol>
+						<li>발생한 예외와 일치하는 catch블럭이 있는지 확인합니다.</li>
+						<li>
+							일치하는 catch블럭을 찾게 되면, 그 catch블럭 내의 문장들을 수행하고 전체 try-catch문을 빠져나가서 그 다음 문장을 계속해서 수행합니다.
+							<br/>만일 일치하는 catch블럭을 찾지 못하면, 예외는 처리되지 못합니다.
+						</li>
+					</ol>
+
+					<h4>Example sources</h4>
+					<ul class="icons source">
+						<li>
+							<a href="src/ExceptionEx3.html" target="_blank">
+								<i class="fas fa-file-code"></i> ExceptionEx3.java</a>
+						</li>
+						<li>
+							<a href="src/ExceptionEx4.html" target="_blank">
+								<i class="fas fa-file-code"></i> ExceptionEx4.java</a>
+						</li>
+					</ul>
+				</section>
+
+				<hr/>
+
+				<section>
+					<h2>예외의 발생과 catch블럭</h2>
+					<p>
+						catch블럭은 괄호()와 블럭{} 두 부분으로 나눠져 있는데, 괄호()내에는 처리하고자 하는 예외와 같은 타입의 참조변수 하나를 선언해야합니다. 예외가 발생하면, 발생한 예외에 해당하는 클래스의 인스턴스가 만들어집니다.
+						모든 예외 클래스의 조상인 Exception 클래스를 선언해 놓으면 어떤 예외가 발생하더라도 catch블럭에 의해서 처리됩니다.
+					</p>
+
+					<h4>Example sources</h4>
+					<ul class="icons source">
+						<li>
+							<a href="src/ExceptionEx5.html" target="_blank">
+								<i class="fas fa-file-code"></i> ExceptionEx5.java</a>
+						</li>
+						<li>
+							<a href="src/ExceptionEx6.html" target="_blank">
+								<i class="fas fa-file-code"></i> ExceptionEx6.java</a>
+						</li>
+					</ul>
+
+					<p>
+						예외가 발생하였을 때 생성되는 예외 클래스의 인스턴스에는
+						<strong>발생한 예외에 대한 정보</strong>가 담겨져 있으며,
+						<strong>getMessage()와 printStackTrace()</strong>를 통해서 이 정보들을 얻을 수 있습니다.
+					</p>
+					<ul>
+						<li>
+							<strong>printStackTrace()</strong> : 예외발생 당시의 호출스택(Call Stack)에 있었던 메소드의 정보와 예외 메시지를 화면에 출력합니다.</li>
+						<li>
+							<strong>getMessage()</strong> : 발생한 예외클래스의 인스턴스에 저장된 메시지를 얻을 수 있습니다.</li>
+					</ul>
+					<p>
+						JDK 1.7부터 여러 catch블럭을
+						<strong>'|' 기호를 이용하여 하나의 catch블럭</strong>으로 합칠 수 있게 되었으며, 이를
+						<strong>멀티 catch블럭</strong>이라 합니다. 멀티 catch블럭을 이용하면 연결할 수 있는 예외 클래스의 개수에 제한이 없기 때문에 중복된 코드를 줄일 수 있지만
+						<strong>연결된 클래스가 부모와 자식간의 관계에 있다면 컴파일 에러가 발생</strong>합니다.
+					</p>
+				</section>
+
+				<hr/>
+
+				<section>
+					<h2>finally블럭</h2>
+					<p>
+						<strong>finally블럭</strong>은 try-catch문과 함께 <strong>예외의 발생여부에 상관없이 실행</strong>되어야할 코드를 포함시킬 목적으로 사용됩니다.
+						<br/>try-catch문의 끝에 선택적으로 덧붙여 사용할 수 있으며, <strong>try-catch-finally의 순서로 구성</strong>됩니다. 
+						예외가 발생한 경우에는 "try → catch → finally" 순으로 실행하고, 예외가 발생하지 않은 경우에는 "try → finally"의 순으로 실행합니다. 
+						<br/>try블럭에서 return문이 실행되는 경우에도 finally블럭의 문장들이 먼저 실행된 후에 현재 실행 중인 메소드를 종료합니다. 이와 마찬가지로 catch블럭의 문장 수행 중에 return문을 만나도 finally블럭의 문장들은 수행됩니다.
+					</p>
+					<pre><code>try {
+	// 예외가 발생할 가능성이 있는 문장들;						
+} catch (Exception1 e1) {
+	// 예외처리를 위한 문장;
+} finally {
+	// 예외의 발생여부에 관계없이 항상 수행되어야하는 문장들;
+	// finally블럭은 try-catch문의 맨 마지막에 위치해야 합니다.
+}</code></pre>
+
+					<h4>Example sources</h4>
+					<ul class="icons source">
+						<li>
+							<a href="src/ExceptionEx7.html" target="_blank">
+								<i class="fas fa-file-code"></i> ExceptionEx7.java</a>
+						</li>
+						<li>
+							<a href="src/ExceptionEx8.html" target="_blank">
+								<i class="fas fa-file-code"></i> ExceptionEx8.java</a>
+						</li>
+					</ul>
+				</section>
+
+				<hr/>
+
+				<section>
+					<ul class="actions fit">
+						<li>
+							<a href="Exception_01.html" class="button fit">프로그램 오류</a>
+						</li>
+						<li></li>
+						<li>
+							<a href="Exception_03.html" class="button fit">예외발생과 회피</a>
+						</li>
+					</ul>
+				</section>
+			</div>
+		</section>
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

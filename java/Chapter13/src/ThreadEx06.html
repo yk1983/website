@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="../Thread_07.html">Thread</a>
+				</li>
+				<li>
+					<a class="active">Source code</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">ThreadEx06</h1>
+				<p>
+					suspend()와 resume(),stop()의 사용법을 보여주는 예제입니다. sleep(2000)은 스레드를 2초간 멈추게 하지만, 2초 후에 실행상태가 아닌 실행대기상태가 됩니다.
+				</p>
+
+				<h4>ThreadEx06.java</h4>
+				<pre><code>package chapter13;
+
+public class ThreadEx06 {
+	public static void main(String[] args) throws Exception {
+		RunImplEx06 r = new RunImplEx06();
+		Thread th1 = new Thread(r, "*");
+		Thread th2 = new Thread(r, "**");
+		Thread th3 = new Thread(r, "***");
+
+		th1.start();
+		th2.start();
+		th3.start();
+
+		try {
+			Thread.sleep(2000);
+			th1.<del>suspend</del>(); // 쓰레드 th1을 잠시 중단시킨다.
+			Thread.sleep(2000);
+			th2.<del>suspend</del>();
+			Thread.sleep(3000);
+			th1.<del>resume</del>(); // 쓰레드 th1이 다시 동작하도록 한다.
+			Thread.sleep(3000);
+			th1.<del>stop</del>(); // 쓰레드 th1을 강제종료시킨다.
+			th2.<del>stop</del>();
+			Thread.sleep(2000);
+			th3.<del>stop</del>();
+		} catch (InterruptedException e) {
+		}
+	}
+}</code></pre>
+
+				<h4>RunImplEx06.java</h4>
+				<pre><code>package chapter13;
+
+public class RunImplEx06 implements Runnable {
+	public void run() {
+		while (true) {
+			System.out.println(Thread.currentThread().getName());
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+			}
+		}
+	}
+}</code></pre>
+
+				<h4>실행결과</h4>
+				<pre><code>*
+***
+**
+**
+*
+***
+*
+***
+*
+***
+***
+*
+***
+***</code></pre>
+
+				<hr>
+
+				<ul class="actions fit">
+					<li></li>
+					<li></li>
+					<li>
+						<button class="button fit" id="btn-close" onclick="javascript:window.close();">Close</button>
+					</li>
+				</ul>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

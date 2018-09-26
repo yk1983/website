@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="../Collection_05.html">HashMap</a>
+				</li>
+				<li>
+					<a class="active">Source code</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">HashMapEx4.java</h1>
+				<p>
+					HashMap과 같이 해싱을 구현한 컬렉션 클래스들은 저장순서를 유지하지 않는다는 사실을 증명한 예제입니다.
+				</p>
+				<h4>소스코드</h4>
+				<pre><code>package kinco.java.std;
+
+import java.util.*;
+
+public class HashMapEx4 {
+	public static void main(String[] args) {
+		String[] data = { "A", "K", "A", "K", "D", "K", "A", "K", "K", "K", "Z", "D" };
+
+		HashMap&lt;String, Integer&gt; map = new HashMap&lt;String, Integer&gt;();
+
+		for (int i = 0; i &lt; data.length; i++) {
+			if (map.containsKey(data[i])) {
+				Integer value = (Integer) map.get(data[i]);
+				map.put(data[i], new Integer(value.intValue() + 1));
+			} else {
+				map.put(data[i], new Integer(1));
+			}
+		}
+
+		Iterator&lt;?&gt; it = map.entrySet().iterator();
+
+		while (it.hasNext()) {
+			@SuppressWarnings("rawtypes")
+			Map.Entry entry = (Map.Entry) it.next();
+			int value = ((Integer) entry.getValue()).intValue();
+			System.out.println(entry.getKey() + " : " + printBar('#', value) + " " + value);
+		}
+	}
+
+	public static String printBar(char ch, int value) {
+		char[] bar = new char[value];
+
+		for (int i = 0; i &lt; bar.length; i++) {
+			bar[i] = ch;
+		}
+
+		return new String(bar);
+	}
+}</code></pre>
+
+				<h4>실행결과</h4>
+				<pre><code>A : ### 3
+D : ## 2
+Z : # 1
+K : ###### 6</code></pre>
+
+				<hr>
+
+				<ul class="actions fit">
+					<li></li>
+					<li></li>
+					<li>
+						<button class="button fit" id="btn-close" onclick="javascript:window.close();">Close</button>
+					</li>
+				</ul>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

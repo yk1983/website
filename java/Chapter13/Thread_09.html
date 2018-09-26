@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="index.html">Thread</a>
+				</li>
+				<li>
+					<a class="active">volatile</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">volatile</h1>
+				<p>
+					코어는 메모리에서 읽어온 값을 캐시에 저장하고 캐시에서 값을 읽어서 작업합니다. 다시 같은 값을 읽어올 때는 먼저 캐시에 있는지 확인하고 없을 때만 메모리에서 읽어옵니다.
+					<br/>그러다보니 도중에 메모리에 저장된 변수의 값이 변경되었는데도 캐시에 저장된 값이 갱신되지 않아서 메모리에 저장된 값이 다른 경우가 발생합니다.
+					그래서 변수 stropped의 값이 바뀌었는데도 스레드가 멈추지 않고 계속 실행되는 것입니다.
+				</p>
+
+				<div class="row">
+					<div class="6u 12u$(medium)">
+						<pre><code>boolean suspended = false;
+boolean stopped = false;</code></pre>
+					</div>
+					<div class="6u 12u$(medium)">
+						<pre><code><strong>volatile</strong> boolean suspended = false;
+<strong>volatile</strong> boolean stopped = false;</code></pre>
+					</div>
+				</div>
+
+				<p>
+					변수 앞에 <code>volatile</code>을 붙이면, 코어가 변수의 값을 읽어올 때 캐시가 아닌 메모리에서 읽어오기 때문에 캐시와 메모리간의 값의 불일치가 해결됩니다.
+					<br/>변수에 volatile을 붙이는 대신에 synchronized블럭을 사용해도 같은 효과를 얻을 수 있습니다. 
+				</p>
+
+				<div class="row">
+					<div class="6u 12u$(medium)">
+						<pre><code>public void stop() {
+	stopped = true;	
+}</code></pre>
+					</div>
+					<div class="6u 12u$(medium)">
+						<pre><code>public <strong>synchronized</strong> void stop() {
+	stopped = true;
+}</code></pre>
+					</div>
+				</div>
+
+				<hr>
+
+				<section>
+					<h2>volatile로 long과 double을 원자화</h2>
+					<p>
+						JVM은 데이터를 4byte(32bit)단위로 처리하기 때문에, int와 int보다 작은 타입들은 한 번에 읽거나 쓰는 것이 가능합니다. 즉, 단 하나의 명령어로 읽거나 쓰기가 가능하다는 것입니다.
+						하나의 명령어는 더 이상 나눌 수 없는 최소의 작업단위가 되므로, 작업의 중간에 다른 스레드가 끼어들 틈이 없습니다.
+						<br/>그러나 크기가 8byte인 long와 double타입의 변수는 하나의 명령어로 값을 읽거나 쓸 수 없기 때문에, 변수의 값을 읽는 과정에 다른 스레드가 끼어들 여지가 있습니다.
+						이 때 변수를 선언 할 때 volatile을 붙이는 것입니다.
+						<br/><sup>*  상수에는 volatile을 붙일 수 없습니다. 즉, 변수에 final과 volatile을 같이 붙일 수 없습니다. 상수는 변하지 않는 값이므로 멀티스레드에 안전하기 때문에 volatile를 붙일 필요가 없는 것입니다.</sup>
+						<br/>volatile은 변수의 읽거나 쓰기를 원자화 할 뿐, 동기화하는 것은 아니라는 점에 주의하여야 합니다. 동기화가 필요할 때 synchronized블럭 대신 volatile를 사용할 수 없습니다.
+					</p>
+				</section>
+
+				<hr>
+
+				<section>
+					<ul class="actions fit">
+						<li>
+							<a href="Thread_08.html" class="button fit">동기화</a>
+						</li>
+						<li></li>
+						<li>
+							<a href="Thread_10.html" class="button fit">fork&amp;join</a>
+						</li>
+					</ul>
+				</section>
+			</div>
+		</section>
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

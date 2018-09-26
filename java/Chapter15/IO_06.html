@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="IO_03.html">I/O</a>
+				</li>
+				<li>
+					<a class="active">직렬화</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">직렬화 (Serialization)</h1>
+				<p>
+					<strong>직렬화(serialization)</strong>란
+					<strong>객체를 데이터 스트림으로 만드는 것</strong>을 말합니다. 다시 말해서 객체에 저장된 데이터를 스트림에 쓰기(write)위해 연속적인(serial) 데이터로 변환하는 것을 말합니다. 반대로
+					<strong>스트림으로부터 데이터를 읽어서 객체를 만드는 것</strong>을
+					<strong>역직렬화(deserialization)</strong>라고 합니다.
+					<br/>이러한 직렬화는 객체들을 통째로 파일로 저장하거나 전송하고 싶을 때 사용됩니다.
+				</p>
+
+				<section>
+					<span class="image">
+						<img src="images/img_serialization.png" width="100%" alt="직렬화(serialization)" />
+					</span>
+					<p>
+						<sub>* 객체에 대해서 다시 한번 정리해보세요.</sub>
+					</p>
+				</section>
+
+				<hr/>
+
+				<section>
+					<h2>ObjectInputStream, ObjectOutputStream</h2>
+					<p>
+						직렬화(스트림에 객체를 출력)에는 ObjectInputStream을 사용하고 역직렬화(스트림으로부터 객체를 입력)에는 ObjectOutputStream을 사용합니다. ObjectInputStream과 ObjectOutputStream은
+						각각 InputStream과 OutputStream을 직접 상속받지만 기반스트림을 필요로 하는 보조스트림입니다. 그래서 객체를 생성할 때 입출력(직렬화/역직렬화)할 스트림을 지정해주어야 합니다.
+					</p>
+					<pre><code>ObjectInputStream(InputStream in)
+ObjectOutputStream(OutputStream out)</code></pre>
+
+					<h4>파일에 객체를 저장(직렬화)</h4>
+					<pre><code>FileOutputStream fos = new FileOutputStream("objectfile.ser");
+ObjectOutputStream out = new ObjectOutputStream(fos);
+out.writeObject(new UserInfo());</code></pre>
+					<p>
+						<code>objectfile.ser</code>파일에 UserInfo객체를 직렬화하여 저장합니다. 출력스트림을 생성해서 이를 기반스트림으로 하는
+						<code>ObjectOutputStream</code>를 생성합니다.
+						<br/>ObjectOutputStream의
+						<code>writeObject(Object obj)</code>를 사용해서 객체를 출력하면, 객체가 파일에 직렬화되어 저장됩니다.
+						<br/>
+						<br/> 반대로 역직렬화 방법 역시 간단합니다. 직렬화할 때와는 달리 입력스트림을 사용하고 writeObject(Object obj)대신
+						<code>readObject()</code>를 사용하여 저장된 데이터를 읽기만 하면 객체로 역직렬화가 됩니다. 다만 readObject()의 반환타입이
+						<code>Object</code>이기 때문에 객체 원래의 타입으로 형변환 해주어야 합니다.
+					</p>
+
+					<h4>파일을 읽어 객체를 만듬(역직렬화)</h4>
+					<pre><code>FileInputStream fis = new FileInputStream("objectfile.ser");
+ObjectInputStream in = new ObjectInputStream(fis);
+UserInfo = (UserInfo) in.readObject();</code></pre>
+
+					<h4>ObjectInputStream의 메서드</h4>
+					<table>
+						<tbody>
+							<tr>
+								<td>
+									<strong>
+										<em>void defaultReadObject()</em>
+									</strong>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>int read() | int read(byte[] buf, int off, int len) | boolean readBoolean() | byte readByte() | char readChar()
+											| double readDouble() | float readFloat() | int readInt() | long readLong() | short readShort() | Object readObject()
+											| int readUnsignedByte() | int readUnsignedShort() | Object readUnsogned() | String readUTF()</em>
+									</strong>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<h4>ObjectOutputStream의 메서드</h4>
+					<table>
+						<tbody>
+							<tr>
+								<td>
+									<strong>
+										<em>void defaultWriteObject()</em>
+									</strong>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>void write(byte[] buf) | void write(byte[] buf, int off, int len) | void write(int val) | void writeBoolean(boolean
+											val) | void writeByte(int val) | void writeBytes(String str) | void writeChar(int val) | void writeChars(String
+											str) | void writeDouble(double val) | void writeFloat(float val) | void writeInt(int val) | void writeLong(long
+											val) | void writeShort(int val) | void writeObject(Object obj) | void writeUnshared(Object obj) | void writeUTF(String
+											str)
+										</em>
+									</strong>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<p>
+						<code>defaultReadObject()</code>와
+						<code>defaultWriteObject()</code>는 자동 직렬화를 수행합니다.
+						<br/>객체를 직렬화/역직렬화하는 작업은 객체의 모든 인스턴스변수가 참조ㄱ하고 있는 모든 객체에 대한 것이기 때문에 상당히 복잡하고 시간도 오래 걸립니다.
+						<code>readObject()</code>와
+						<code>writeObject()</code>를 사용한 자동 직렬화가 편리하기는 하지만 직렬화작업시간을 단축시키기 위해서는 직렬화하고자 하는 객체의 클래스에 추가적으로 다음과 같은 2개의 메서드를 직접 구현해야 합니다.
+					</p>
+					<pre><code>private void writeObject(ObjectOutputStream out) throws IOException {
+	// write 메서드를 사용해서 직렬화를 수행
+}
+
+private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+	// read 메서드를 사용해서 역직렬화를 수행
+}</code></pre>
+				</section>
+
+				<hr/>
+
+				<section>
+					<h2>직렬화가 가능한 클래스 만들기<br/>Serializable, transient</h2>
+					<p>
+						직렬화가 가능한 클래스를 만드는 방법은 간단합니다. 직렬화하고자 하는 클래스가 <code>java.io.Serializable</code>인터페이스를 구현하도록 하면 됩니다.
+						Serializable 인터페이스는 아무런 내용도 없는 빈 인터페이스지만, 직렬화를 고려하여 작성한 클래스인지를 판단하는 기준이 됩니다.
+					</p>
+					<div class="row">
+						<div class="6u 12u$(medium)">
+							<h4>Person클래스</h4>
+							<pre><code>public class Person {
+	private String tel;
+	private String name;
+	private String address;
+}</code></pre>
+						</div>
+						<div class="6u 12u$(medium)">
+							<h4>Person클래스 직렬화</h4>
+							<pre><code>public class Person implements java.io.Serializable {
+	private String tel;
+	private String name;
+	private String address;
+}</code></pre>
+						</div>
+					</div>
+					<p>
+						Serializable을 구현한 클래스를 상속받는다면, Serializable을 구현하지 않아도 됩니다. 
+						Student클래스는 Serializable를 구현하지 않았지만 조상인 Person클래스에서 구현하였으므로 Student역시 직렬화가 가능합니다.
+						<br/>Student객체를 직렬화하면 조상인 Person에 정의된 인스턴스 변수 <code>tel</code>, <code>name</code>, <code>address</code>도 함쎄 직렬화됩니다.
+						<br/>그러나 조상클래스가 Serializable을 구현하지 않았다면 자손클래스를 직렬화할 때 조상클래스에 정의된 인스턴스 변수는 직렬화 대상에서 제외됩니다.
+					</p>
+					<pre><code>public class Person implements Serializable {
+	private String tel;
+	private String name;
+	private String address;
+}</code></pre>
+
+					<pre><code>public class Student extends Person {
+	private int studentNo;
+}</code></pre>
+					<p>
+						조상클래스에 정의된 인스턴스변수를 직렬화 대상에 포함시키기 위해서는 조상클래스가 Serializable을 구현하도록 하던가 자손클래스에서 조상의 인스턴스변수들이 직렬화되도록 처리하는 코드를 직접 추가해주어야 합니다.
+						따라서 아래의 코드는 <code>java.io.NotSerializableException</code>이 발생합니다. 인스턴스의 타입이 직렬화가 안되는 Object이지만 실제로 저장된 객체는 직렬화가 가능한 String인스턴스이므로 직렬화가 가능합니다.
+						<br/><sub>* 인스턴스변수의 타입이 아닌 실제로 연결된 객체의 종류에 의해 결정된다는 점을 기억하세요.</sub>
+					</p>
+
+					<h4>java.io.NotSerializableException 발생</h4>
+					<pre><code>public class Student implements Serializable {
+	private int studentNo;
+	private Object obj1 = new String("abc");  // 직렬화
+	private Object obj2 = new Object();  // Error
+}</code></pre>
+					<p>
+						직렬화하고자 하는 객체의 클래스에 직렬화가 안 되는 객체에 대한 참조를 포함하고 있다면, 제어자 <code>transient</code>를 붙여서 직렬화 대상에서 제외되도록 할 수 있습니다.
+						또한 password와 같이 보안상 직렬화되면 안 되는 값에 대해서 사용할 수 있습니다. transient가 붙은 인스턴스변수의 값은 그 타입의 기본값으로 직렬화 됩니다.
+					</p>
+					<pre><code>public class Student implements Serializable {
+	private String name;
+	transient String password;	// 직렬화 대상에서 제외
+	transient Object obj = new Object; // 직렬화 대상에서 제외
+}</code></pre>
+					<p>
+						이 객체를 역직렬화하면 참조변수인 obj와 password의 값은 null이 됩니다.
+					</p>
+
+					<ul class="icons source">
+						<li>
+							<a href="src/IOSerialEx1.html" target="_blank">
+								<i class="fas fa-file-code"></i> SerialEx1.java</a>
+						</li>
+						<li>
+							<a href="src/IOSerialEx2.html" target="_blank">
+								<i class="fas fa-file-code"></i> SerialEx2.java</a>
+						</li>
+					</ul>
+				</section>
+
+				<hr/>
+
+				<section>
+					<h2>직렬화가능한 클래스의 버전관리</h2>
+					<p>
+						직렬화된 객체를 역직렬화할 때는 직렬화 했을 때와 같은 클래스를 사용해야합니다. 그러나 클래스의 이름이 같더라도 클래스의 내용이 변경된 경우 역직렬화는 실패하고 다음과 같은 예외가 발생됩니다.
+						<br/>버전을 수동으로 관리해주기 위해서는 <code>serialVersionUID</code>를 추가로 정의해야 합니다.
+					</p>
+
+					<h4>버전이 다름 예외 발생</h4>
+					<pre><code>java.io.InvalidClassExceptionL UserInfo; local class incompatible:
+stream classdesc serialVersionUID = 6953673583338942489, local cla
+ss serialVersionUID = -6256164443556992367
+...</code></pre>
+				</section>
+
+				<hr/>
+
+				<section>
+					<ul class="actions fit">
+						<li>
+							<a href="IO_05.html" class="button fit">File</a>
+						</li>
+						<li></li>
+						<li></li>
+					</ul>
+				</section>
+			</div>
+		</section>
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

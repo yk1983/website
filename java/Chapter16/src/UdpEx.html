@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="../Networking_05.html">Networking</a>
+				</li>
+				<li>
+					<a class="active">Source code</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">UdpEx</h1>
+				<p>
+					서버로부터 서버시간을 전송받아 출력하는 간단한 UDP 소켓 클라이언트와 서버 프로그램입니다.
+				</p>
+
+				<h4>UdpServer.java</h4>
+				<pre><code>package chapter16;
+
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class UdpServer {
+	public void start() throws IOException {
+		// 포트 7777번을 사용하는 소켓을 생성한다.
+		DatagramSocket socket = new DatagramSocket(7777);
+		DatagramPacket inPacket, outPacket;
+
+		byte[] inMsg = new byte[10];
+		byte[] outMsg;
+
+		while (true) {
+			// 데이터를 수신하기 위한 패킷을 생성한다.
+			inPacket = new DatagramPacket(inMsg, inMsg.length);
+
+			// 패킷을 통해 데이터를 수신(receive)한다.
+			socket.receive(inPacket);
+
+			// 수신한 패킷으로 부터 client의 IP주소와 Port를 얻는다.
+			InetAddress address = inPacket.getAddress();
+			int port = inPacket.getPort();
+
+			// 서버의 현재 시간을 시분초 형태([hh:mm:ss])로 반환한다.
+			SimpleDateFormat sdf = new SimpleDateFormat("[hh:mm:ss]");
+			String time = sdf.format(new Date());
+			outMsg = time.getBytes(); // time을 byte배열로 변환한다.
+
+			// 패킷을 생성해서 client에게 전송(send)한다.
+			outPacket = new DatagramPacket(outMsg, outMsg.length, address, port);
+			socket.send(outPacket);
+		}
+	}
+
+	public static void main(String args[]) {
+		try {
+			new UdpServer().start(); // UDP서버를 실행시킨다.
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+}</code></pre>
+
+				<h4>UdpClient.java</h4>
+				<pre><code>package chapter16;
+
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
+public class UdpClient {
+	public void start() throws IOException, UnknownHostException {
+		DatagramSocket datagramSocket = new DatagramSocket();
+		InetAddress serverAddress = InetAddress.getByName("127.0.0.1");
+
+		// 데이터가 저장될 공간으로 byte배열을 생성한다.
+		byte[] msg = new byte[100];
+
+		DatagramPacket outPacket = new DatagramPacket(msg, 1, serverAddress, 7777);
+		DatagramPacket inPacket = new DatagramPacket(msg, msg.length);
+
+		datagramSocket.send(outPacket); // DatagramPacket을 전송한다.
+		datagramSocket.receive(inPacket); // DatagramPacket을 수신한다.
+
+		System.out.println("current server time :" + new String(inPacket.getData()));
+
+		datagramSocket.close();
+	}
+
+	public static void main(String args[]) {
+		try {
+			new UdpClient().start();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}</code></pre>
+
+				<h4>실행결과</h4>
+				<pre><code>current server time :[09:28:00]</code></pre>
+
+				<hr>
+
+				<ul class="actions fit">
+					<li></li>
+					<li></li>
+					<li><button class="button fit" id="btn-close" onclick="javascript:window.close();">Close</button></li>
+				</ul>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

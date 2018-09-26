@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="../Generics.html">Annotation</a>
+				</li>
+				<li>
+					<a class="active">Source code</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">AnnotationEx.java</h1>
+
+				<h4>TestType.java</h4>
+				<pre><code>package chapter12;
+
+public enum TestType {
+	FIRST, FINAL
+}</code></pre>
+
+				<p>
+					애너테이션의 요소 5개를 갖는 <code>TestInfo.java</code>정의
+				</p>
+				<h4>TestInfo.java</h4>
+				<pre><code>package chapter12;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
+@Retention(RetentionPolicy.RUNTIME)
+public @interface TestInfo {
+	int count() default 1;
+	String testedBy();
+	String[] testTools() default "JUnit";
+	TestType testType() default TestType.FIRST;
+	DateTime testDate();
+}</code></pre>
+
+				<h4>DateTime.java</h4>
+				<pre><code>package chapter12;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
+@Retention(RetentionPolicy.RUNTIME)
+public @interface DateTime {
+	String yymmdd();
+	String hhmmss();
+}</code></pre>
+
+				<h4>AnnotationEx.java</h4>
+				<pre><code>package chapter12;
+
+import java.lang.annotation.Annotation;
+
+@Deprecated
+@SuppressWarnings("1111")  // 유효하지 않은 애너테이션은 무시
+@TestInfo(testedBy="aaa", testDate=@DateTime(yymmdd="160101", hhmmss="235959"))
+public class AnnotationEx {
+	public static void main(String[] args) {
+		// AnnotationEx의 class객체를 얻음
+		Class&lt;AnnotationEx&gt; cls = AnnotationEx.class;
+
+		TestInfo anno = (TestInfo)cls.getAnnotation(TestInfo.class);
+		System.out.println("anno.testedBy() = " + anno.testedBy());
+		System.out.println("anno.testDate().yymmdd() = " + anno.testDate().yymmdd());
+		System.out.println("anno.testDate().hhmmss() = " + anno.testDate().hhmmss());
+
+		for (String str : anno.testTools()) {
+			System.out.println("testTools = " + str);
+		}
+
+		System.out.println();
+
+		// AnnotationEx에 적용된 모든 애너테이션을 가져옴
+		Annotation[] annoArr = cls.getAnnotations();
+
+		for (Annotation a : annoArr) {
+			System.out.println(a);
+		}
+	}
+}</code></pre>
+
+				<h4>실행결과</h4>
+				<pre><code>anno.testedBy() = aaa
+anno.testDate().yymmdd() = 160101
+anno.testDate().hhmmss() = 235959
+testTools = JUnit
+
+@java.lang.Deprecated()
+@chapter12.TestInfo(count=1, testType=FIRST, testTools=[JUnit], testedBy=aaa,
+testDate=@chapter12.DateTime(yymmdd=160101, hhmmss=235959))</code></pre>
+
+				<hr/>
+
+				<ul class="actions fit">
+					<li></li>
+					<li></li>
+					<li><button class="button fit" id="btn-close" onclick="javascript:window.close();">Close</button></li>
+				</ul>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="../Exception_05.html">Exception</a>
+				</li>
+				<li>
+					<a class="active">Source code</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">TryWithResourceEx.java</h1>
+				<p>
+					<code>try-with-resources문</code>에 의해 자동으로 객체의 close()가 호출될 수 있으려면, 클래스가 <code>AutoCloseable 인터페이스</code>를 구현해야 합니다.
+					<br/>다음은 자동 호출된 close()에서 예외가 발생한 예제입니다.
+				</p>
+
+				<h4>TryWithResourceEx.java</h4>
+				<pre><code>package kinco.java.std;
+
+public class TryWithResourceEx {
+	public static void main(String[] args) {
+		try (CloseableResource cr = new CloseableResource()) {
+			cr.exceptionWork(false); // 예외가 발생하지 않는다.
+		} catch (WorkException e) {
+			e.printStackTrace();
+		} catch (CloseException e) {
+			e.printStackTrace();
+		}
+		System.out.println();
+
+		try (CloseableResource cr = new CloseableResource()) {
+			cr.exceptionWork(true); // 예외가 발생한다.
+		} catch (WorkException e) {
+			e.printStackTrace();
+		} catch (CloseException e) {
+			e.printStackTrace();
+		}
+	}
+}</code></pre>
+
+				<h4>CloseableResource.java</h4>
+				<pre><code>package kinco.java.std;
+
+class CloseableResource implements AutoCloseable {
+	public void exceptionWork(boolean exception) throws WorkException {
+		System.out.println("exceptionWork("+exception+")가 호출됨");
+		if(exception) {
+			throw new WorkException("WorkException발생!!!");
+		}
+	}
+
+	public void close() throws CloseException {
+		System.out.println("close()가 호출됨");
+		throw new CloseException("CloseException발생!!!");
+	}
+}</code></pre>
+
+				<h4>WorkException.java</h4>
+				<pre><code>package kinco.java.std;
+
+public class WorkException extends Exception {
+	public WorkException(String msg) {
+		super(msg);
+	}
+}</code></pre>
+
+				<h4>CloseException.java</h4>
+				<pre><code>package kinco.java.std;
+
+public class CloseException extends Exception {
+	public CloseException(String msg) {
+		super(msg);
+	}
+}</code></pre>
+
+				<h4>실행결과</h4>
+				<pre><code>exceptionWork(false)가 호출됨
+close()가 호출됨
+kinco.java.std.CloseException: CloseException발생!!!
+
+exceptionWork(true)가 호출됨
+close()가 호출됨
+	at kinco.java.std.CloseableResource.close(CloseableResource.java:13)
+	at kinco.java.std.TryWithResourceEx.main(TryWithResourceEx.java:7)
+kinco.java.std.WorkException: WorkException발생!!!
+	at kinco.java.std.CloseableResource.exceptionWork(CloseableResource.java:7)
+	at kinco.java.std.TryWithResourceEx.main(TryWithResourceEx.java:15)
+	Suppressed: kinco.java.std.CloseException: CloseException발생!!!
+		at kinco.java.std.CloseableResource.close(CloseableResource.java:13)
+		at kinco.java.std.TryWithResourceEx.main(TryWithResourceEx.java:16)</code></pre>
+				
+				<hr>
+
+				<ul class="actions fit">
+					<li></li>
+					<li></li>
+					<li><button class="button fit" id="btn-close" onclick="javascript:window.close();">Close</button></li>
+				</ul>
+			</div>
+		</section>
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+</body>
+
+</html>

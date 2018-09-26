@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="Collection.html">Collection</a>
+				</li>
+				<li>
+					<a class="active">Iterator &amp; ListIterator</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">Iterator &amp; ListIterator</h1>
+
+				<!-- Text -->
+				<section>
+					<h2>Iterator</h2>
+					<p>
+						컬렉션 프레임워크에서는
+						<strong>컬렉션에 저장된 요소들을 읽어오는 방법을 Iterator 인터페이스로 표준화</strong>하고 있습니다. 컬렉션에 저장된 각 요소에 접근하는 기능을 가진 Iterator 인터페이스를 정의하고, Collection
+						인터페이스에는 Iterator(Iterator를 구현한 클래스의 인터페이스)를 반환하는 Iterator()를 정의하고 있습니다.
+						<br/>iterator()는 Collection인터페이스에 정의된 메서드이므로 Collection인터페이스의 자손인 List와 Set에도 포함되어 있습니다. 따라서
+						<strong>List나 Set인터페이스를 구현하는 컬렉션은 iterator()가 각 컬렌션의 특징에 맞게 작성되어 있어 Collection 인터페이스를 상속받는 List와 Set 인터페이스에서도 iterator() 메소드를
+							사용
+						</strong>할 수 있습니다.
+					</p>
+
+					<h4>Iterator 인터페이스의 메서드</h4>
+					<table>
+						<tbody>
+							<tr>
+								<td>
+									<strong>
+										<em>boolean hasNext()</em>
+									</strong>
+									<br/> : 읽어 올 요소가 남아있는지 확인합니다. 있으면 true, 없으면 false를 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>Object next()</em>
+									</strong>
+									<br/> : 다음 요소를 읽어옵니다. next()를 호출하기 전에 hasNext()를 호출해서 읽어 올 요소가 있는지 확인하는 것이 안전합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>void remove()</em>
+									</strong>
+									<br/> : next()로 읽어 온 요소를 삭제합니다. next()를 호출한 다음에 remove()를 호출해야합니다.(선택적 기능)</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<h4>IteratorEx1.java</h4>
+					<pre><code>package kinco.java.std;
+
+import java.util.*;
+
+public class IteratorEx1 {
+	public static void main(String[] args) {
+		// ArrayList 객체를 생성
+		ArrayList&lt;String&gt; list = new ArrayList&lt;String&gt;();
+		// ArrayList에 값을 저장
+		list.add("1");
+		list.add("2");
+		list.add("3");
+		list.add("4");
+		list.add("5");
+
+		// Iterator 객체를 생성
+		Iterator&lt;String&gt; it = list.iterator();
+		// 다음 요소가 있는지 확인
+		while (it.hasNext()) {
+			// 다음 요소를 출력
+			Object obj = it.next();
+			System.out.println(obj);
+		}
+	}
+}</code></pre>
+
+					<h4>Console</h4>
+					<pre><code>1
+2
+3
+4
+5</code></pre>
+
+					<hr/>
+
+					<h2>Enumeration</h2>
+					<p>
+						Enumeration 인터페이스는 JDK 1.0부터 사용해 온 Iterator 인터페이스와 같은 동작을 하는 인터페이스입니다. Enumeration 인터페이스는 hasMoreElements()와 nextElement()
+						메소드를 사용하여 Iterator와 같은 작업을 수행합니다. 하지만
+						<strong>현재에는 기존 코드와의 호환성</strong>을 위해서만 남아있으므로,
+						<strong>Enumeration 인터페이스보다는 Iterator 인터페이스를 사용</strong>하는 것이 좋습니다.
+					</p>
+					<ul>
+						<li>
+							<strong>Enumeration</strong> : Iterator의 구버전</li>
+						<li>
+							<strong>ListIterator</strong> : Iterator에 양방향 조회기능 추가 (List를 구현한 경우에만 사용가능)</li>
+					</ul>
+
+					<hr/>
+
+					<h2>ListIterator</h2>
+					<p>
+						ListIterator는 Iterator를 상속받아 여러 기능을 추가한 것으로, 컬렉션의 요소에 접근할 때 <strong>Iterator는 단방향</strong>으로만 이동할 수 있는 데 반해 <strong>ListIterator는 양방향</strong>으로의 이동이 가능합니다.
+						<br/>다만 <strong>ArrayList나 LinkedList와 같이 List인터페이를 구현한 컬렉션에서만 사용</strong>할 수 있습니다.
+					</p>
+
+					<h4>ListIterator의 메서드</h4>
+					<table>
+						<tbody>
+							<tr>
+								<td>
+									<strong>
+										<em>void add(Object o)</em>
+									</strong> : 해당 리스트(list)에 전달된 요소를 추가합니다. (선택적 기능)</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>boolean hasNext()</em>
+									</strong> : 이 리스트 반복자가 해당 리스트를 순방향으로 순회할 때 다음 요소를 가지고 있으면 true를 반환하고, 더 이상 다음 요소를 가지고 있지 않으면 false를 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>boolean hasPrevious()</em>
+									</strong> : 이 리스트 반복자가 해당 리스트를 역방향으로 순회할 때 다음 요소를 가지고 있으면 true를 반환하고, 더 이상 다음 요소를 가지고 있지 않으면 false를 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>Object next()</em>
+									</strong> : 리스트의 다음 요소를 반환하고, 커서(cursor)의 위치를 순방향으로 이동시킵니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>int nextIndex()</em>
+									</strong> : 다음 next() 메소드를 호출하면 반환될 요소의 인덱스를 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>Object previous()</em>
+									</strong> : 리스트의 이전 요소를 반환하고, 커서(cursor)의 위치를 역방향으로 이동시킵니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>int previousIndex()</em>
+									</strong> : 다음 previous() 메소드를 호출하면 반환될 요소의 인덱스를 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>void remove()</em>
+									</strong> : next()나 previous() 메소드에 의해 반환된 가장 마지막 요소를 리스트에서 제거합니다. (선택적 기능)</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>void set(Object o)</em>
+									</strong> : next()나 previous() 메소드에 의해 반환된 가장 마지막 요소를 전달된 객체로 대체합니다. (선택적 기능)</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<h4>ListIteratorEx1.java</h4>
+					<pre><code>package kinco.java.std;
+
+import java.util.*;
+
+public class ListIteratorEx1 {
+	public static void main(String[] args) {
+		// ArrayList 객체를 생성
+		ArrayList&lt;String&gt; list = new ArrayList&lt;String&gt;();
+		// ArrayList에 값 저장
+		list.add("1");
+		list.add("2");
+		list.add("3");
+		list.add("4");
+		list.add("5");
+
+		// ListIterator 객체를 생성
+		ListIterator&lt;String&gt; it = list.listIterator();
+
+		while (it.hasNext()) {
+			// 순방향으로 진행하면서 읽음
+			System.out.print(it.next());
+		}
+		System.out.println();
+
+		while (it.hasPrevious()) {
+			// 역방향으로 진행하면서 읽음
+			System.out.print(it.previous());
+		}
+		System.out.println();
+	}
+}</code></pre>
+
+					<h4>Console</h4>
+					<pre><code>12345
+54321</code></pre>
+				</section>
+
+				<hr>
+
+				<section>
+					<ul class="actions fit">
+						<li>
+							<a href="Collection_05.html" class="button fit">Map</a>
+						</li>
+						<li></li>
+						<li>
+							<a href="Collection_07.html" class="button fit">Comparator</a>
+						</li>
+					</ul>
+				</section>
+			</div>
+		</section>
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

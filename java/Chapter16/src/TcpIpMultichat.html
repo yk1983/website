@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="../Networking_04.html">Networking</a>
+				</li>
+				<li>
+					<a class="active">Source code</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">TcpIpMultichat</h1>
+				<p>
+					여러 클라이언트가 서버에 접속해서 채팅을 할 수 있는 멀티채팅서버 프로그램을 작성한 예제입니다.
+					<br/>서버에 접속한 클라이언트를 <code>HashMap</code>에 저장해서 관리하고 있습니다.
+					<br/>클라이언트가 멀티채팅서버에 접속하면 HashMap에 저장되고 접속을 해제하면 HashMap에서 제거합니다. 클라이언트가 데이터를 입력하면, 멀티채팅서버는 HashMap에 젖아된 모든 클라이언트에게 데이터를 전송합니다.
+					<br/>멀티채팅서버의 <code>ServerReceiver스레드</code>는 클라이언트가 추가될 때마다 생성되며 클라이언트의 입력을 서버에 접속된 모든 클라이언트에게 전송하는 일을 합니다.
+					<br/>스레드의 <code>run()</code>을 보면 클라이언트가 새로 추가되었을 대 클라이언트의 이름을 <code>Key</code>로 클라이언트의 출력스트림을 HashMap인 clients에 저장해서 다른 클라이언트가 입력한 데이터를 전송하는데 사용하는 것을 알수 있습니다.
+					만일 클라이언트가 종료되어 클라이언트의 입력스트림(in)이 <code>null</code>이 되면 <code>whild 문</code>을 빠져나가서 clients의 목록에서 해당 클라이언트를 제거합니다.
+				</p>
+
+				<h4>TcpIpMultichatServer.java</h4>
+				<pre><code>package chapter16;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+
+public class TcpIpMultichatServer {
+	HashMap&lt;String, DataOutputStream&gt; clients;
+
+	TcpIpMultichatServer() {
+		clients = new HashMap&lt;String, DataOutputStream&gt;();
+		Collections.synchronizedMap(clients);
+	}
+
+	public void start() {
+		ServerSocket serverSocket = null;
+		Socket socket = null;
+
+		try {
+			serverSocket = new ServerSocket(7777);
+			System.out.println("서버가 시작되었습니다.");
+
+			while (true) {
+				socket = serverSocket.accept();
+				System.out.println("[" + socket.getInetAddress() + ":" + socket.getPort() + "]" + "에서 접속하였습니다.");
+				ServerReceiver thread = new ServerReceiver(socket);
+				thread.start();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	void sendToAll(String msg) {
+		Iterator&lt;String&gt; it = clients.keySet().iterator();
+
+		while (it.hasNext()) {
+			try {
+				DataOutputStream out = (DataOutputStream) clients.get(it.next());
+				out.writeUTF(msg);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public static void main(String args[]) {
+		new TcpIpMultichatServer().start();
+	}
+
+	class ServerReceiver extends Thread {
+		Socket socket;
+		DataInputStream in;
+		DataOutputStream out;
+
+		ServerReceiver(Socket socket) {
+			this.socket = socket;
+			try {
+				in = new DataInputStream(socket.getInputStream());
+				out = new DataOutputStream(socket.getOutputStream());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		public void run() {
+			String name = "";
+			try {
+				name = in.readUTF();
+				sendToAll("#" + name + "님이 들어오셨습니다.");
+
+				clients.put(name, out);
+				System.out.println("현재 서버접속자 수는 " + clients.size() + "입니다.");
+
+				while (in != null) {
+					sendToAll(in.readUTF());
+				}
+			} catch (IOException e) {
+				// ignore
+			} finally {
+				sendToAll("#" + name + "님이 나가셨습니다.");
+				clients.remove(name);
+				System.out.println("[" + socket.getInetAddress() + ":" + socket.getPort() + "]" + "에서 접속을 종료하였습니다.");
+				System.out.println("현재 서버접속자 수는 " + clients.size() + "입니다.");
+			}
+		}
+	}
+}</code></pre>
+
+				<h4>TcpIpMultichatClient.java</h4>
+				<pre><code>package chapter16;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.ConnectException;
+import java.net.Socket;
+import java.util.Scanner;
+
+public class TcpIpMultichatClient {
+	public static void main(String args[]) {
+		if (args.length != 1) {
+			System.out.println("USAGE: java TcpIpMultichatClient 대화명");
+			System.exit(0);
+		}
+
+		try {
+			String serverIp = "127.0.0.1";
+			// 소켓을 생성하여 연결을 요청한다.
+			Socket socket = new Socket(serverIp, 7777);
+			System.out.println("서버에 연결되었습니다.");
+			Thread sender = new Thread(new ClientSender(socket, args[0]));
+			Thread receiver = new Thread(new ClientReceiver(socket));
+
+			sender.start();
+			receiver.start();
+		} catch (ConnectException ce) {
+			ce.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	static class ClientSender extends Thread {
+		Socket socket;
+		DataOutputStream out;
+		String name;
+
+		ClientSender(Socket socket, String name) {
+			this.socket = socket;
+			try {
+				out = new DataOutputStream(socket.getOutputStream());
+				this.name = name;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		public void run() {
+			Scanner scanner = new Scanner(System.in);
+			try {
+				if (out != null) {
+					out.writeUTF(name);
+				}
+
+				while (out != null) {
+					out.writeUTF("[" + name + "]" + scanner.nextLine());
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	static class ClientReceiver extends Thread {
+		Socket socket;
+		DataInputStream in;
+
+		ClientReceiver(Socket socket) {
+			this.socket = socket;
+			try {
+				in = new DataInputStream(socket.getInputStream());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		public void run() {
+			while (in != null) {
+				try {
+					System.out.println(in.readUTF());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+}</code></pre>
+
+				<hr>
+
+				<ul class="actions fit">
+					<li></li>
+					<li></li>
+					<li><button class="button fit" id="btn-close" onclick="javascript:window.close();">Close</button></li>
+				</ul>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

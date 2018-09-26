@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!-- Latest compiled and minified CSS -->
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="Generics.html">Generics</a>
+				</li>
+				<li>
+					<a class="active">지네릭스</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">지네릭스 (Generics)</h1>
+				<p>
+					지네릭스는
+					<code>JDK 1.5</code>부터 도임되었으며, 지네릭스는 선택적으로 사용하였지만 현재는 지네릭스를 모르고는
+					<em>Java API</em>문서를 제대로 보기 어려울 만큼 중요한 개념입니다.
+					<br/>이번 장을 다 공부 하였다고 해도 지네릭스를 다 이해한 것은 아니며, 이번 장을 다 이해하지 못했다고 해서 계속 머물러 있지 말고 이번장에서는 개념을 이해하고 예제를 통해서 더 학습을 하길 바랍니다.
+				</p>
+
+				<hr>
+
+				<section>
+					<h2>지네릭스 (Generics)</h2>
+					<p>
+						지네릭스는
+						<strong>다양한 타입의 객체들을 다루는 메서드나 컬렉션 클래스에 컴파일 시의 타입체크(complie-time type check)를 해주는 기능</strong>입니다.
+						<br/>지네릭스를 사용함으로써 다음과 같은 장점을 가집니다.
+					</p>
+
+					<h4>지네릭스의 장점</h4>
+					<dl>
+						<dt>
+							<strong>타입 안정성을 제공합니다.</strong>
+						</dt>
+						<dd>의도하지 않은 타입의 객체가 저장되는 것을 막고, 저장된 객체를 꺼내올 때 원래의 타입과 다른 타입으로 잘못 형변환되어 발생할 수 있는 오류를 줄여줍니다.</dd>
+						<dt>
+							<strong>타입체크와 형변환을 생략할 수 있으므로 코드가 간결해지고 가독성이 증가합니다.</strong>
+						</dt>
+						<dd>다룰 객체의 타입을 미리 명시해줌으로써 번거로운 형변환을 줄여줍니다.</dd>
+					</dl>
+				</section>
+
+				<hr>
+
+				<section>
+					<h2>지네릭 클래스의 선언</h2>
+					<p>
+						지네릭 타입은 클래스와 메서드에 선언할 수 있습니다.
+						<br/>지네릭이 도입되기 이전의 코드와 호환을 위해서 지네릭 클래스인데도 예전 방식으로 객체를 생성하는 것이 허용됩니다. 다만 지네릭 타입을 지정하지 않아서 안전하지 않다는 경고가 발생합니다. (이클립스에서 노란색
+						! 표시 경고를 본적이 있을 것입니다.)
+						<br/>앞으로 지네릭 클래스를 사용할 때 타입을 지정해서 지네릭과 관련한 경고가 나오지 않도록 해봅시다.
+						<br/>
+						<br/> 클래스를 지네릭 클래스로 변경하면 다음과 같이 클래스명 옆에 &lt;T&gt;를 붙이고 타입을 모두 T로 바꾸면 됩니다.
+						<kbd>enter</kbd>
+					</p>
+
+					<div class="row">
+						<div class="6u 12u$(medium)">
+							<h4>기존 클래스의 선언</h4>
+							<pre class="syntax"><code>public class Box {
+	private Object item;
+
+	public Object getItem() {
+		return item;
+	}
+
+	public void setItem(Object item) {
+		this.item = item;
+	}
+}</code></pre>
+						</div>
+
+						<div class="6u 12u$(medium)">
+							<h4>지네릭 클래스의 선언</h4>
+							<pre><code>public class Box&lt;T&gt; {
+	private T item;
+
+	public T getItem() {
+		return item;
+	}
+
+	public void setItem(T item) {
+		this.item = item;
+	}
+}</code></pre>
+						</div>
+					</div>
+
+					<p>
+						<code>Box&lt;T&gt;</code>에서 T를
+						<strong>타입변수(type variable)</strong>라고 하며,
+						<strong>T</strong>ype의 첫 글자에서 따온 것입니다. 타입변수는 T가 아닌 다른것으로 사용해도 됩니다. 예를 들면,
+						<code>ArrayList&lt;E&lt;</code>의 경우 타입변수 E는
+						<strong>E</strong>lement(요소)의 첫 글자를 따서 사용하였습니다.
+						<br/>타입변수가 여러 개인 경우에는
+						<code>Map&lt;K, V&gt;</code>과 같이
+						<strong>콤마(,)를 구분자</strong>로 나열하면 되고 여기에서 Map&lt;K, V&gt;은
+						<strong>K</strong>ey(키)와
+						<strong>V</strong>alue(값)를 의미합니다.
+						<br/>이처럼 타입변수는 상황에 맞게 의미하는 문자를 선택해서 사용하는 것이 좋습니다. 즉,
+						<strong>타입변수는 기호의 종류만 다를 뿐 임의의 참조형 타입을 의미</strong>합니다.
+						<br/>
+						<br/> 기존에는 다양한 종류의 타입을 다루는 메서드의 매개변수나 리턴타입으로 Object타입의 참조변수를 사용하고, 그로 인해 형변환이 불가피했지만, 앞으로는 원하는 실제 타입을 지정하기만 하면 됩니다.
+					</p>
+
+					<h4>지네릭 String타입 선언</h4>
+					<pre><code>public class Box&lt;String&gt; {
+	private String item;
+
+	public String getItem() {
+		return item;
+	}
+
+	public void setItem(String item) {
+		this.item = item;
+	}
+}</code></pre>
+				</section>
+
+				<hr>
+
+				<section>
+					<h2>지네릭스의 용어</h2>
+					<p>
+						지네릭 클래스
+						<code>class Box&lt;T&gt; {}</code>가 선언되어있을 때,
+					</p>
+					<ul class="list-unstyled">
+						<li>
+							<strong>Box &lt;T&gt;</strong> 지네릭 클래스. T의 Box 또는 T Box라고 읽습니다.</li>
+						<li>
+							<strong>T</strong> 타입변수 또는 타입 매개변수. T는 타입문자입니다.</li>
+						<li>
+							<strong>Box</strong> 원시타입(raw type)</li>
+					</ul>
+					<p>
+						타입문자 T는 지네릭 클래스 Box&lt;T&gt;의 타입변수 또는 타입 매개변수라고 하는데, 메서드의 매개변수와 유사한 면이 있기 때문입니다. 그래서
+						<code>Box&lt;String&gt; b = new Box&lt;String&gt;();</code>와 같이 타입 매개변수에 타입을 지정하는 것을
+						<strong>지네릭 타입 호출</strong>이라 하며, 지정된 타입
+						<code>String</code>을
+						<strong>매개변수화된 타입(parameterized type)</strong>이라고 합니다.
+					</p>
+				</section>
+
+				<hr>
+
+				<section>
+					<h2>지네릭스의 제한</h2>
+					<p>
+						지네릭스는 인스턴스별로 다르게 동작하도록 만든 기능이기 때문에 지네릭 클래스 Box의 객체를 생성할 때, 객체별로 다른 타입을 지정하는 것은 문제가 되지 않습니다. 그러나
+						<strong>모든 객체에 대해서 동일하게 동작해야 하는
+							<code>static</code>멤버에 타입변수 T를 사용할 수 없습니다.</strong>
+					</p>
+					<pre><code>public class Box&lt;T&gt; {
+	private static T item;    // Error
+	private static int compare(T t1, T t2) { ... }    // Error
+	...
+}</code></pre>
+
+					<p>
+						또한
+						<strong>지네릭 타입의 배열을 생성하는 것도 허용되지 않습니다.</strong>
+						<br/>지네릭 배열 타입의 참조변수를 선언하는 것은 가능하지만,
+						<code>new T[10];</code>와 같이 배열을 생성하는 것은 불가능 합니다.
+						<br/>
+						<sub>* 지네릭 배열을 생성할 수 없는 것은
+							<code>new</code>연산자 때문입니다. new연산자는 컴파일 시점에 타입 T가 무엇인지 정확히 알아야 하는데 Box&lt;T&gt;클래스를 컴파일 하는 시점에서는 T가 어떤 타입인지 알 수 없기 때문입니다.
+							<br/>
+							<code>instanceof</code>연산자도 new연산자와 같은 이유로 T를 피연산자로 사용할 수 없습니다.</sub>
+					</p>
+					<pre><code>public class Box&lt;T&gt; {
+	private T[] itemArr;    // OK. T타입의 배열을 위한 참조변수
+	...
+	private T[] toArray() {
+		T[] tmpArr = new T[itemArr.length];    // Error. 지네릭 배열 생성불가
+		...
+		return tmpArr;
+	}
+}</code></pre>
+				</section>
+
+				<hr>
+
+				<section>
+					<h2>지네릭 클래스의 객체 생성과 사용</h2>
+					<p>
+						지네릭 클래스 Box&lt;T&gt;의 객체에는 한 가지 종류, 즉 T타입의 객체만 저장할 수 있습니다.
+						<br/>여기에
+						<code>ArrayList</code>를 이용해서 여러 객체를 저장할 수 있도록 추가합니다.
+					</p>
+					<pre><code>public class Box<String> {
+	ArrayList&lt;T&gt; list = new ArrayList&lt;T&gt;();
+
+	void add(T item) {
+		list.add(item);
+	}
+
+	T get(int i) {
+		return list.get(i);
+	}
+
+	int size() {
+		return list.size();
+	}
+
+	public String toString() {
+		return list.toString();
+	}
+}</code></pre>
+					<p>
+						Box&lt;T&gt;의 객체를 생성할 때는 다음과 같이 참조변수와 생성자에 대입된 타입(매개변수화된 타입)이 일치해야 합니다.
+					</p>
+					<pre><code>Box&lt;Apple&gt; appleBox = new Box&lt;Apple&gt;(); // OK.
+Box&lt;Apple&gt; appleBox = new Box&lt;Grape&gt;(); // Error. 타입 불일치</code></pre>
+
+					<P>
+						또한, 생성된 Box&lt;T&gt;의 객체에
+						<code>void add(T item)</code>으로 객체를 추가할 때, 대입된 타입과 다른 타입의 객체를 추가할 수 없습니다.
+					</P>
+					<pre><code>Box&lt;Apple&gt; appleBox = new Box&lt;Apple&gt;();
+appleBox.add(new Apple());  // OK.
+appleBox.add(new Grape());  // Error.</code></pre>
+
+					<p>
+						<strong>상속 관계에 있어도 타입이 일치하지 않으면 에러가 발생</strong>합니다. 단, 두 지네릭 클래스의 타입이 상속관계에 있고, 대입된 타입이 같은 것은 문제없습니다.
+					</p>
+					<pre><code>Box&lt;Fruit&gt; appleBox = new Box&lt;Apple&gt;(); // Error. 타입 불일치
+Box&lt;Apple&gt; appleBox = new FruitBox&lt;Apple&gt;(); // OK. 다형성에 의함</code></pre>
+
+					<p>
+						<strong>
+							<code>JDK 1.7</code>부터는 추정이 가능한 경우 타입을 생략</strong>할 수 있습니다. 참조변수의 타입으로부터 Box가 Apple타입의 객체만 저장한다는 것을 알 수 있기때문에 추정이 가능해서 생략이
+						가능합니다.
+					</p>
+					<pre><code>Box&lt;Apple&gt; appleBox = new Box&lt;Apple&gt;();
+Box&lt;Apple&gt; appleBox = new Box&lt;Apple&gt;();  // OK. JDK 1.7 생략가능</code></pre>
+
+					<p>
+						그러나 타입 T가 Fruit인 경우
+						<code>void add(Fruit item)</code>이 되므로 Fruit의 자손들은 이 메서드의 매개변수가 될 수 있습니다.
+					</p>
+					<pre><code>Box&lt;Fruit&gt; fruitBox = new Box&lt;Fruit&gt;();
+fruitBox.add(new Fruit());  // OK.
+fruitBox.add(new Apple());  // OK.</code></pre>
+
+					<ul class="icons source">
+						<li>
+							<a href="src/GenericsFruitBoxEx1.html" target="_blank">
+								<i class="fas fa-file-code"></i> FruitBoxEx1.java</a>
+						</li>
+					</ul>
+				</section>
+
+				<hr>
+
+				<section>
+					<h2>제한된 지네릭 클래스</h2>
+					<p>
+						타입문자로 사용할 타입을 명시하면 한 종류의 타입만 저장할 수 있도록 제한할 수 있지만, 여전히 모든 종류의 타입을 지정할 수 있다는 것에는 변함이 없습니다.
+						<br/>
+						<strong>타입 매개변수 T에 지정할 수 있는 타입의 종류를 제한하는 방법</strong>은
+						<strong>지네릭 타입에
+							<code>extends</code>를 사용</strong>하면, 특정 타입의 자손들만 대입할 수 있도록 제한을 할 수 있습니다.
+					</p>
+					<pre><code>// Fruit의 자손만 타입으로 지정가능
+public class FruitBox&lt;T extends Fruit&gt; {
+	...
+}</code></pre>
+
+					<p>
+						한 종류의 타입만 담을 수 있다는건 변함없지만, 특정 타입의 자손들만 대입할 수 있게 됩니다.
+					</p>
+					<pre><code>FruitBox&lt;Apple&gt; appleBox = new FruitBox&lt;Apple&gt;();  // OK.
+FruitBox&lt;Toy&gt; toyBox = new FruitBox&lt;Toy&gt;();  // Error. Toy는 Fruit의 자손이 아님.</code></pre>
+
+					<p>
+						<code>add()</code>의 매개변수 타입 T도 Fruit와 그 자손 타입이 될 수 있습니다.
+					</p>
+					<pre><code>FruitBox&lt;Fruit&gt; fruitBox = new FruitBox&lt;Fruit&gt;();
+fruitBox.add(new Apple());  // OK. Apple는 Fruit의 자손
+fruitBox.add(new Grape());  // OK. Grape는 Fruit의 자손</code></pre>
+
+					<p>
+						다형성에서 조상타입의 참조변수로 자손타입의 객체를 가리킬 수 있는 것과 같이, 매개변수화된 타입의 자손 타입도 가능한 것입니다. 타입 매개변수 T에 Object를 대입하면, 모든 종류의 객체를 저장할 수 있게 됩니다.
+						<br/>만일 클래스가 아니라
+						<strong>인터페이스를 구현해야 하는 제약이 필요할 때,
+							<code>
+								<del>implements</del>
+							</code>를 사용하지 않고
+							<code>extends</code>를 사용</strong>합니다.
+					</p>
+					<pre><code>interface Earable {}
+public class FruitBox&lt;T extends Earable&gt; {
+	...
+}</code></pre>
+					<p>
+						<strong>클래스 Fruit의 자손이면서 Eatable인터페이스도 구현</strong>해야 한다면 기호(&amp;)를 사용하여 연결합니다.
+					</p>
+					<pre><code>interface Earable {}
+public class FruitBox&lt;T extends Fruit &amp; Earable&gt; {
+	...
+}</code></pre>
+					<ul class="icons source">
+						<li>
+							<a href="src/GenericsFruitBoxEx2.html" target="_blank">
+								<i class="fas fa-file-code"></i> FruitBoxEx2.java</a>
+						</li>
+					</ul>
+				</section>
+
+				<hr>
+
+				<section>
+					<h2>와일드 카드</h2>
+					<p>
+						와일드 카드의 사전적 의미를 보면
+						<strong>파일을 지정할 때, 구체적인 이름 대신에 여러 파일을 동시에 지정할 목적으로 사용하는 특수 기호</strong> 라고 정의 되어있습니다. 더 확실히 이해하기 위해
+						<br/>다음과 같이 매개변수에
+						<code>FruitBox&lt;Fruit&gt;</code>를 대입하면 주스를 반환하는 Juicer라는 클래스가 있고, 이 클래스에는 과일을 주스로 만들어서 반환하는
+						<code>makeJuice()</code>메서드가 정의되어 있을 때,
+					</p>
+					<pre><code>public class Juicer {
+	static Juice makeJuice(FruitBox&lt;Fruit&gt; box) {
+		String tmp = "";
+		for (Fruit f : box.getList()) {
+			tmp += f + " ";
+		}
+		return new Juice(tmp);
+	}
+}</code></pre>
+					<p>
+						Juicer클래스는 지네릭 클래스가 아니며 static메서드에는 타입 매개변수 T를 매개변수에 사용할 수 없으므로 지네릭스를 적용하지 않던가 타입 매개변수 대신 특정 타입을 지정해주어야 합니다.
+					</p>
+					<pre><code>FruitBox&lt;Fruit&gt; fruitBox = new FruitBox&lt;Fruit&gt;();
+FruitBox&lt;Apple&gt; appleBox = new FruitBox&lt;Apple&gt;();
+...
+System.out.println(Juicer.makeJuice(fruitBox));  // OK. FruitBox&lt;Fruit&gt;
+System.out.println(Juicer.makeJuice(appleBox));  // Error. FruitBox&lt;Apple&gt;</code></pre>
+
+					<p>
+						이렇듯 지네릭 타입을 고정해 놓으면 다른 타입의 객체는 makeJuice()의 매개변수가 될 수 없으므로, 여러 가지 타입의 매개변수를 갖는 makeJuice()를 오버로딩하여 만들 수 밖에 없습니다.
+						<br/>하지만 지네릭 매개변수를 오버로딩을 하면 컴파일 에러가 발생합니다.
+						<strong>지네릭 타입이 다른 것만으로는 오버로딩이 성립하지 않기 때문</strong>입니다. 지네릭 타입은 컴파일러가 컴파일 할 때만 사용되고 제거합니다. 그래서 두 메서드는 오버로딩이 아니라
+						<strong>메서드 중복 정의</strong>가 되어버립니다.
+						<br/>이럴 때 사용하기 위해 고안된 방법이
+						<strong>와일드 카드</strong>입니다.
+						<strong>와일드 카드는 기호(?)로 표현하는데 이 와일드 카드는 어떠한 타입도 가능</strong>합니다.
+						<br/>와일드 카드의 사전적 의미에 비교하여 다시 말하면 매개변수의 타입을 지정할 때, 구체적인 타입 대신 기호를 사용하여 어떠한 타입도 받을 수 있도록 한 것입니다.
+						<br/>결국 기호(?)만으로는 Object타입과 다를 게 없으므로, extends와 super로 상한(upper bound)과 하한(lower bound)을 제한할 수 있습니다.
+					</p>
+					<dl>
+						<dt>
+							<strong>&lt;? extends T&gt;</strong>
+						</dt>
+						<dd>와일드 카드의 상한 제한. T와 그 자손들만 가능합니다.</dd>
+						<dt>
+							<strong>&lt;? super T&gt;</strong>
+						</dt>
+						<dd>와일드 카드의 하한 제한. T와 그 조상들만 가능합니다.</dd>
+						<dt>
+							<strong>&lt;?&gt;</strong>
+						</dt>
+						<dd>제한없음. 모든 타입이 가능합니다. 즉, &lt;> extends Object&gt;와 같은 의미입니다.</dd>
+					</dl>
+					<p>
+						주의할 점은 지네릭 클래스와 달리 와일드 카드에는 &amp;를 사용할 수 없습니다. 즉, &lt;? extends T &amp; E&gt;와 같이 사용할 수 없습니다.
+					</p>
+
+					<ul class="icons source">
+						<li>
+							<a href="src/GenericsFruitBoxEx3.html" target="_blank">
+								<i class="fas fa-file-code"></i> FruitBoxEx3.java</a>
+						</li>
+						<li>
+							<a href="src/GenericsFruitBoxEx4.html" target="_blank">
+								<i class="fas fa-file-code"></i> FruitBoxEx4.java</a>
+						</li>
+					</ul>
+				</section>
+
+				<hr>
+
+				<section>
+					<h2>지네릭 메서드</h2>
+					<p>
+						<strong>지네릭 메서드</strong>는
+						<strong>메서드의 선언부에 지네릭 타입이 선언된 메서드</strong>입니다. 지네릭 타입의
+						<strong>선언 위치는 반환 타입 바로 앞</strong>에 합니다.
+						<br/>지네릭 클래스에 정의된 타입 매개변수와 지네릭 메서드에 정의된 타입 매개변수는 전혀 별개의 것이며, 같은 타입문자 T를 사용해도 같은 것이 아니라는 것에 주의해야 합니다.
+					</p>
+					<pre><code>class FruitBox&lt;T&gt; {
+	...
+	static &lt;T&gt; void sort(List&lt;T&gt; list, Comparator&lt;? super T&gt; c) {
+		...
+	}
+}</code></pre>
+					<p>
+						지네릭 클래스 FruitBox에 선언된 타입 매개변수 T와 지네릭 메서드 sort()에 선언된 타입 매개변수 T는 타입 문자만 같을 뿐 서로 다른 것이고, sort()가 static메서드라는 것에 주목하여야 합니다.
+						<br/>앞서 static멤버에는 타입 매개변수를 사용할 수 없다고 설명했었는데, 이처럼 메서드에 지네릭 타입을 선언하고 사용하는 것은 가능합니다. (메서드에 선언된 지네릭 타입은 지역변수를 선언한 것과 같다고 생각하면 됩니다.)
+						이 타입 매개변수는 메서드 내에서만 지역적으로 사용될 것이므로 메서드가 static이건 아니건 상관이 없습니다.
+						<br/><br/>
+						앞의 예제에서 makeJuice()메서드를 지네릭 메서드로 바꾸면 다음과 같습니다.
+					</p>
+					<div class="row">
+						<div class="6u 12u$(medium)">
+							<h4>변경 전</h4>
+							<pre><code>static Juice makeJuice(FruitBox&lt;? extends Fruit&gt; box) {
+	String tmp = "";
+	for (Fruit f: box.getList()) {
+		tmp =+= f + " ";
+	}
+	return new Juice(tmp);
+}</code></pre>
+						</div>
+						<div class="6u 12u$(medium)">
+							<h4>변경 후</h4>
+							<pre><code>static &lt;T extends Fruit&gt; Juice makeJuice(FruitBox&lt;T&gt; box) {
+	String tmp = "";
+	for (Fruit f: box.getList()) {
+		tmp =+= f + " ";
+	}
+	return new Juice(tmp);
+}</code></pre>
+						</div>
+					</div>
+					<p>
+						메서드의 내용이 바뀌었으므로 이 메서드를 호출할 때는 다음과 같이 타입변수에 타입을 대입해야 합니다. 그러나 대부분의 경우 컴파일러가 타입을 추정할 수 있기 때문에 생략해도 됩니다.
+					</p>
+					<pre><code>FruitBox&lt;Fruit&gt; fruitBox = new FruitBox&lt;Fruit&gt;();
+FruitBox&lt;Apple&gt; fruitBox = new FruitBox&lt;Apple&gt;();
+...
+System.out.println(Juicer.&lt;Fruit&gt;makeJuice(fruitBox));
+// System.out.println(Juicer.makeJuice(fruitBox));  // 대입된 타입을 생략할 수 있음
+System.out.println(Juicer.&lt;Apple&gt;makeJuice(appleBox));
+// System.out.println(Juicer.makeJuice(appleBox));  // 대입된 타입을 생략할 수 있음</code></pre>
+					<p>
+						주의할 점은 지네릭 메서드를 호출할 때, 대입된 타입을 생략할 수 없는 경우에는 참조변수나 클래스 이름을 생략할 수 없다는 것입니다. (자바에서의 규칙이라고 생각하면 됩니다.)
+					</p>
+					<pre><code>System.out.println(&lt;Fruit&gt;makeJuice(fruitBox));  //Error. 클래스 이름 생략불가
+System.out.println(this.&lt;Fruit&gt;makeJuice(fruitBox));  // OK.
+System.out.println(Juicer.&lt;Fruit&gt;makeJuice(fruitBox));  // OK.</code></pre>
+
+					<p>
+						지네릭 메서드는 매개변수의 타입이 복잡할 때 유용하게 사용할 수 있습니다.
+					</p>
+					<h4>변경 전</h4>
+					<pre><code>public static void printAll(ArrayList&lt;? extends Product&gt; list1,ArrayList&lt;? extends Product&gt; list2) {...}</code></pre>
+					<h4>변경 후</h4>
+					<pre><code>public static void &lt;T extends Product&gt; printAll(ArrayList&lt;T&gt; list1,ArrayList&lt;T&gt; list2) {...}</code></pre>
+				</section>
+
+				<hr>
+
+				<section>
+					<h2>지네릭 타입의 제거</h2>
+					<p>
+						컴파일러는 지네릭 타입을 이용해서 소스파일을 체크하고, 필요한 곳에 형변환을 넣어줍니다. 그리고는 지네릭 타입을 제거합니다.
+						즉, 컴파일된 파일(.class)에는 지네릭 타입에 대한 정보가 없습니다. (이전 버전 소스와의 호환을 위함)
+						<br/><code>JDK 1.5</code>부터 지네릭스가 도입되었지만 아직 원시 타입을 사용해서 코드를 작성하는 것을 허용합니다. 하지만 최대한 지네릭스를 사용하는 것으로 공부하는 것이 좋습니다.
+					</p>
+					<h4>지네릭 타입의 제거 과정</h4>
+					<dl>
+						<dt><strong>지네릭 타입의 경계(bound)를 제거</strong></dt>
+						<dd>지네릭 타입이 &lt;T extends Fruit&gt;이라면 T는 Fruit로 치환되며, &lt;T&gt;인 경우는 T는 Object로 치환됩니다. 그리고 클래스 옆의 선언은 제거됩니다.</dd>
+						<dt><strong>지네릭 타입을 제거한 후에 타입이 일치하지 않으면, 형변환을 추가</strong></dt>
+						<dd>List의 get()은 Object타입을 반환하므로 형변환이 필요합니다. 와일드 카드가 포함되어 있는 경우에는 적절한 타입으로의 형변환이 추가됩니다.</dd>
+					</dl>
+				</section>
+
+				<hr>
+
+				<ul class="actions fit">
+					<li></li>
+					<li></li>
+					<li>
+						<a href="Enumeration.html" class="button fit">열거형</a>
+					</li>
+				</ul>
+			</div>
+		</section>
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

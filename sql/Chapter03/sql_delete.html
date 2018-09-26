@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/sql">SQL</a>
+				</li>
+				<li>
+					<a href="/kinco/sql/Chapter03">DML</a>
+				</li>
+				<li>
+					<a class="active">DELETE</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">DELETE</h1>
+				<p>
+					<code>DELETE 문</code>은 테이블의 기존 레코드를 삭제하는 데 사용됩니다.
+				</p>
+
+				<hr>
+				
+				<section>
+					<h4>DELETE Syntax</h4>
+					<pre><code><strong>DELETE
+FROM</strong>   <em>table_name</em>
+<strong>WHERE</strong>  <em>condition</em>;
+
+또는
+
+<strong>DELETE *
+FROM</strong>   <em>table_name</em>
+<strong>WHERE</strong>  <em>condition</em>;</code></pre>
+					<p>
+						UPDATE 문과 마찬가지로 DELETE 문을 사용하는 경우에는 테이블에서 레코드를 삭제 할 때 다음과 같은 부분을 주의해야합니다.
+						<br/><strong>DELETE 문의 WHERE 절을 확인</strong>하십시오.
+						<br/><code>WHERE 절</code>은 <strong>삭제될 레코드를 지정</strong>합니다. <strong>WHERE 절을 생략하면 테이블의 모든 레코드가 삭제</strong>됩니다. 삭제 될 레코드 수를 결정하는 것은 WHERE 절입니다.
+					</p>
+					<h4>Example</h4>
+					<pre><code>-- "Customers" 테이블에서 고객 "Alfreds Futterkiste"를 삭제합니다.
+DELETE FROM Customers
+WHERE  CustomerName = 'Alfreds Futterkiste';
+
+-- WHERE절을 사용하지 않으면 "Customers" 테이블의 모든 고객정보가 삭제됩니다.
+DELETE FORM Customers;</code></pre>
+					
+				</section>
+
+				<hr>
+
+				<section>
+					<ul class="actions fit">
+						<li>
+							<a href="sql_update.html" class="button fit">UPDATE</a>
+						</li>
+						<li></li>
+						<li></li>
+					</ul>
+				</section>
+			</div>
+		</section>
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

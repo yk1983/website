@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="Collection.html">Collection</a>
+				</li>
+				<li>
+					<a class="active">Map</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">Map</h1>
+
+				<!-- Text -->
+				<section>
+					<h2>Map 컬렉션</h2>
+					<p>
+						Map 인터페이스는 Collection 인터페이스와는 다른 저장 방식을 가집니다.
+						<br/>Map 인터페이스를 구현한 Map 컬렉션 클래스들은 키와 값을 하나의 쌍으로 저장하는 방식(key-value)을 사용하며, 요소의 저장 순서를 유지하지 않습니다. 여기서 키(key)란 실질적인 값(value)을
+						찾기 위한 이름의 역할을 합니다. 따라서
+						<strong>키(Key)는 중복값을 허용하지 않고, 값(value)는 중복값을 허용</strong>합니다.
+						<br/>
+						<br/> 대표적인 Map 컬렉션 클래스에 속하는 클래스는 다음과 같습니다.
+					</p>
+					<ul>
+						<li>HashMap&lt;K, V&gt;</li>
+						<li>Hashtable&lt;K, V&gt;</li>
+						<li>TreeMap&lt;K, V&gt;</li>
+					</ul>
+				</section>
+
+				<hr/>
+
+				<section>
+					<h2>HashMap</h2>
+					<p>
+						HashMap은 Map을 구현하므로 키(Key)와 값(Value)을 묶어서 하나의 데이터(entry)로 저장한다는 특징을 갖습니다. 그리고 JDK 1.2부터 제공된 HashMap 클래스는 해시 알고리즘(hash algorithm)을
+						사용하여 검색 속도가 매우 빠릅니다. HashMap에 저장된 데이터를 하나의 키로 검색했을 때 유일해야합니다.
+					</p>
+
+					<h4>Example sources</h4>
+					<ul class="icons source">
+						<li>
+							<a href="src/HashMapEx1.html" target="_blank">
+								<i class="fas fa-file-code"></i> HashMapEx1.java</a>
+						</li>
+						<li>
+							<a href="src/HashMapEx2.html" target="_blank">
+								<i class="fas fa-file-code"></i> HashMapEx2.java</a>
+						</li>
+						<li>
+							<a href="src/HashMapEx3.html" target="_blank">
+								<i class="fas fa-file-code"></i> HashMapEx3.java</a>
+						</li>
+						<li>
+							<a href="src/HashMapEx4.html" target="_blank">
+								<i class="fas fa-file-code"></i> HashMapEx4.java</a>
+						</li>
+					</ul>
+
+					<h4>HashMap의 생성자와 메서드</h4>
+					<table>
+						<tbody>
+							<tr>
+								<td>
+									<strong>
+										<em>HashMap()</em>
+									</strong>
+									<br/> : HashMap 객체를 생성합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>HashMap(int initialCapacity)</em>
+									</strong>
+									<br/> : 지정된 값을 초기용량으로 하는 HashMap 객체를 생성합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>HashMap(int initialCapacity, float loadFactor)</em>
+									</strong>
+									<br/> : 지정된 초기용량과 load factor의 HashMap 객체를 생성합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>HashMap(Map m)</em>
+									</strong>
+									<br/> : 지정된 Map의 모든 요소를 포함하는 HashMap 객체를 생성합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>void clear()</em>
+									</strong>
+									<br/> : HashMap에 저장된 모든 객체를 제거합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>Object clone()</em>
+									</strong>
+									<br/> : 현재 HashMap을 복사해서 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>boolean containsKey(Object key)</em>
+									</strong>
+									<br/> : HashMap에 지정된 키(key)가 포함되어있는지 알려줍니다. (포함되어 있으면 true를 반환합니다.)</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>boolean containsValue(Object value)</em>
+									</strong>
+									<br/> : HashMap에 지정된 값(value)가 포함되어있는지 알려줍니다. (포함되어 있으면 true를 반환합니다.)</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>Set entrySet()</em>
+									</strong>
+									<br/> : HashMap에 저장된 키와 값을 엔트리(키와 값의 결합)의형태로 Set에 저장해서 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>Object get(Object key)</em>
+									</strong>
+									<br/> : 지정된 키(key)의 값(객체)을 반환합니다. 못찾으면 null을 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>Object getOrDefault(Object key, Object defaultValue)</em>
+									</strong>
+									<br/> : 지정된 키(key)의 값(객체)을 반환합니다. 키를 못찾으면, 기본값(defaultValue)로 지정된 객체를 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>boolean isEmpty()</em>
+									</strong>
+									<br/> : HashMap이 비어있는지 알려줍니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>Set keySet()</em>
+									</strong>
+									<br/> : HashMap에 저장된 모든 키가 저장된 Set을 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>Object put(Object key, Object value)</em>
+									</strong>
+									<br/> : 지정된 키와 값을 HashMap에 저장합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>void putAll(Map m)</em>
+									</strong>
+									<br/> : Map에 저장된 모든 요소를 HashMap에 저장합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>Object remove(Object key)</em>
+									</strong>
+									<br/> : HashMap에서 지정된 키로 저장된 값(객체)를 제거합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>Object replace(Object key, Object value)</em>
+									</strong>
+									<br/> : 지정된 키의 값을 지정된 객체(value)로 대체합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>boolean replace(Object key, Object oldValue, Object newValue)</em>
+									</strong>
+									<br/> : 지정된 키와 객체(oldValue)가 모두 일치하는 경우에만 새로운 객체(newValue)로 대체합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>int size()</em>
+									</strong>
+									<br/> : HashMap에 저장된 요소의 개수를 반환합니다.</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>
+										<em>Collection values()</em>
+									</strong>
+									<br/> : HashMap에 저장된 모든 값을 컬렉션의 형태로 반환합니다.</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+
+				<hr/>
+
+				<section>
+					<h2>TreeMap</h2>
+					<p>
+						TreeMap
+					</p>
+				</section>
+
+				<hr/>
+
+				<section>
+					<ul class="actions fit">
+						<li>
+							<a href="Collection_04.html" class="button fit">Set</a>
+						</li>
+						<li></li>
+						<li>
+							<a href="Collection_06.html" class="button fit">Iterator</a>
+						</li>
+					</ul>
+				</section>
+			</div>
+		</section>
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

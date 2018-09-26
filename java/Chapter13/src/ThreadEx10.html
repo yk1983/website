@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="../Thread_07.html">Thread</a>
+				</li>
+				<li>
+					<a class="active">Source code</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">ThreadEx10</h1>
+				<p>
+					<code>join()</code>을 사용하지 않았다면 main스레드는 바로 종료되었겠지만, join()으로 스레드 th1과 th2의 작업을 마칠 때 까지 main스레드가 기다리도록 하는 예제입니다.
+				</p>
+
+				<h4>ThreadEx10.java</h4>
+				<pre><code>package chapter13;
+
+public class ThreadEx10 {
+	static long startTime = 0;
+
+	public static void main(String args[]) {
+		ThreadEx10_1 th1 = new ThreadEx10_1();
+		ThreadEx10_2 th2 = new ThreadEx10_2();
+
+		th1.start();
+		th2.start();
+		startTime = System.currentTimeMillis();
+
+		try {
+			th1.join(); // main쓰레드가 th1의 작업이 끝날 때까지 기다린다.
+			th2.join(); // main쓰레드가 th2의 작업이 끝날 때까지 기다린다.
+		} catch (InterruptedException e) {
+		}
+
+		System.out.print("소요시간:" + (System.currentTimeMillis() - ThreadEx10.startTime));
+	}
+}</code></pre>
+
+				<h4>ThreadEx10_1.java</h4>
+				<pre><code>package chapter13;
+
+public class ThreadEx10_1 extends Thread {
+	public void run() {
+		for (int i = 0; i &lt; 300; i++) {
+			System.out.print(new String("-"));
+		}
+	}
+}</code></pre>
+
+				<h4>ThreadEx10_2.java</h4>
+				<pre><code>package chapter13;
+
+public class ThreadEx10_2 extends Thread {
+	public void run() {
+		for (int i = 0; i &lt; 300; i++) {
+			System.out.print(new String("|"));
+		}
+	}
+}</code></pre>
+
+				<h4>실행결과</h4>
+				<pre><code>--------------------------------------------------------------||||||||||||||||||
+|||||||||||||||||||||||||||||||---------------|-----------------||||||||||||||||
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-------
+----||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+|||||||||||-------------------||||||------------------------------------------||
+--------------------------------------------------------------|||||||||---------
+||||||||||||||||-----------|||---------------|||||||----------------------------
+---------|||||||||||||||||||||||||||||||소요시간:5</code></pre>
+
+				<hr>
+
+				<ul class="actions fit">
+					<li></li>
+					<li></li>
+					<li>
+						<button class="button fit" id="btn-close" onclick="javascript:window.close();">Close</button>
+					</li>
+				</ul>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

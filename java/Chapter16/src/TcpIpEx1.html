@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="../Networking_04.html">Networking</a>
+				</li>
+				<li>
+					<a class="active">Source code</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">TcpIpServer.java</h1>
+				<p>
+					TCP/IP 서버 프로그램을 간단하게 구현한 예제입니다. 예제를 실행하면 서버소켓이 7777번 포트에서 클라이언트의 요청이 올 때 까지 진행을 멈추고 클라이언트 프로그램의 연결요청을 기다립니다.
+					클라이언트 프로그램이 서버에 연결을 요청하면 서버소켓은 새로운 소켓을 생성하여 클라이언트 프로그램의 소켓(원격소켓)과 연결합니다.
+					<br/>새로 생성된 소켓은 "[Notice] Test Message1 from Server."라는 데이터를 원격소켓에 전송하고 연결을 종료합니다. 그리고 서버소켓은 다시 클라이언트 프로그램의 요청을 기다립니다.
+				</p>
+
+				<h4>Example1</h4>
+				<p>
+					<code>getPort()</code>와 <code>getLocalPost()</code>를 사용해서 TCP/IP통신에서 소켓이 사용하고 있는 포트를 알아낼 수 있습니다.
+				</p>
+
+				<h4>Example2</h4>
+				<p>
+					<code>setSoTimeout(int timeout)</code>을 사용해서 서버소켓의 대기시간을 지정할 수 있습니다. timeout의 값은 천분의 일초단위이며 0을 입력하면 제한시간 없이 대기하게 됩니다.
+					<br/>지정한 대기시간을 지나면 <code>accept()</code>에서 <code>SocketTimeoutException</code>이 발생합니다.
+				</p>
+
+				<h4>TcpIpServer.java</h4>
+				<pre><code>package chapter16;
+
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class TcpIpServer {
+	public static void main(String args[]) {
+		ServerSocket serverSocket = null;
+
+		try {
+			<strong>// 서버소켓을 생성하여 7777번 포트와 결합(bind)시킵니다.</strong>
+			serverSocket = new ServerSocket(7777);
+			System.out.println(getTime() + "서버가 준비되었습니다.");
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		while (true) {
+			try {
+				System.out.println(getTime() + "연결요청을 기다립니다.");
+				/**
+				 * Example2
+				 * 요청대기시간을 5초로 설정합니다. 
+				 * 5초동안 접속요청이 없으면 SocketTimeoutException이 발생합니다.
+				 * serverSocket.setSoTimeout(5*1000);
+				 */
+				<strong>// 서버소켓은 클라이언트의 연결요청이 올 때까지 실행을 멈추고 계속 기다립니다.
+				// 클라이언트의 연결요청이 오면 클라이언트 소켓과 통신할 새로운 소켓을 생성한다.</strong>
+				Socket socket = serverSocket.accept();
+				System.out.println(getTime() + socket.getInetAddress() + "로부터 연결요청이 들어왔습니다.");
+
+				/**
+				 * Example1
+				 * TCP/IP통신에서 소켓이 사용하고 있는 포트를 알아낼 수 있습니다.
+				 * System.out.println("상대편 소켓(원격소켓)이 사용하는 포트 getPort():" + socket.getPort());
+				 * System.out.println("소켓 자신이 사용하는 포트 getLocalPort():" + socket.getLocalPort());
+				 */
+
+				<strong>// 소켓의 출력스트림을 업습니다.</strong>
+				OutputStream out = socket.getOutputStream();
+				DataOutputStream dos = new DataOutputStream(out);
+
+				<strong>// 원격 소켓(remote socket)에 데이터를 보냅니다.</strong>
+				dos.writeUTF("[Notice] Test Message1 from Server.");
+				System.out.println(getTime() + "데이터를 전송했습니다.");
+
+				<strong>// 스트림과 소켓을 닫아줍니다.</strong>
+				dos.close();
+				socket.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	// 현재시간을 문자열로 반환하는 함수
+	static String getTime() {
+		SimpleDateFormat f = new SimpleDateFormat("[hh:mm:ss]");
+		return f.format(new Date());
+	}
+}</code></pre>
+
+				<p>
+					TCP/IP서버(TcpIpServer.java)와 통신하기 위한 클라이언트 프로그램입니다. 연결하고자 하는 서버의 IP와 포트번호를 가지고 소켓을 생성하면 자동적으로 서버에 연결요청을 하게 됩니다.
+					<br/>이 때 서버와 연결을 실패하면 <code>ConnectException</code>이 발생합니다.
+				</p>
+				<h4>TcpIpClient.java</h4>
+				<pre><code>package chapter16;
+
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.ConnectException;
+import java.net.Socket;
+
+public class TcpIpClient {
+	public static void main(String args[]) {
+		try {
+			String serverIp = "127.0.0.1";
+
+			System.out.println("서버에 연결중입니다. 서버IP :" + serverIp);
+			// 소켓을 생성하여 연결을 요청한다.
+			Socket socket = new Socket(serverIp, 7777);
+
+			// 소켓의 입력스트림을 얻는다.
+			InputStream in = socket.getInputStream();
+			DataInputStream dis = new DataInputStream(in);
+
+			// 소켓으로 부터 받은 데이터를 출력한다.
+			System.out.println("서버로부터 받은 메시지 :" + dis.readUTF());
+			System.out.println("연결을 종료합니다.");
+
+			// 스트림과 소켓을 닫는다.
+			dis.close();
+			socket.close();
+			System.out.println("연결이 종료되었습니다.");
+		} catch (ConnectException ce) {
+			ce.printStackTrace();
+		} catch (IOException ie) {
+			ie.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}</code></pre>
+
+				<h4>실행결과</h4>
+				<pre><code>[07:18:20]서버가 준비되었습니다.
+[07:18:20]연결요청을 기다립니다.
+[07:18:22]/127.0.0.1로부터 연결요청이 들어왔습니다.
+[07:18:22]데이터를 전송했습니다.
+[07:18:22]연결요청을 기다립니다.</code></pre>
+
+				<hr>
+
+				<ul class="actions fit">
+					<li></li>
+					<li></li>
+					<li><button class="button fit" id="btn-close" onclick="javascript:window.close();">Close</button></li>
+				</ul>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

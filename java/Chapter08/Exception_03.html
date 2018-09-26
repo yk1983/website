@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="Exception.html">Exception</a>
+				</li>
+				<li>
+					<a class="active">예외발생과 회피</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">예외발생과 회피</h1>
+
+				<section>
+					<h2>예외 발생시키기</h2>
+					<p>
+						프로그래밍을 하다보면 처리 프로세스 중에
+						<strong>고의적으로 예외를 발생</strong>시켜야 할 상황이 있습니다. 이 때
+						<strong>키워드 throw</strong>를 사용하면 예외를 발생시킬 수 있습니다.
+					</p>
+					<ol>
+						<li>먼저, 연산자 new를 이용해서 발생시키려는 예외 클래스의 객체를 만듭니다.</li>
+						<li>키워드 throw를 이용해서 예외를 발생시킵니다.</li>
+					</ol>
+					<h4>Syntax</h4>
+					<pre><code>Exception e = new Exception("고의로 발생시킨 예외");
+throw e;  // 예외를 발생시킴
+
+// 선언과 동시에 예외 발생
+throw new Exception("고의로 발생시킨 예외");</code></pre>
+
+					<h4>ExceptionEx9.java</h4>
+					<pre><code>package kinco.java.std;
+
+public class ExceptionEx9 {
+	public static void main(String[] args) {
+		try {
+			Exception e = new Exception("고의로 발생시킵니다.");
+			throw e;
+			// 위의 두 줄을 한 줄로 사용
+			// throw new Exception("고의로 발생시킵니다.");
+		} catch (Exception e) {
+			System.out.println("에러 메세지 : " + e.getMessage());
+			e.printStackTrace();
+		}
+		System.out.println("프로그램이 정상 종료되었습니다.");
+	}
+}</code></pre>
+
+					<h4>Console</h4>
+					<pre><code>에러 메세지 : 고의로 발생시킵니다.
+java.lang.Exception: 고의로 발생시킵니다.
+	at kinco.java.std.ExceptionEx9.main(ExceptionEx9.java:6)
+프로그램이 정상 종료되었습니다.</code></pre>
+
+					<h4>예외처리 컴파일과 실행</h4>
+					<p>
+						Exception클래스들(Exception클래스와 그 자손 클래스들)이 발생할 가능성이 있는 문장들에 대해 예외처리를 해주지 않으면 컴파일조차 되지 않습니다.
+						<br/>RuntimeException클래스(RuntimeException클래스와 그 자손 클래스들)에 해당하는 예외는 프로그래머가 실수로 발생하는 것들이기 때문에 예외처리를 강제하지 않습니다. 하지만 컴파일이 정상적으로
+						되어도 예외가 발생하면 비정상적으로 종료됩니다.
+					</p>
+				</section>
+
+				<hr/>
+
+				<section>
+					<h2>메서드에 예외 선언하기</h2>
+					<p>
+						예외를 처리하는 방법에는 try-catch문을 사용하는 것 외에
+						<strong>예외를 메소드에 선언하는 방법</strong>이 있습니다. 메소드에 예외를 선언하려면 메소드의 선언부에 키워드 throws를 사용해서 메소드 내에서 발생할 수 있는 예외를 적어주기만 하면 됩니다. 예외가 여러
+						개인 경우에는 콤마(,)로 구분하여 적어주면 됩니다.
+					</p>
+
+					<h4>Syntax</h4>
+					<pre><code>void method() throws Exception1, Exception2, ... ExceptionN {
+	// 메소드의 내용
+}</code></pre>
+					<h4>예외 선언</h4>
+					<p>
+						예외를 선언하면 선언된 예외뿐만 아니라 그 자식타입의 예외까지도 발생할 수 있다는 점에 주의해야 합니다.
+						<br/>
+						<br/>
+						<strong>예외 메서드의 throws에 명시</strong>하는 것은 예외가 발생한 메서드에서 예외처리를 하지 않고 자신을 호출한 메서드에게 예외를 넘겨줄 수 있지만 이것으로 예외처리가 된 것은 아니고 단순히
+						<strong>예외를 전달하는 역활</strong>만 합니다. 따라서 <strong>어느 한 곳에서든 반드시 try-catch문으로 예외처리</strong>가 되어야 합니다.
+					</p>
+
+					<h4>Example sources</h4>
+					<ul class="icons source">
+						<li>
+							<a href="src/ExceptionEx10.html" target="_blank">
+								<i class="fas fa-file-code"></i> ExceptionEx10.java</a>
+						</li>
+						<li>
+							<a href="src/ExceptionEx11.html" target="_blank">
+								<i class="fas fa-file-code"></i> ExceptionEx11.java</a>
+						</li>
+						<li>
+							<a href="src/ExceptionEx12.html" target="_blank">
+								<i class="fas fa-file-code"></i> ExceptionEx12.java</a>
+						</li>
+						<li>
+							<a href="src/ExceptionEx13.html" target="_blank">
+								<i class="fas fa-file-code"></i> ExceptionEx13.java</a>
+						</li>
+					</ul>
+				</section>
+
+				<hr/>
+
+				<section>
+					<ul class="actions fit">
+						<li>
+							<a href="Exception_02.html" class="button fit">예외처리</a>
+						</li>
+						<li></li>
+						<li>
+							<a href="Exception_04.html" class="button fit">자동 자원 반환</a>
+						</li>
+					</ul>
+				</section>
+			</div>
+		</section>
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

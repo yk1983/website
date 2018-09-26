@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/sql">SQL</a>
+				</li>
+				<li>
+					<a href="/kinco/sql/Chapter02">DDL</a>
+				</li>
+				<li>
+					<a class="active">제약조건</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">제약조건</h1>
+
+				<section>
+					<h2>NOT NULL</h2>
+					<P>
+						기본적으로 열은
+						<code>NULL</code> 값을 포함 할 수 있습니다.
+						<strong>NOT NULL 제약 조건</strong>은 열이 NULL 값을 허용하지 않도록 강제합니다. 이렇게하면 필드에 항상 값이 포함될 수 있습니다. 즉, 새 레코드를 삽입하거나 업데이트 할 때, 이 필드에 값을
+						추가하지 않거나 NULL 값으로 레코드를 업데이트 할 수 없습니다.
+						<br/>다음 SQL은 "ID", "LastName"및 "FirstName"열이 NULL 값을 허용하지 않도록합니다.
+					</P>
+
+					<h4>Example</h4>
+					<pre><code>CREATE TABLE Persons (
+    ID int <strong>NOT NULL</strong>
+,   LastName varchar(255) <strong>NOT NULL</strong>
+,   FirstName varchar(255) <strong>NOT NULL</strong>
+,   Age int
+);</code></pre>
+					<p>
+						<sup>* 제약조건을 설정할 때
+							<code>CONSTRAINT 제약조건명</code>을 생략할 수 있습니다. CONSTRAINT를 생략하면
+							<strong>제약조건명</strong>이 자동으로 부여됩니다.</sup>
+					</p>
+				</section>
+
+				<hr>
+
+				<section>
+					<ul class="actions fit">
+						<li>
+							<a href="sql_table.html" class="button fit">TABLE</a>
+						</li>
+						<li></li>
+						<li>
+							<a href="sql_unique.html" class="button fit">UNIQUE</a>
+						</li>
+					</ul>
+				</section>
+			</div>
+		</section>
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

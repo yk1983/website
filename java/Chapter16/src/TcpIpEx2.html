@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="../Networking_04.html">Networking</a>
+				</li>
+				<li>
+					<a class="active">Source code</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">TcpIpServer2.java</h1>
+				<p>
+					여러 개의 스레드를 생성해서 클라이언트의 요청을 동시에 처리하도록 하였습니다.
+					서버에 접속하는 클라이언트의 수가 많을 때는 스레드를 이용해서 클라이언트의 요청을 병렬적으로 처리하는 것이 좋습니다.
+					그렇지 않으면 서버가 접속을 요청한 순서대로 처리하기 때문에 늦게 접속을 요청한 클라이언트는 오랜 시간을 기다릴 수 있습니다.
+				</p>
+
+				<h4>TcpIpServer2.java</h4>
+				<pre><code>package chapter16;
+
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class TcpIpServer2 implements Runnable {
+	ServerSocket serverSocket;
+	Thread[] threadArr;
+
+	public static void main(String args[]) {
+		// 5개의 쓰레드를 생성하는 서버를 생성한다.
+		TcpIpServer2 server = new TcpIpServer2(5);
+		server.start();
+	}
+
+	public TcpIpServer2(int num) {
+		try {
+			// 서버소켓을 생성하여 7777번 포트와 결합(bind)시킨다.
+			serverSocket = new ServerSocket(7777);
+			System.out.println(getTime() + "서버가 준비되었습니다.");
+
+			threadArr = new Thread[num];
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void start() {
+		for (int i = 0; i &lt; threadArr.length; i++) {
+			threadArr[i] = new Thread(this);
+			threadArr[i].start();
+		}
+	}
+
+	public void run() {
+		while (true) {
+			try {
+				System.out.println(getTime() + "가 연결요청을 기다립니다.");
+
+				Socket socket = serverSocket.accept();
+				System.out.println(getTime() + socket.getInetAddress() + "로부터 연결요청이 들어왔습니다.");
+
+				// 소켓의 출력스트림을 얻는다.
+				OutputStream out = socket.getOutputStream();
+				DataOutputStream dos = new DataOutputStream(out);
+
+				// 원격 소켓(remote socket)에 데이터를 보낸다.
+				dos.writeUTF("[Notice] Test Message1 from Server.");
+				System.out.println(getTime() + "데이터를 전송했습니다.");
+
+				// 스트림과 소켓을 닫아준다.
+				dos.close();
+				socket.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	// 현재시간을 문자열로 반환하는 함수
+	static String getTime() {
+		String name = Thread.currentThread().getName();
+		SimpleDateFormat f = new SimpleDateFormat("[hh:mm:ss]");
+
+		return f.format(new Date()) + name;
+	}
+}</code></pre>
+
+				<hr>
+
+				<h4>실행결과</h4>
+				<pre><code>[08:48:37]main서버가 준비되었습니다.
+[08:48:37]Thread-0가 연결요청을 기다립니다.
+[08:48:37]Thread-1가 연결요청을 기다립니다.
+[08:48:37]Thread-2가 연결요청을 기다립니다.
+[08:48:37]Thread-3가 연결요청을 기다립니다.
+[08:48:37]Thread-4가 연결요청을 기다립니다.
+
+[08:48:41]Thread-3/127.0.0.1로부터 연결요청이 들어왔습니다.
+[08:48:41]Thread-3데이터를 전송했습니다.
+[08:48:41]Thread-3가 연결요청을 기다립니다.
+
+[08:48:58]Thread-0/127.0.0.1로부터 연결요청이 들어왔습니다.
+[08:48:58]Thread-0데이터를 전송했습니다.
+[08:48:58]Thread-0가 연결요청을 기다립니다.
+
+[08:49:02]Thread-1/127.0.0.1로부터 연결요청이 들어왔습니다.
+[08:49:02]Thread-1데이터를 전송했습니다.
+[08:49:02]Thread-1가 연결요청을 기다립니다.
+
+[08:49:03]Thread-4/127.0.0.1로부터 연결요청이 들어왔습니다.
+[08:49:03]Thread-4데이터를 전송했습니다.
+[08:49:03]Thread-4가 연결요청을 기다립니다.
+
+[08:49:06]Thread-2/127.0.0.1로부터 연결요청이 들어왔습니다.
+[08:49:06]Thread-2데이터를 전송했습니다.
+[08:49:06]Thread-2가 연결요청을 기다립니다.</code></pre>
+
+				<ul class="actions fit">
+					<li></li>
+					<li></li>
+					<li><button class="button fit" id="btn-close" onclick="javascript:window.close();">Close</button></li>
+				</ul>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

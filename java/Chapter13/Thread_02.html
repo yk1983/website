@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="index.html">Thread</a>
+				</li>
+				<li>
+					<a class="active">구현&amp;실행</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">스레드의 구현과 실행</h1>
+
+				<section>
+					<h2>스레드의 구현</h2>
+					<p>
+						스레드를 구현하는 방법은
+						<code>Thread 클래스</code>를 상속받는 방법과
+						<code>Runnable 인터페이스</code>를 구현하는 방법, 두 가지가 있습니다.
+						<br/>Thread 클래스를 상속받으면 다른 클래스를 상속받을 수 없기 때문에 Runnable 인터페이스를 구현하는 방법이 일반적입니다.
+					</p>
+
+					<h4>Thread클래스를 상속</h4>
+					<pre><code>class MyThread extends Thread {
+	public void run() { /*작업 내용*/ } // Thread클래스의 run()을 오버라이딩
+}</code></pre>
+					<pre><code>class ThreadEx1_1 extends Thread {
+	public void run() {
+		for (int i = 0; i &lt; 5; i++) {
+			System.out.println(getName()); // 조상인 Thread의 getName()을 호출
+		}
+	}
+}</code></pre>
+
+					<h4>Runnabled인터페이스를 구현</h4>
+					<pre><code>class MyThread implements Runnable {
+	public void run() { /*작업내용*/ } // Runnabled인터페이스의 run()을 구현
+}</code></pre>
+					<pre><code>class ThreadEx1_2 implements Runnable {
+	public void run() {
+		for (int i = 0; i &lt; 5; i++) {
+			// Thread.currentThread() - 현재 실행중인 Thread를 반환한다.
+			System.out.println(Thread.currentThread().getName());
+		}
+	}
+}</code></pre>
+
+					<p>
+						Runnable인터페이스는 run()만 정의되어 있는 간단한 인터페이스입니다. Runnable인터페이스를 구현하기 위해서 해야 할 일은 추상메서드인 run()의 몸통{}을 만들어 주는 것뿐입니다. 결론적으로 스레드를
+						구현한다는 것은, 두 방법 모두 스레드를 통해 작업하고자 하는 내용으로 run()의 몸통{}을 채우는 것입니다.
+					</p>
+					<pre><code>class ThreadEx01 {
+	public static void main(String args[]) {
+		ThreadEx1_1 t1 = new ThreadEx1_1();
+
+		Runnable r = new ThreadEx1_2();
+		Thread t2 = new Thread(r); // 생성자 Thread(Runnable target)
+		// Thread t2 = new Thread(new ThreadEx1_2());  // 두 줄을 한 줄로
+
+		t1.start();
+		t2.start();
+	}
+}</code></pre>
+					<p>
+						Runnabled인터페이스를 구현한 경우, Runnabled인터페이스를 구현한 클래스의 인스턴스를 생성한 다음, 이 인스턴스를 Thread클래스의 생성자의 매개변수로 제공해야 합니다.
+						<br/>Thread클래스를 상속받으면, 자손 클래스에서 조상인 Thread클래스의 메서드를 직접 호출할 수 있지만, Runnable을 구현하면 Thread클래스의 static메서드인
+						<code>currentThread()</code>를 호출하여 스레드에 대한 참조를 얻어 와야만 호출이 가능합니다.
+					</p>
+					<ul>
+						<li>
+							<strong>static Thread currentThread()</strong> : 현재 실행중인 스레드의 참조를 반환</li>
+						<li>
+							<strong>String getName()</strong> : 스레드의 이름을 반환</li>
+					</ul>
+					<p>
+						<sub>* 스레드의 이름은 다음과 같은 생성자나 메서드를 통해서 지정 또는 변경할 수 있으며, 스레드의 이름을 지정하지 않으면 "Thread-번호"의 형식으로 이름이 정해지게 됩니다.</sub>
+					</p>
+					<ul>
+						<li>Thread(Runnable target, String name)</li>
+						<li>Thread(String name)</li>
+						<li>void setName(String name)</li>
+					</ul>
+				</section>
+
+				<hr>
+
+				<section>
+					<h2>스레드의 실행</h2>
+					<p>
+						스레드를 생성했다고 해서 자동으로 실행되는 것이 아니라,
+						<strong>
+							<code>start()</code>를 호출해야만 스레드가 실행</strong>됩니다. 또한 start()가 호출되었다고 해서 바로 실행되는 것이 아니라,
+						<strong>일단 대기상태에서 있다가 자신의 차례가 되어야 실행</strong>됩니다. (실행대기중인 스레드가 없다면 바로 실행됩니다.)
+						<br/>한 가지 더 알아 두어야 하는 점은 한 번 실행이 종료된 스레드는 다시 실행할 수 없습니다. 즉,
+						<strong>하나의 스레드에 대해 start()가 한 번만 호출</strong>될 수 있습니다.
+					</p>
+				</section>
+
+				<hr>
+
+				<section>
+					<h2>start()와 run()</h2>
+					<p>
+						main메서드에서
+						<code>run()</code>을 호출하는 것은 생성된 스레드를 실행시키는것이 아니라 단순히
+						<strong>클래스에 선언된 메서드를 호출하는 것</strong>일 뿐입니다. 반면에
+						<code>start()</code>는 새로운 스레드가 작업을 실행하는데 필요한 호출스택(call stack)을 생성한 다음에 run()을 호출해서 생성된 호출스택에 run()이 첫 번째로 올라가게 됩니다.
+						<br/>모든 스레드는 독립적인 작업을 수행하기 위해 자신만의 호출스택을 필요로 하기 때문에
+						<strong>새로운 스레드를 생성하고 실행시킬 때마다 새로운 호출스택이 생성</strong>되고
+						<strong>스레드가 종료되면 작업에 사용된 호출스택은 소멸</strong>됩니다.
+					</p>
+					<div class="row">
+						<div class="4u 12u$(medium)">
+							<span class="image">
+								<img src="images/img_thread scheduling.png" width="100%" alt="Thread Scheduling" />
+							</span>
+						</div>
+						<div class="8u 12u$(medium)">
+							<ol>
+								<li>main 메서드에서 스레드의 start()를 호출</li>
+								<li>start()는 새로운 스레드를 생성, 스레드가 작업하는데 사용될 호출 스택을 생성</li>
+								<li>새로 생성된 호출스택에 run()이 호출되어, 스레드가 독립된 공간에서 작업을 수행</li>
+								<li>이제는 호출스택이 2개이므로 스케줄러가 정한 순서에 의해서 번갈아 가면서 실행</li>
+							</ol>
+						</div>
+					</div>
+					<p>
+						스케줄러는 실행대기중인 스레들의 우선순위를 고려하여 실행순서와 실행시간을 결정하고, 각 스레드들은 작성된 스케줄에 따라 자신의 순서가 되면 지정된 시간동안 작업을 수행합니다.
+						<br/>이 때 주어진 시간동안 작업을마치지 못한 스레드는 자신의 차례가 돌아올 때까지 대기상태로 있게되며 작업을 마친 스레드, 즉
+						<strong>run()은 수행이 종료된 스레드는 호출스택이 모두 비워지면서 이 스레드가 사용하던 호출스택은 사라집니다.</strong>
+						<br/>
+						<sub>* main 메서드의 작업을 수행하는 것도 스레드이며, 이를 main 스레드라고 합니다. 그래서 프로그램을 실행하면 기본적으로 하나의 스레드를 생성하고, 그 스레드가 main메서드를 호출해서 작업이 수행되도록
+							합니다. 지금까지는 main메서드가 수행을 마치면 프로그램이 종료되었으나, 다른 스레드가 아직 작업을 마치지 않은 상태라면 프로그램이 종료되지 않습니다.</sub>
+					</p>
+				</section>
+
+				<hr>
+
+				<ul class="actions fit">
+					<li>
+						<a href="Thread_01.html" class="button fit">프로세스&amp;스레드</a>
+					</li>
+					<li></li>
+					<li>
+						<a href="Thread_03.html" class="button fit">싱글/멀티</a>
+					</li>
+				</ul>
+			</div>
+		</section>
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

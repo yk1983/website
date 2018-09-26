@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="../Thread_03.html">Thread</a>
+				</li>
+				<li>
+					<a class="active">Source code</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">ThreadEx02</h1>
+				<p>
+					사용자로부터 입력받는 부분과 화면에에 숫자를 출력하는 부분을 두 새의 스레드로 나누어서 처리했기 때문에 사용자가 입력을 마치지 않았어도 화면에 숫자가 출력되는 예제입니다.
+				</p>
+
+				<h4>ThreadEx02.java</h4>
+				<pre><code>package chapter13;
+
+import javax.swing.JOptionPane;
+
+public class ThreadEx02 {
+	public static void main(String[] args) throws Exception {
+		ThreadB th1 = new ThreadB();
+		th1.start();
+
+		String input = JOptionPane.showInputDialog("아무 값이나 입력하세요.");
+		System.out.println("입력하신 값은 " + input + "입니다.");
+	}
+}</code></pre>
+
+				<h4>ThreadB.java</h4>
+				<pre><code>package chapter13;
+
+public class ThreadB extends Thread {
+	public void run() {
+		for(int i=10; i > 0; i--) {
+			System.out.println(i);
+			try {
+				sleep(1000);
+			} catch(Exception e ) {}
+		}
+	}
+}</code></pre>
+
+				<h4>실행결과</h4>
+				<pre><code>10
+9
+8
+7
+6
+입력하신 값은 hello입니다.
+5
+4
+3
+2
+1</code></pre>
+
+				<hr>
+
+				<ul class="actions fit">
+					<li></li>
+					<li></li>
+					<li>
+						<button class="button fit" id="btn-close" onclick="javascript:window.close();">Close</button>
+					</li>
+				</ul>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

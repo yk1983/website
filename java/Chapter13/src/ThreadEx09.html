@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="../Thread_07.html">Thread</a>
+				</li>
+				<li>
+					<a class="active">Source code</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">ThreadEx09</h1>
+				<p>
+					<code>yield()</code>메서드와
+					<code>interrupt()</code>메서드를 이용한 예제입니다.
+					<br/>
+					<code>suspended</code>의 값이
+					<code>true</code>라면, 즉 잠시 실행을 멈추게 한 상태라면, 스레드는 주어진 실행을
+					<code>while문</code>을 의미없이 돌면서 낭비하게 됩니다. 이러한 상황을을
+					<strong>바쁜 대기상태(busy-waiting)</strong>이라고 합니다.
+				</p>
+
+				<h4>ThreadEx09.java</h4>
+				<pre><code>package chapter13;
+
+public class ThreadEx09 {
+	public static void main(String args[]) {
+		RunImplEx09 th1 = new RunImplEx09("*");
+		RunImplEx09 th2 = new RunImplEx09("**");
+		RunImplEx09 th3 = new RunImplEx09("***");
+		th1.start();
+		th2.start();
+		th3.start();
+
+		try {
+			Thread.sleep(2000);
+			th1.suspend();
+			Thread.sleep(2000);
+			th2.suspend();
+			Thread.sleep(3000);
+			th1.resume();
+			Thread.sleep(3000);
+			th1.stop();
+			th2.stop();
+			Thread.sleep(2000);
+			th3.stop();
+		} catch (InterruptedException e) {
+		}
+	}
+}</code></pre>
+
+				<h4>RunImplEx08.java</h4>
+				<pre><code>package chapter13;
+
+public class RunImplEx09 implements Runnable {
+	boolean suspended = false;
+	boolean stopped = false;
+
+	Thread th;
+
+	RunImplEx09(String name) {
+		th = new Thread(this, name); // Thread(Runnable r, String name)
+	}
+
+	public void run() {
+		String name = th.getName();
+
+		while (!stopped) {
+			if (!suspended) {
+				System.out.println(name);
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					System.out.println(name + " - interrupted");
+				}
+			<strong>} else {
+				Thread.yield();
+			}</strong>
+		}
+		System.out.println(name + " - stopped");
+	}
+
+	public void suspend() {
+		suspended = true;
+		th.interrupt();
+		System.out.println(th.getName() + " - interrupt() by suspend()");
+	}
+
+	public void resume() {
+		suspended = false;
+	}
+
+	public void stop() {
+		stopped = true;
+		th.interrupt();
+		System.out.println(th.getName() + " - interrupt() by stop()");
+	}
+
+	public void start() {
+		th.start();
+	}
+}</code></pre>
+
+				<h4>실행결과</h4>
+				<pre><code>***
+**
+*
+*
+***
+**
+* - interrupted
+* - interrupt() by suspend()
+**
+***
+***
+**
+** - interrupt() by suspend()
+** - interrupted
+***
+***
+***
+*
+***
+*
+***
+*
+***
+* - interrupt() by stop()
+** - interrupt() by stop()
+** - stopped
+* - interrupted
+* - stopped
+***
+***
+*** - interrupt() by stop()
+*** - interrupted
+*** - stopped</code></pre>
+
+				<hr>
+
+				<ul class="actions fit">
+					<li></li>
+					<li></li>
+					<li>
+						<button class="button fit" id="btn-close" onclick="javascript:window.close();">Close</button>
+					</li>
+				</ul>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

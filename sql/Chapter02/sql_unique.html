@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/sql">SQL</a>
+				</li>
+				<li>
+					<a href="/kinco/sql/Chapter02">DDL</a>
+				</li>
+				<li>
+					<a class="active">제약조건</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">제약조건</h1>
+
+				<h2>UNIQUE</h2>
+				<p>
+					UNIQUE 제약 조건은 열의 모든 값이 서로 다른지 확인합니다. UNIQUE 및 PRIMARY KEY 제약 조건은 열 또는 열 집합의 고유성을 보장합니다.
+					<br/>이후에 배울 PRIMARY KEY 제약 조건에는 자동으로 UNIQUE 제약 조건이 있습니다. 그러나 테이블 당 많은 UNIQUE 제약 조건을 가질 수 있지만 테이블 당 하나의 PRIMARY KEY 제약 조건
+					만 가질 수 있습니다.
+				</p>
+
+				<hr>
+
+				<section>
+					<h2>CREATE TABLE에 대한 UNIQUE 제약 조건</h2>
+					<p>
+						다음 SQL은 "Person"테이블을 만들 때 "ID"열에 UNIQUE 제약 조건을 만듭니다.
+					</p>
+
+					<h4>SQL Server / Oracle / MS Access:</h4>
+					<pre><code>CREATE TABLE Persons (
+    ID int NOT NULL <strong>UNIQUE</strong>
+,   LastName varchar(255) NOT NULL
+,   FirstName varchar(255)
+,   Age int
+);</code></pre>
+
+					<h4>MySQL:</h4>
+					<pre><code>CREATE TABLE Persons (
+    ID int NOT NULL
+,   LastName varchar(255) NOT NULL
+,   FirstName varchar(255)
+,   Age int
+,   <strong>UNIQUE</strong> (ID)
+);</code></pre>
+
+					<p>
+						UNIQUE 제약 조건의 이름을 지정하고 여러 열에 UNIQUE 제약 조건을 정의하려면 다음 SQL 구문을 사용하십시오.
+					</p>
+					<h4>MySQL / SQL Server / Oracle / MS Access:</h4>
+					<pre><code>CREATE TABLE Persons (
+    ID int NOT NULL
+,   LastName varchar(255) NOT NULL
+,   FirstName varchar(255)
+,   Age int
+,   <strong>CONSTRAINT</strong> <em>person_uk</em> <strong>UNIQUE</strong> (ID,LastName)
+);</code></pre>
+				</section>
+
+				<hr>
+
+				<section>
+					<h2>ALTER TABLE에 대한 UNIQUE 제약 조건</h2>
+					<p>
+						테이블이 이미 만들어 졌을 때 "ID"열에 UNIQUE 제약 조건을 만들려면 다음 SQL을 사용하십시오.
+					</p>
+
+					<h4>MySQL / SQL Server / Oracle / MS Access:</h4>
+					<pre><code>ALTER TABLE Persons <strong>ADD UNIQUE</strong> (ID);</code></pre>
+
+					<p>
+						UNIQUE 제약 조건의 이름을 지정하고 여러 열에 UNIQUE 제약 조건을 정의하려면 다음 SQL 구문을 사용하십시오.
+					</p>
+					<h4>MySQL / SQL Server / Oracle / MS Access:</h4>
+					<pre><code>ALTER TABLE Persons <strong>ADD CONSTRAINT</strong> <em>person_uk</em> <strong>UNIQUE</strong> (ID,LastName);</code></pre>
+				</section>
+
+				<hr>
+
+				<section>
+					<h2>UNIQUE 제약 조건 삭제</h2>
+					<p>
+						UNIQUE 제약 조건을 삭제하려면 다음 SQL을 사용하십시오.
+					</p>
+					<h4>MySQL:</h4>
+					<pre><code>ALTER TABLE Persons <strong>DROP INDEX</strong> <em>person_uk</em>;</code></pre>
+
+					<h4>SQL Server / Oracle / MS Access:</h4>
+					<pre><code>ALTER TABLE Persons <strong>DROP CONSTRAINT</strong> <em>person_uk</em>;</code></pre>
+				</section>
+
+				<hr>
+
+				<section>
+					<ul class="actions fit">
+						<li>
+							<a href="sql_notnull.html" class="button fit">NOT NULL</a>
+						</li>
+						<li></li>
+						<li>
+							<a href="sql_primarykey.html" class="button fit">PRIMARY KEY</a>
+						</li>
+					</ul>
+				</section>
+			</div>
+		</section>
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

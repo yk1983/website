@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="index.html">Thread</a>
+				</li>
+				<li>
+					<a class="active">스레드 그룹</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">스레드 그룹(thread group)</h1>
+				<p>
+					<strong>스레드 그룹</strong>은 서로
+					<strong>관련된 스레드를 그룹으로 다루기 위한 것</strong>으로, 폴더를 생성해서 관련된 파일들을 함께 넣어서 관리하는 것처럼
+					<strong>스레드 그룹을 생성해서 스레드를 그룹으로 묶어서 관리</strong>할 수 있습니다.
+					<br/>또한 폴더 안에 폴더를 생성할 수 있듯이 
+					<strong>스레드 그룹에 다른 스레드 그룹을 포함시킬 수 있습니다.</strong>
+					<br/>
+					<sub>* 스레드 그룹은 보안상의 이유로 도입된 개념으로, 자신이 속한 스레드 그룹이나 하위 스레드 그룹은 변경할 수 있지만 다른 스레드 그룹의 스레드를 변경할 수 없습니다.</sub>
+				</p>
+
+				<h4>ThreadGroup의 생성자와 메서드</h4>
+				<table>
+					<tbody>
+						<tr>
+							<td>
+								<strong>
+									<em>ThreadGroup(String name)</em>
+								</strong>
+								<br/> : 지정된 이름의 새로운 스레드 그룹을 생성합니다.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>
+									<em>ThreadGroup(ThreadGroup parent, String name)</em>
+								</strong>
+								<br/> : 지정된 스레드 그룹에 포함되는 새로운 스레드 그룹을 생성합니다.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>
+									<em>int activeCount()</em>
+								</strong>
+								<br/> : 스레드 그룹에 포함된 활성상태에 있는 스레드의 수를 반환합니다.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>
+									<em>int activeGroupCount()</em>
+								</strong>
+								<br/> : 스레드 그룹에 포함된 활성상태에 있는 스레드 그룹의 수를 반환합니다.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>
+									<em>void checkAccess()</em>
+								</strong>
+								<br/> : 현재 실행중인 스레드가 스레드 그룹을 변경할 권한이 있는지 체크합니다. 만일 권한이 없다면 SecurityException을 발생시킵니다.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>
+									<em>void destory()</em>
+								</strong>
+								<br/> : 스레드 그룹과 하위 스레드 그룹까지 모두 삭제합니다. 단, 스레드 그룹이나 하위 스레드 그룹이 비어있어야 합니다.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>
+									<em>int enumerate(Thread[] list)
+										<br/>int enumerate(Thread[] list, boolean recurse)
+										<br/>int enumerate(ThreadGroup[] list)
+										<br/>int enumerate(ThreadGroup[] list, boolean recurse)</em>
+								</strong>
+								<br/> : 스레드 그룹에 속한 스레드 또는 하위 스레드 그룹의 목록을 지정된 배열에 담고 그 개수를 반환합니다.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>
+									<em>int getMaxPriority()</em>
+								</strong>
+								<br/> : 스레드 그룹의 최대우선순위를 반환합니다.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>
+									<em>String getName()</em>
+								</strong>
+								<br/> : 스레드 그룹의 이름을 반환합니다.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>
+									<em>ThreadGroup getParent()</em>
+								</strong>
+								<br/> : 스레드 그룹의 상위 스레드그룹을 반환합니다.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>
+									<em>void interrupt()</em>
+								</strong>
+								<br/> : 스레드 그룹에 속한 모든 스레드를 interrupt
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>
+									<em>boolean isDaemon()</em>
+								</strong>
+								<br/> : 스레드 그룹이 데몬 스레드그룹인지 확인합니다.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>
+									<em>boolean isDestroyed()</em>
+								</strong>
+								<br/> : 스레드 그룹이 삭제되었는지 확인합니다.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>
+									<em>void list()</em>
+								</strong>
+								<br/> : 스레드 그룹에 속한 스레드와 하위 스레드그룹에 대한 정보를 출력합니다.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>
+									<em>boolean parentOf(ThreadGroup g)</em>
+								</strong>
+								<br/> : 지정된 스레드 그룹의 상위 스레드그룹인지 확인합니다.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>
+									<em>void setDaemon(boolean daemon)</em>
+								</strong>
+								<br/> : 스레드 그룹을 대몬 스레드그룹으로 설정 또는 해제 합니다.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>
+									<em>void setMaxPriority(int pri)</em>
+								</strong>
+								<br/> : 스레드 그룹의 최대우선순위를 설정합니다.
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<p>
+					스레드를 스레드 그룹에 포함시키려면 Thread의 생성자를 이용해야 합니다.
+					모든 스레드는 반드시 스레드 그룹에 포함되어 있어야 하기 때문에, 위와 같이 스레드 그룹을 지정하는 생성자를 사용하지 않은 스레드는 기본적으로 자신을 생성한 스레드와 같은 스레드 그룹에 속하게 됩니다.
+					<br/>예를 들어 main메서드를 수행하는 main이라는 이름의 스레드는 main스레드 그룹에 속하고, 가비지컬렉션을 수행하는 Finalizer스레드는 system스레드 그룹에 속합니다.
+				</p>
+				<pre><code><strong>ThreadGroup getThreadGroup()</strong> 스레드 자신이 속한 스레드 그룹을 반환합니다.
+<strong>void uncaughtException(Thread t, throwable e)</strong>
+스레드 그룹의 스레드가 처리되지 않은 예외에 의해 실행이 종료되었을 때, JVM에 의해 이 메서드가 자동적으로 호출됩니다.</code></pre>
+
+				<h4>Example sources</h4>
+				<ul class="icons source">
+					<li>
+						<a href="src/ThreadGroupEx.html" target="_blank">
+							<i class="fas fa-file-code"></i> ThreadGroupEx.java</a>
+					</li>
+				</ul>
+
+				<hr>
+
+				<ul class="actions fit">
+					<li>
+						<a href="Thread_04.html" class="button fit">우선순위</a>
+					</li>
+					<li></li>
+					<li>
+						<a href="Thread_06.html" class="button fit">데몬 스레드</a>
+					</li>
+				</ul>
+			</div>
+		</section>
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

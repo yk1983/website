@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="../Thread_07.html">Thread</a>
+				</li>
+				<li>
+					<a class="active">Source code</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">ThreadEx05</h1>
+				<p>
+					시간지연을 위해 사용했던 <code>for문</code>대신 <code>Thread.sleep(1000)</code>으로 1초 동안 지연되도록 변경했을 때, 카운트가 종료되지 않습니다.
+				</p>
+
+				<h4>ThreadEx05.java</h4>
+				<pre><code>package chapter13;
+
+import javax.swing.JOptionPane;
+
+public class ThreadEx05 {
+	public static void main(String[] args) throws Exception {
+		ThreadEx05_1 th1 = new ThreadEx05_1();
+		th1.start();
+
+		String input = JOptionPane.showInputDialog("아무 값이나 입력하세요.");
+		System.out.println("입력하신 값은 " + input + "입니다.");
+		th1.interrupt(); // interrupt()를 호출하면, interrupted상태가 true가 된다.
+		System.out.println("isInterrupted():" + th1.isInterrupted());
+	}
+}</code></pre>
+
+				<h4>ThreadEx05_1.java</h4>
+				<pre><code>package chapter13;
+
+public class ThreadEx05_1 extends Thread {
+	public void run() {
+		int i = 10;
+
+		while (i != 0 &amp;&amp; !isInterrupted()) {
+			System.out.println(i--);
+
+			try {
+				Thread.sleep(1000); // 1초 지연
+			} catch (InterruptedException e) {
+			}
+		}
+
+		System.out.println("카운트가 종료되었습니다.");
+	}
+}</code></pre>
+
+				<h4>실행결과</h4>
+				<pre><code>10
+9
+8
+7
+6
+5
+4
+입력하신 값은 hello입니다.
+isInterrupted():false
+3
+2
+1
+카운트가 종료되었습니다.</code></pre>
+
+				<hr>
+
+				<ul class="actions fit">
+					<li></li>
+					<li></li>
+					<li>
+						<button class="button fit" id="btn-close" onclick="javascript:window.close();">Close</button>
+					</li>
+				</ul>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

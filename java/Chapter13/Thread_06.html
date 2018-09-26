@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="index.html">Thread</a>
+				</li>
+				<li>
+					<a class="active">데몬 스레드</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">데몬 스레드(daemon thread)</h1>
+				<p>
+					<strong>데몬 스레드</strong>는 다른 <strong>일반 스레드(데몬 스레드가 아닌 스레드)의 작업을 돕는 보조적인 역활을 수행하는 스레드</strong>입니다.
+					<strong>일반 스레드가 모두 종료되면 데몬 스레드는 강제적으로 자동 종료</strong>되는데, 데몬 스레드는 일반 스레드의 보조적인 역활을 수행하므로 일반 스레드가 종료되고 나면 데몬 스레드의 존재의 의미가 없기 때문입니다.
+					이 점을 제외하면 데몬 스레드와 일반 스레드는 다르지 않습니다. 데몬 스레드의 예로는 가비지 컬렉터, 워드프로세서의 자동저장, 화면자동 갱신등이 있습니다.
+					<br/>데몬 스레드는 무한루프와 조건문을 이용해서 실행 후 대기하고 있다가 특정 조건이 만족되면 작업을 수행하고 다시 대기하도록 작성합니다.
+					데몬 스레드는 일반 스레드와 작성방법과 실행방법이 같으며 다만 스레드를 생성한 다음 실행하기 전에 <code>setDaemon(true)</code>를 호출하기만 하면 됩니다.
+				</p>
+				<pre><code><strong>boolean isDaemon</strong>
+스레드가 데몬 스레드인지 확인합니다. 데몬 스레드이면 true를 반환합니다.
+<strong>void setDaemon(boolean on)</strong>
+스레드를 데몬 스레드로 또는 사용자 스레드로 변경합니다.
+매개변수 on의 값을 true로 지정하면 데몬 스레드가 됩니다.</code></pre>
+
+				<h4>Example sources</h4>
+				<ul class="icons source">
+					<li>
+						<a href="src/DaemonThreadEx.html" target="_blank">
+							<i class="fas fa-file-code"></i> DaemonThreadEx1.java</a>
+					</li>
+					<li>
+						<a href="src/DaemonThreadEx.html" target="_blank">
+							<i class="fas fa-file-code"></i> DaemonThreadEx2.java</a>
+					</li>
+				</ul>
+
+				<hr>
+
+				<ul class="actions fit">
+					<li>
+						<a href="Thread_05.html" class="button fit">스레드 그룹</a>
+					</li>
+					<li></li>
+					<li>
+						<a href="Thread_07.html" class="button fit">실행제어</a>
+					</li>
+				</ul>
+			</div>
+		</section>
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/sql">SQL</a>
+				</li>
+				<li>
+					<a href="/kinco/sql/Chapter03">DML</a>
+				</li>
+				<li>
+					<a class="active">SELECT</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">SELECT</h1>
+				<p>
+					<code>SELECT 문</code>은 데이터베이스에서 데이터를 선택하는 데 사용됩니다. 리턴된 데이터는 결과 세트라고하는 결과 테이블에 저장됩니다.
+				</p>
+				<h4>Syntax</h4>
+				<pre><code><strong>SELECT</strong> [DISTINCT] {<em>* | column1, column2, ... | column1 [alias], column2 [alias], ...</em>}
+<strong>FROM</strong>   <em>table_name</em>
+[<strong>WHERE</strong> <em>condition</em>]
+[<strong>ORDER BY</strong> <em>column | expression</em> [ASC | DESC]];</code></pre>
+
+				<ul>
+					<li>괄호[] 는 생략 가능한 문장</li>
+					<li>
+						<strong>DISTINCT</strong> - 중복되는 행을 제거하는 옵션</li>
+					<li>
+						<strong>*</strong> - 테이블의 모든 column을 출력</li>
+					<li>
+						<strong>alias</strong> - 해당 column에 대해서 다른 이름을 부여할 때 사용</li>
+					<li>
+						<strong>table_name</strong> - 질의 대상 테이블 명</li>
+					<li>
+						<strong>WHERE</strong> - 조건을 만족하는 행들 만 검색</li>
+					<li>
+						<strong>condition</strong> - column, 표현식, 상수 및 비교 연산자</li>
+					<li>
+						<strong>ORDER BY</strong> - 질의 결과를 정렬하기 위한 옵션, 기본값은 ASC (ASC : 오름차순, DESC : 내림차순)</li>
+				</ul>
+
+				<hr>
+
+				<section>
+					<h2>SELECT 문</h2>
+					<p>
+						SELECT 문의 기본은 다음과 같습니다.
+					</p>
+					<pre><code><strong>SELECT</strong> <em>column1, column2, ...</em>
+<strong>FROM</strong>   <em>table_name;</em>
+
+또는
+
+<strong>SELECT</strong> *
+<strong>FROM</strong>   <em>table_name</em>;</code></pre>
+					<ul>
+						<li>column1, column2, ...는 데이터를 선택할 테이블의 필드 이름입니다.</li>
+						<li>테이블의 모든 필드를 선택하려면 문자(*)를 사용합니다.</li>
+					</ul>
+
+					<h4>Example</h4>
+					<pre><code>-- "Customers"테이블에서 "CustomerName"및 "City"열을 선택합니다.
+SELECT CustomerName, City FROM Customers;
+
+-- "Customers"테이블의 모든 열을 선택합니다.
+SELECT * FROM Customers;</code></pre>
+				</section>
+
+				<hr/>
+
+				<section>
+					<h2>SELECT DISTINCT 문</h2>
+					<p>
+						<code>SELECT DISTINCT 문</code>은 고유한 값(중복제거)만 리턴하는 데 사용됩니다. 테이블 내에서 열은 많은 중복 값을 포함할 수 있는데, 때로는 중복된 값을 제외한 값만 나열하려고 할 때 사용됩니다.
+					</p>
+					<pre><code><strong>SELECT DISTINCT</strong> <em>column1, column2, ...</em>
+<strong>FROM</strong>   <em>table_name</em>;</code></pre>
+
+					<h4>Example</h4>
+					<pre><code>-- "Customers" 테이블의 "Country"열에서 중복된 값을 제거(DISTINCT)된 값만 선택합니다.
+SELECT DISTINCT Country FROM Customers;
+
+-- 서로 다른 고객의 국가 개수를 검색합니다.
+SELECT COUNT(DISTINCT Country) FROM Customers;</code></pre>
+				</section>
+
+				<hr>
+
+				<section>
+					<h2>WHERE 절</h2>
+					<p>
+						<code>WHERE 절</code>은 레코드를 필터링하는데 사용됩니다. WHERE 절에 지정된 조건을 충족하는 레코드만을 검색하는데 사용됩니다.
+						<br/>WHERE 절은 SELECT 문뿐만 아니라 UPDATE문과 DELETE 문에서도 사용됩니다.
+					</p>
+
+					<pre><code><strong>SELECT</strong> <em>column1, column2, ...</em>
+<strong>FROM</strong>   <em>table_name</em>
+<strong>WHERE</strong>  <em>condition</em>;</code></pre>
+
+					<p>
+						SQL은 텍스트 값에 대해 작은 따옴표를 사용해야합니다. (큰 따옴표를 허용하는 데이터베이스도 있습니다.)
+						<br/>숫자 필드에 대해서는 따옴표를 묶지 않아도 됩니다.
+					</p>
+					<h4>Example</h4>
+					<pre><code>-- "Customers" 테이블에서 "Mexico"인 국가의 모든 고객을 선택합니다.
+SELECT *
+FROM   Customers
+WHERE  Country = 'Mexico';
+
+-- "Customers" 테이블에서 "CustomerID"의 값이 1인 고객을 선택합니다.
+SELECT *
+FROM   Customers
+WHERE  CustomerID = 1;</code></pre>
+
+					<p>
+						WHERE 절에 사용될 수 있는 SELECT 연산자는 다음과 같습니다.
+					</p>
+
+					<h4>WHERE 절에 사용될 수 있는 SELECT 연산자</h4>
+					<table>
+						<thead>
+							<tr>
+								<th>Operator</th>
+								<th>Description</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>=</td>
+								<td>같음</td>
+							</tr>
+							<tr>
+								<td>&lt;&gt; | !=</td>
+								<td>다름</td>
+							</tr>
+							<tr>
+								<td>&gt;</td>
+								<td>보다 큰</td>
+							</tr>
+							<tr>
+								<td>&lt;</td>
+								<td>보다 작은</td>
+							</tr>
+							<tr>
+								<td>&gt;=</td>
+								<td>보다 크거나 같은</td>
+							</tr>
+							<tr>
+								<td>&lt;=</td>
+								<td>보다 작거나 같은</td>
+							</tr>
+							<tr>
+								<td>BETWEEN A AND B</td>
+								<td>A와 B를 포함한 A와 B 사이의 데이터</td>
+							</tr>
+							<tr>
+								<td>IN (list)</td>
+								<td>list의 값중 하나라도 일치하는 데이터</td>
+							</tr>
+							<tr>
+								<td>LIKE</td>
+								<td>문자 형태로 일치하는 데이터 (%, _)</td>
+							</tr>
+							<tr>
+								<td>IS NULL</td>
+								<td>NULL값을 가진 데이터</td>
+							</tr>
+							<tr>
+								<td>NOT BETWEEN A AND B</td>
+								<td>A와 B를 포함하지 않은 A와 B 사이에 있지 않은 데이터</td>
+							</tr>
+							<tr>
+								<td>NOT IN (list)</td>
+								<td>list의 값과 일치하지 않는 데이터</td>
+							</tr>
+							<tr>
+								<td>NOT LIKE</td>
+								<td>문자 형태와 일치하지 않는 데이터</td>
+							</tr>
+							<tr>
+								<td>IS NOT NULL</td>
+								<td>NULL값을 갖지 않는 데이터</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+
+				<section>
+					<ul class="actions fit">
+						<li></li>
+						<li></li>
+						<li>
+							<a href="sql_insert.html" class="button fit">INSERT</a>
+						</li>
+					</ul>
+				</section>
+			</div>
+		</section>
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

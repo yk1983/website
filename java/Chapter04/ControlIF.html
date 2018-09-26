@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!-- Latest compiled and minified CSS -->
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="index.html">제어문</a>
+				</li>
+				<li>
+					<a class="active">조건문</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">조건문 (conditional statements)</h1>
+				<p>
+					조건문은
+					<strong>조건식의 연산결과에 따라서 실행할 문장이 달라져서 프로그램의 실행흐름을 변경</strong>할 수 있습니다. (조건에 따라서 다른 문장이 수행되거나, 특정 조건에만 실행 또는 실행을 건너뛰게하는 등)
+					<br/>조건문에는
+					<code>if 문</code>과
+					<code>switch 문</code> 두 가지가 있으며 주로 if문이 많이 사용됩니다. 처리하고자 하는 경우의 수가 많을 경우 if문보다 switch문이 효율적이지만, switch문은 if문보다 제약이 많습니다. 자바에서
+					사용되는 대표적인 조건문의 형태는 다음과 같습니다.
+				</p>
+				<ul>
+					<li><strong>if 문</strong></li>
+					<li><strong>if ~ else 문</strong></li>
+					<li><strong>if ~ else if 문</strong></li>
+					<li><strong>삼항연산자</strong></li>
+					<li>switch 문</li>
+				</ul>
+
+				<hr>
+
+				<section>
+					<h2>if 문</h2>
+					<p>
+						가장 기본적으로 사용되는 조건문은
+						<code>if 문</code> 입니다.
+						<br/>조건문을 뜻으로 정의하자면
+						<strong>"만일 ~ 한다면"</strong>이라고 생각하면 됩니다.
+						<strong>만일(if) 조건식이 참(true)이면 블럭({}) 안의 문장을 수행하라</strong>라는 의미가 됩니다. 조건식은 다음과 같이
+						<strong>조건을 정의하는 "조건식"과 문장을 실행하는 "블럭"</strong>으로 이루어져 있습니다.
+					</p>
+					<h4>Syntax</h4>
+					<pre><code>if (조건식) {
+	// 조건식이 참(true)일 때 수행할 문장
+}</code></pre>
+					<div class="row">
+						<div class="8u 12u$(medium)">
+							<h4>Example</h4>
+							<pre><code>// if 문을 사용하여, 해당 문자가 영문 소문자인지를 확인하는 예제
+public class FlowIfEx {
+	public static void main(String[] args) {
+		char ch = 'j';
+		if (ch > 'a' &amp;&amp; ch &lt; 'z') {
+			System.out.println("해당 문자는 영문 소문자입니다.");
+		}
+	}
+}</code></pre>
+						</div>
+						<div class="4u 12u$(medium)">
+							<h4>if문 순서도</h4>
+							<span class="image">
+								<img src="images/img_if_flowchart.png" width="100%" alt="if문 순서도" />
+							</span>
+						</div>
+					</div>
+					<p>
+						<sup>* 위의 코드에서 블록에 속한 명령문은 중괄호({})를 기준으로 오른쪽으로 들여쓰기가 되어 있는 것을 볼 수 있습니다. 이처럼 들여쓰기를 통해 코드의 가독성을 높이는 것을 인덴트(indent)라고 하며, 될
+							수 있으면 모든 코드를 인덴트하는 것이 좋습니다. 보통 들여쓰기 코드는 탭을 사용하는데 탭은 공백 4칸으로 설정하여 사용하는 것이 좋습니다.</sup>
+					</p>
+
+					<h4>조건식</h4>
+					<p>
+						if문에 사용되는
+						<strong>조건식은 일반적으로 비교연산자와 논리연산자로 구성</strong>됩니다.
+						<strong>조건식을 작성할 때 실수하기 쉬운 것이, 등가비교 연산자(
+							<code>==</code>) 대신 대입연산자(
+							<code>=</code>를 사용하는 것</strong>입니다.
+						<br/>자바에서
+						<strong>조건식의 결과는 반드시
+							<code>true</code> 또는
+							<code>false</code>이어야 한다</strong>는 것입니다.
+					</p>
+
+					<h4>블럭 {}</h4>
+					<p>
+						괄호{}를 이용해서 여러 문장을 하나의 단위로 묶을 수 있는데, 이것을 블럭(block)이라고 합니다.
+						<br/>
+						<strong>블럭은
+							<code>{</code>으로 시작하여
+							<code>}</code>로 끝납니다.</strong>
+						'}'다음에 문장의 끝을 의미하는 세미콜론(
+						<code>;</code>)을 붙이지 않는다는 것에 주의하세요.
+					</p>
+				</section>
+
+				<hr>
+
+				<section>
+					<h2>if ~ else문</h2>
+					<p>
+						<code>if 문</code>과 함께 사용하는
+						<code>else 문</code>은
+						<strong>if문과는 반대로 주어진 조건식의 결과가 거짓(false)이면 주어진 명령문을 실행</strong>합니다.
+					</p>
+
+					<h4>Syntax</h4>
+					<pre><code>if (조건식) {
+	// 조건식이 참(true)일 때 수행할 문장
+} else {
+	// 조건식이 거짓(false)일 때 수행할 문장
+}</code></pre>
+
+					<div class="row">
+						<div class="8u 12u$(medium)">
+							<h4>Example</h4>
+							<pre><code>// if 문을 사용하여, 해당 문자가 영문 소문자인지를 확인하는 예제
+public class FlowIfEx {
+	public static void main(String[] args) {
+		char ch = 'j';
+		if (ch > 'a' &amp;&amp; ch &lt; 'z') {
+			System.out.println("해당 문자는 영문 소문자입니다.");
+		} else {
+			System.out.println("해당 문자는 영문 소문자가 아닙니다.");
+		}
+	}
+}</code></pre>
+						</div>
+						<div class="4u 12u$(medium)">
+							<h4>if~else문 순서도</h4>
+							<span class="image">
+								<img src="images/img_if_else_flowchart.png" width="100%" alt="if~else문 순서도" />
+							</span>
+						</div>
+					</div>
+				</section>
+
+				<hr>
+
+				<section>
+					<h2>if ~ else if문</h2>
+					<p>
+						<code>if ~ else if문</code>은 마치 새로운 구문처럼 보이지만, 사실은 두 개의 if ~ else 문이 연달아 나온 것뿐입니다. 이러한
+						<strong>if ~ else if 문은 조건식을 여러 개 명시</strong>할 수 있으므로
+						<strong>중첩된 if 문을 좀 더 간결하게 표현</strong>할 수 있습니다.
+						<br/>
+						<strong>if 문의 조건식에 만족하지 않을 때, else if 문의 조건을 판단하여 참이면 블럭({})의 문장을 실행하고 이 조건도 거짓이면 else 문을 실행</strong>합니다.
+						<br/>이때
+						<strong>else if 문은 여러 번 나와도 상관없지만, if 문과 else 문은 단 한 번만</strong> 나올 수 있습니다.
+					</p>
+					<h4>Syntax</h4>
+					<pre><code>if (조건식1) {
+	// 조건식1이 참(true)일 때 수행할 문장
+} else if (조건식2) {
+	// 조건식1이 거짓(false)이고, 조건식2가 참(true)일 때 수행할 문장
+} else {
+	// 조건식1이 거짓(false)이고, 조건식2도 거짓(false)일 때 수행할 문장
+}</code></pre>
+
+					<div class="row">
+						<div class="8u 12u$(medium)">
+							<h4>Example</h4>
+							<pre><code>// if 문을 사용하여, 해당 문자가 영문 소문자인지를 확인하는 예제
+public class FlowIfEx {
+	public static void main(String[] args) {
+		char ch = 'j';
+		if (ch > 'a' &amp;&amp; ch &lt; 'z') {
+			System.out.println("해당 문자는 영문 소문자입니다.");
+		} else if (ch > 'A' &amp;&amp; ch &lt; 'Z') {
+			System.out.println("해당 문자는 영문 소문자가 아닙니다.");
+		} else {
+			System.out.println("해당 문자는 영문자가 아닙니다.");
+		}
+	}
+}</code></pre>
+						</div>
+						<div class="4u 12u$(medium)">
+							<h4>if~else if문 순서도</h4>
+							<span class="image">
+								<img src="images/img_if_elseif_flowchart.png" width="100%" alt="if~else if문 순서도" />
+							</span>
+						</div>
+					</div>
+					<p>
+						<sup>* if 문의 블럭 {} :
+							<code>if 문</code>,
+							<code>if ~ else 문</code>,
+							<code>if ~ else if 문</code>에서
+							<strong>실행될 명령문이 한 줄뿐이라면 괄호{}를 생략하여 코딩</strong>할 수 있습니다만, 코드의 가독성을 위해서 생략하지 않는 것이 좋습니다.</sup>
+					</p>
+				</section>
+
+				<hr>
+
+				<section>
+					<h2>중첩된 if 문</h2>
+					<p>
+						<strong>if문의 블럭 내에 또 다른 if문을 포함</strong>시키는 것이 가능한데 이것을 중첩 if문이라고 부르며 중첩의 횟수에는 제한이 거의 없습니다.
+					</p>
+
+					<h4>Syntax</h4>
+					<pre><code>if (조건식) {
+	// 조건식1이 참(true)일 때 수행할 문장
+	if (조건식2) {
+		// 조건식1과 조건식2가 모두 참(true)일 때 수행할 문장
+	} else {
+		// 조건식1이 참(true)이고, 조건식2가 거짓(false)일 때 수행할 문장
+	}
+} else {
+	// 조건식1의 결과가 거짓(false)일 때 수행할 문장
+}</code></pre>
+					<p>
+						<sup>* 위와 같이 내부의 if문은 외부의 if문보다 안쪽으로 들여쓰기를 하여 두 if문의 범위가 명확히 구분될 수 있도록 작성해야 합니다.
+							특히 중첩 if문에서는 블럭({})을 생략에 조심해야 합니다. 외부의 if문과 안쪽의 if문이 서로 엉켜서 if문과 else블럭의 관계가 의도한 바와 다르게 동작할 수 있기 때문입니다.</sup>
+					</p>
+				</section>
+
+				<hr>
+
+				<section>
+					<h2>삼항연산자</h2>
+					<p>
+						자바에서는 간단한 if ~ else 문은 삼항 연산자를 이용하여 간결하게 표현할 수 있습니다.
+						<strong>삼항 연산자</strong>는 <strong>조건식이 참(true)이면 (?)의 다음 반환값1을 실행하고 거짓(false)이면 반환값2를 실행</strong>합니다.
+					</p>
+
+					<h4>Syntax</h4>
+					<pre><code>조건식 ? 반환값1 : 반환값2</code></pre>
+
+					<h4>Example</h4>
+					<pre><code>public class FlowTernaryOperator {
+	public static void main(String[] args) {
+		int num1 = 5, num2 = 7;
+		int result;       
+		result = (num1 - num2 > 0) ? num1 : num2;
+		System.out.println("두 정수 중 더 큰 수는 " + result + "입니다.");
+	}
+}</code></pre>
+				</section>
+
+				<hr>
+
+				<ul class="actions fit">
+					<li></li>
+					<li></li>
+					<li>
+						<a href="ControlSwitch.html" class="button fit">Switch문</a>
+					</li>
+				</ul>
+			</div>
+		</section>
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="Variable.html">Variable</a>
+				</li>
+				<li>
+					<a class="active">변수</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">변수</h1>
+				<p>
+					중요한 프로그래밍 능력 중의 하나가 바로 "값(data)을 잘 다루는 것"입니다. 모든 프로그래밍의 기초 지식이 변수인 만큼 값을 저장하는 공간인 변수를 잘 이해하고 활용하는 것이 중요합니다.
+					<br/>수학에서는 변수를 변하는 수라고 정의하지만 프로그래밍언어에서는 변수(variable)란 값을 저장할 수 있는 메모리상의 공간을 의미합니다. 이러한 공간에 저장된 값은 변경될 수 있기 때문에 수학용어의 정의와
+					상통하는 면도 있습니다.
+				</p>
+				<ul>
+					<li>
+						<strong>변수(variable)</strong> : 단 하나의 값을 저장할 수 있는 메모리 공간</li>
+				</ul>
+
+				<hr/>
+
+				<section>
+					<h2>변수의 선언</h2>
+					<p>
+						변수를 사용하기 위해서는 먼저 변수를 선언해야합니다.
+					</p>
+					<h4>Syntax</h4>
+					<pre><code>// 변수타입 변수이름;
+int age;  // age 라는 이름의 변수를 선언</code></pre>
+					<p>
+						<strong>변수타입</strong>은
+						<strong>변수에 저장될 값이 어떤 타입 (Type)인지를 지정</strong>하는 것입니다.
+						<strong>변수이름</strong>은 말 그대로
+						<strong>변수에 부여한 이름</strong>입니다. 변수는 "값을 저장할 수 있는 메모리 공간"이므로 변수의 이름은 메모리 공간에 이름을 붙여주는 것이라 생각할 수 있습니다. 따라서 같은 이름의 변수가 여러 개 선언되어서는
+						안됩니다.
+						<strong>변수의 선언</strong>이라는 것은
+						<strong>메모리의 빈 공간에 변수타입에 맞는 크기의 저장공간을 확보</strong>하고,
+						<strong>선언한 변수의 이름을 통해서 사용</strong>될 수 있습니다.
+					</p>
+				</section>
+
+				<hr/>
+
+				<section>
+					<h2>변수의 초기화</h2>
+					<p>
+						메모리는 여러 프로그램이 공유하는 자원입니다. 따라서 전에 다른 프로그램에 의해서 저장된 알 수 없는 값(쓰레기값, garbage value)이 남아 있을 수 있기 때문에
+						<strong>변수를 선언한 이후 변수를 사용하기 전에 반드시 변수를 초기화(initialization)</strong>를 해주어야 합니다.
+						<br/>변수에 값을 저장할 때는 대입 연산자(=)를 사용합니다. 대입 연산자는 오른쪽에 위치한 값을 왼쪽(변수)에 저장한다는 뜻입니다.
+					</p>
+					<pre><code>int age = 25;  // 변수 age에 25 값을 저장
+
+int a;
+int b;
+// 또는 int a, b; 한 줄로 선언
+
+int x = 0;
+int y = 0;
+// 또는 int x = 0, y = 0; 한 줄로 선언</code></pre>
+					<p>
+						변수는 한 줄에 하나씩 선언하는 것이 일반적이지만 <strong>타입이 같은 경우 콤마(,)를 구분자로 여러 변수를 한 줄에 선언</strong>하기도 합니다.
+						<br/>변수의 종류에 따라서 변수의 초기화를 생략할 수 있는 경우도 있지만 변수는 적절한 값으로 초기화해주는 것이 좋습니다.
+						<br/><br/>
+						다음은 두 개의 변수 age와 year를 선언과 초기화를 진행하고 값을 저장하는 예제입니다.
+					</p>
+
+					<h4>VarEx1.java</h4>
+					<pre><code>package kinco.java.std;
+
+public class VarEx1 {
+	public static void main(String[] args) {
+		// year 변수를 선언하면서 0으로 초기화
+		int year = 0;
+		// age 변수를 선언하면서 18로 초기화
+		int age = 18;
+		
+		System.out.println("year = " + year);
+		System.out.println("age = " + age);
+		
+		// 변수 age의 값에 2000 을 더해서 변수 year에 저장
+		year = age + 2000;
+		// 변수 age에 저장된 값을 1증가시킴
+		age = age + 1;
+		
+		System.out.println("year = " + year);
+		System.out.println("age = " + age);
+	}
+}</code></pre>
+
+					<h4>Console</h4>
+					<pre><code>year = 0
+age = 18
+year = 2018
+age = 19</code></pre>
+				</section>
+
+				<hr/>
+
+				<section>
+					<h2>두 변수의 값 교환하기</h2>
+					<p>
+						두 변수의 값을 교환하는 예제입니다.
+						<br/>다음과 같이 변수 x, y가 있을 때, 두 변수에 담긴 값을 서로 바꾸려며 하는 예제입니다. 변수의 값을 저장하면 기존의 값은 삭제되기 때문에 서로 값을 바꾸기 위해서
+						tmp의 변수를 선언하여 임시로 값을 저장할 변수를 선언하여 사용하였습니다.
+					</p>
+					<h4>VarEx2.java</h4>
+					<pre><code>package kinco.java.std;
+
+public class VarEx2 {
+	public static void main(String[] args) {
+		int x = 10, y = 20;
+		int tmp = 0;
+		
+		System.out.println("x = " + x + ", y = " + y);
+		
+		tmp = x;
+		x = y;
+		y = tmp;
+		
+		System.out.println("x = " + x + ", y = " + y);
+	}
+}</code></pre>
+
+					<h4>Console</h4>
+					<pre><code>x = 10, y = 20
+x = 20, y = 10</code></pre>
+				</section>
+
+				<hr/>
+
+				<section>
+					<h2>변수의 명명규칙</h2>
+					<p>
+						자바에서는 변수뿐만 아니라 클래스, 메소드 등의 <strong>이름을 짓는데 반드시 지켜야 하는 공통된 규칙</strong>이 있습니다.
+						자바에서 이름을 생성할 때에 반드시 지켜야 하는 규칙은 다음과 같습니다.
+					</p>
+					<h4>필수 규칙</h4>
+					<ul>
+						<li>대소문자를 구별하며 길이에 제한이 없습니다.</li>
+						<li>예약어는 변수이름이 될 수 없습니다.</li>
+						<li>숫자로 시작해서는 안됩니다.</li>
+						<li>특수문자는 (_)와 (&amp;) $만을 허용합니다.</li>
+					</ul>
+					<p>
+						이외의 필수적은 규칙은 아니지만 <strong>프로그래머들에게 권장하고 가독성을 위해 프로그래머들 사이에서 암묵적인 규칙</strong>은 다음과 같습니다.
+						<br/>또한 이러한 규칙들은 프로젝트마다 다를 수 있습니다.
+					</p>
+					<h4>프로그래머들 사이에서의 규칙</h4>
+					<ul>
+						<li>클래스 이름의 첫 글자는 항상 대문자로 합니다. (변수와 메소드는 첫 글자를 소문자로 합니다.)</li>
+						<li>여러 단어를 결합하여 이름을 지어줄 때에는 연결되는 단어의 첫 글짜를 대문자로 합니다.</li>
+						<li>상수의 이름은 모두 대문자로 하고 여러 단어가 결합될 때는 언더바(_)로 구분합니다.</li>
+						<li>여러 사람이 팀을 이루어 프로젝트를 하는 경우에는 서로간의 미리 규칙(coding convention)을 만들어 프로그램 전체에 적용하는 것이 좋습니다.</li>
+					</ul>
+				</section>
+
+				<hr/>
+				
+				<section>
+					<ul class="actions fit">
+						<li></li>
+						<li></li>
+						<li>
+							<a href="Variable_02.html" class="button fit">변수의 타입</a>
+						</li>
+					</ul>
+				</section>
+			</div>
+		</section>
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

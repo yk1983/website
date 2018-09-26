@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="../IO_05.html">I/O</a>
+				</li>
+				<li>
+					<a class="active">Source code</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">FileEx5.java</h1>
+				<p>
+					파일의 속성을 보여주는 예제에 정렬기능을 추가한 예제입니다.
+					<br/>시간이나 파일크기, 이름으로 오름차순 또는 내림차순으로 파일목록을 정렬하여 볼 수 있습니다.
+				</p>
+
+				<h4>소스코드</h4>
+				<pre><code>package std.java.chapter15;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.Scanner;
+
+public class FileEx5 {
+	
+	private static Scanner sc = null;
+	
+	public static void main(String[] args) {
+		System.out.println("USAGE : java FileEx5 SORT_OPTION   ");
+		System.out.println("   SORT_OPTION :                   ");
+		System.out.println("   t     Time ascending sort.      ");
+		System.out.println("   T     Time descending sort.     ");
+		System.out.println("   l     Length ascending sort.    ");
+		System.out.println("   L     Length descending sort.   ");
+		System.out.println("   n     Name ascending sort.      ");
+		System.out.println("   N     Name descending sort.     ");
+		System.out.println("옵션을 입력하세요.");
+
+		sc = new Scanner(System.in);
+		String in = sc.nextLine().trim();
+
+		final char option = in.charAt(0);
+
+		String currDir = System.getProperty("user.dir");
+		File dir = new File(currDir);
+		File[] files = dir.listFiles();
+
+		Comparator&lt;Object&gt; comp = new Comparator&lt;Object&gt;() {
+			public int compare(Object o1, Object o2) {
+				long time1 = ((File) o1).lastModified();
+				long time2 = ((File) o2).lastModified();
+
+				long length1 = ((File) o1).length();
+				long length2 = ((File) o2).length();
+
+				String name1 = ((File) o1).getName().toLowerCase();
+				String name2 = ((File) o2).getName().toLowerCase();
+
+				int result = 0;
+
+				switch (option) {
+				case 't':
+					if (time1 - time2 &gt; 0)
+						result = 1;
+					else if (time1 - time2 == 0)
+						result = 0;
+					else if (time1 - time2 &lt; 0)
+						result = -1;
+					break;
+				case 'T':
+					if (time1 - time2 &gt; 0)
+						result = -1;
+					else if (time1 - time2 == 0)
+						result = 0;
+					else if (time1 - time2 &lt; 0)
+						result = 1;
+					break;
+				case 'l':
+					if (length1 - length2 &gt; 0)
+						result = 1;
+					else if (length1 - length2 == 0)
+						result = 0;
+					else if (length1 - length2 &lt; 0)
+						result = -1;
+					break;
+				case 'L':
+					if (length1 - length2 &gt; 0)
+						result = -1;
+					else if (length1 - length2 == 0)
+						result = 0;
+					else if (length1 - length2 &lt; 0)
+						result = 1;
+					break;
+				case 'n':
+					result = name1.compareTo(name2);
+					break;
+				case 'N':
+					result = name2.compareTo(name1);
+					break;
+				}
+				return result;
+			}
+
+			public boolean equals(Object o) {
+				return false;
+			}
+		};
+
+		Arrays.sort(files, comp);
+
+		for (int i = 0; i &lt; files.length; i++) {
+			File f = files[i];
+			String name = f.getName();
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+			String attribute = "";
+			String size = "";
+
+			if (files[i].isDirectory()) {
+				attribute = "DIR";
+			} else {
+				size = f.length() + "";
+				attribute = f.canRead() ? "R" : " ";
+				attribute += f.canWrite() ? "W" : " ";
+				attribute += f.isHidden() ? "H" : " ";
+			}
+
+			System.out.printf("%s %3s %6s %s%n", df.format(new Date(f.lastModified())), attribute, size, name);
+		}
+	}
+}</code></pre>
+
+				<h4>실행결과</h4>
+				<pre><code>USAGE : java FileEx5 SORT_OPTION   
+SORT_OPTION :                   
+t     Time ascending sort.      
+T     Time descending sort.     
+l     Length ascending sort.    
+L     Length descending sort.   
+n     Name ascending sort.      
+N     Name descending sort.     
+옵션을 입력하세요.
+T
+2018-02-10 06:24 DIR        bin
+2018-02-10 06:24 DIR        src
+2018-01-31 21:13 DIR        .settings
+2018-01-14 23:12 RW     301 .classpath
+2018-01-14 23:12 RW     392 .project</code></pre>
+
+				<hr/>
+
+				<ul class="actions fit">
+					<li></li>
+					<li></li>
+					<li><button class="button fit" id="btn-close" onclick="javascript:window.close();">Close</button></li>
+				</ul>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

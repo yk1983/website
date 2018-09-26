@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="../Thread_03.html">Thread</a>
+				</li>
+				<li>
+					<a class="active">Source code</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">ThreadPriorityEx</h1>
+				<p>
+					th1과 th2 모두 main에서드에서 생성하였기 때문에 main메서드를 실행하는 스레드의 우선순위인 5를 상속받았습니다.
+					그 다음에 <code>th2.setPriority(7)</code>로 th2의 우선순위를 7로 변경한 다음에 start()를 호출해서 스레드를 실행시키는 예제입니다.
+				</p>
+
+				<h4>ThreadPriorityEx01.java</h4>
+				<pre><code>package chapter13;
+
+public class ThreadPriorityEx01 {
+	public static void main(String[] args) {
+		ThreadPriorityA th1 = new ThreadPriorityA();
+		ThreadPriorityB th2 = new ThreadPriorityB();
+
+		th2.setPriority(7);
+
+		System.out.println("Priority of th1(-) : " + th1.getPriority() );
+		System.out.println("Priority of th2(|) : " + th2.getPriority() );
+		th1.start();
+		th2.start();
+	}
+}</code></pre>
+
+				<h4>ThreadPriorityA.java</h4>
+				<pre><code>package chapter13;
+
+public class ThreadPriorityA extends Thread {
+	public void run() {
+		for(int i=0; i &lt;300; i++) {
+			System.out.print("-");
+			for(int x=0; x &lt;10000000; x++);
+		}
+	}
+}</code></pre>
+
+				<h4>ThreadPriorityB.java</h4>
+				<pre><code>package chapter13;
+
+public class ThreadPriorityB extends Thread {
+	public void run() {
+		for(int i=0; i &lt; 300; i++) {
+			System.out.print("|");
+			for(int x=0; x &lt; 10000000; x++);
+		}
+	}
+}</code></pre>
+
+				<h4>실행결과</h4>
+				<pre><code>Priority of th1(-) : 5
+Priority of th2(|) : 7
+|--||||||||||||||||||||||||------------------------------------------||||||||||-
+-------------|||||----||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+||||||||||||||||||||||||||||||||||||||||||--------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+----------------------------------------</code></pre>
+
+				<hr>
+
+				<ul class="actions fit">
+					<li></li>
+					<li></li>
+					<li>
+						<button class="button fit" id="btn-close" onclick="javascript:window.close();">Close</button>
+					</li>
+				</ul>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

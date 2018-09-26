@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="../IO_05.html">I/O</a>
+				</li>
+				<li>
+					<a class="active">Source code</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">FileEx4.java</h1>
+				<p>
+					현재 디렉토리에 속한 파일과 디렉토리의 이름과 크기 등 상세정보를 보여주는 예제입니다.
+				</p>
+
+				<h4>소스코드</h4>
+				<pre><code>package std.java.chapter15;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class FileEx4 {
+	public static void main(String[] args) {
+		String currDir = System.getProperty("user.dir");
+		File dir = new File(currDir);
+
+		File[] files = dir.listFiles();
+
+		for(int i=0; i &lt; files.length; i++) {
+			File f = files[i];
+			String name = f.getName();
+			SimpleDateFormat df =new SimpleDateFormat("yyyy-MM-dd HH:mma");
+			String attribute = "";
+			String size = "";
+
+			if(files[i].isDirectory()) {
+				attribute = "DIR";
+			} else {
+				size = f.length() + "";
+				attribute  = f.canRead()  ? "R" : " ";	
+				attribute += f.canWrite() ? "W" : " ";
+				attribute += f.isHidden() ? "H" : " ";	
+			}
+
+			System.out.printf("%s %3s %6s %s%n", df.format(new Date(f.lastModified())), attribute, size, name );
+		}
+	}
+}</code></pre>
+
+				<h4>실행결과</h4>
+				<pre><code>2018-01-14 23:12오후 RW     301 .classpath
+2018-01-14 23:12오후 RW     392 .project
+2018-01-31 21:13오후 DIR        .settings
+2018-02-10 06:24오전 DIR        bin
+2018-02-10 06:24오전 DIR        src</code></pre>
+
+				<hr/>
+
+				<ul class="actions fit">
+					<li></li>
+					<li></li>
+					<li><button class="button fit" id="btn-close" onclick="javascript:window.close();">Close</button></li>
+				</ul>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="../Networking_01.html">Networking</a>
+				</li>
+				<li>
+					<a class="active">Source code</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">NetworkEx4.java</h1>
+				<p>
+					URL을 연결하여 내용을 읽어오는 예제입니다. 만약 URL이 유효하지 않으면 Malformed- URLException이 발생합니다.
+					읽어올 데이터가 문자데이터이기 때문에 <code>BufferedReader</code>을 사용하였으며, <code>openStream()</code>을 호출해서 URL의 InputStream을 얻은 이후로는 파일로 부터 데이터를 읽는 것과 다르지 않습니다.
+					<br/>openStream()은 openConnection()을 호출해서 HttpURLConnection을 얻은 다음 여기에 다시 getInputStream()을 호출한 것과 같습니다. 즉, URL에 연결해서 InputStream을 얻어옵니다.
+				</p>
+
+				<h4>NetworkEx4.java</h4>
+				<pre><code>package chapter16;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+
+public class NetworkEx4 {
+	public static void main(String args[]) {
+		URL url = null;
+		BufferedReader input = null;
+		String address = "https://www.w3schools.com/html/tryit.asp?filename=tryhtml_form_submit#index";
+		String line = "";
+
+		try {
+			url = new URL(address);
+
+			input = new BufferedReader(new InputStreamReader(url.openStream()));
+
+			while ((line = input.readLine()) != null) {
+				System.out.println(line);
+			}
+			input.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}</code></pre>
+
+				<h4>실행결과</h4>
+				<pre><code>접속한 URL의 HTML 코드를 모두 읽어옵니다. (결과 생략)</code></pre>
+
+				<hr>
+
+				<ul class="actions fit">
+					<li></li>
+					<li></li>
+					<li><button class="button fit" id="btn-close" onclick="javascript:window.close();">Close</button></li>
+				</ul>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko">
+<!--<![endif]-->
+
+<head>
+	<title>KINCOWEB STD</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header">
+		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<nav>
+			<ul>
+				<li>
+					<a href="/kinco/java/index.html">Java</a>
+				</li>
+				<li>
+					<a href="../IO_03.html">I/O</a>
+				</li>
+				<li>
+					<a class="active">Source code</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">PipedReaderWriterEx.java</h1>
+				<p>
+					두 쓰레드가 <code>PipedReader</code>/<code>PipedWriter</code>를 이용하여 서로 메세지를 주고받는 예제입니다.
+				</p>
+
+				<h4>InputThread.java</h4>
+				<pre><code>package kinco.java.std;
+
+import java.io.IOException;
+import java.io.PipedReader;
+import java.io.PipedWriter;
+import java.io.StringWriter;
+
+public class InputThread extends Thread {
+	PipedReader input = new PipedReader();
+	StringWriter sw = new StringWriter();
+
+	InputThread(String name) {
+		super(name); // Thread(String name);
+	}
+
+	public void run() {
+		try {
+			int data = 0;
+
+			while ((data = input.read()) != -1) {
+				sw.write(data);
+			}
+			System.out.println(getName() + " received : " + sw.toString());
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public PipedReader getInput() {
+		return input;
+	}
+
+	public void connect(PipedWriter output) {
+		try {
+			input.connect(output);
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+}</code></pre>
+
+				<h4>OutputThread.java</h4>
+				<pre><code>package kinco.java.std;
+
+import java.io.IOException;
+import java.io.PipedReader;
+import java.io.PipedWriter;
+
+public class OutputThread extends Thread {
+	PipedWriter output = new PipedWriter();
+
+	OutputThread(String name) {
+		super(name); // Thread(String name);
+	}
+
+	public void run() {
+		try {
+			String msg = "Hello";
+			System.out.println(getName() + " sent : " + msg);
+			output.write(msg);
+			output.close();
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public PipedWriter getOutput() {
+		return output;
+	}
+
+	public void connect(PipedReader input) {
+		try {
+			output.connect(input);
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+}</code></pre>
+
+				<h4>PipedReaderWriterEx.java</h4>
+				<pre><code>package kinco.java.std;
+
+public class PipedReaderWriterEx {
+	public static void main(String args[]) {
+		InputThread inThread = new InputThread("InputThread");
+		OutputThread outThread = new OutputThread("OutputThread");
+
+		// PipedReader와 PipedWriter를 연결
+		inThread.connect(outThread.getOutput());
+
+		inThread.start();
+		outThread.start();
+	}
+}</code></pre>
+
+				<h4>실행결과</h4>
+				<pre><code>OutputThread sent : Hello
+InputThread received : Hello</code></pre>
+
+				<hr/>
+
+				<ul class="actions fit">
+					<li></li>
+					<li></li>
+					<li><button class="button fit" id="btn-close" onclick="javascript:window.close();">Close</button></li>
+				</ul>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; KimYong. All rights reserved.</li>
+				<li>KINCOWEB:
+					<a href="#">KincoWeb Std.</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/kinco/assets/js/skel.min.js"></script>
+	<script src="/kinco/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/kinco/assets/js/main.js"></script>
+
+</body>
+
+</html>
