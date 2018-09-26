@@ -9,21 +9,21 @@
 	<title>KINCOWEB STD</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/html5shiv.js"></script><![endif]-->
-	<link rel="stylesheet" href="/kinco/assets/css/main.css" />
-	<!--[if lte IE 9]><link rel="stylesheet" href="/kinco/assets/css/ie9.css" /><![endif]-->
-	<!--[if lte IE 8]><link rel="stylesheet" href="/kinco/assets/css/ie8.css" /><![endif]-->
+	<!--[if lte IE 8]><script src="/website/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/website/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/website/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/website/assets/css/ie8.css" /><![endif]-->
 </head>
 
 <body>
 
 	<!-- Header -->
 	<header id="header">
-		<a href="/kinco/index.html" class="title">KINCOWEB STD</a>
+		<a href="/website/index.html" class="title">KINCOWEB STD</a>
 		<nav>
 			<ul>
 				<li>
-					<a href="/kinco/java/index.html">Java</a>
+					<a href="/website/java/index.html">Java</a>
 				</li>
 				<li>
 					<a href="../IO_02.html">I/O</a>
@@ -57,8 +57,8 @@ import java.io.IOException;
 public class FileConversionEx {
 	public static void main(String args[]) {
 		try {
-			FileReader fr = new FileReader("src/kinco/java/std/FileConversionEx.java");
-			FileWriter fw = new FileWriter("src/kinco/java/std/conversion.txt");
+			FileReader fr = new FileReader("src/website/java/std/FileConversionEx.java");
+			FileWriter fw = new FileWriter("src/website/java/std/conversion.txt");
 
 			int data = 0;
 			while ((data = fr.read()) != -1) {
@@ -78,7 +78,7 @@ public class FileConversionEx {
 				<pre><code>conversion.txt 이 생성됩니다.
 packagekinco.java.std;importjava.io.FileReader;importjava.io.FileWriter;importjava.io.IOException;
 publicclassFileConversionEx{publicstaticvoidmain(Stringargs[]){try{FileReaderfr=newFileReader("src
-/kinco/java/std/FileConversionEx.java");FileWriterfw=newFileWriter("src/kinco/java/std/conversion.
+/website/java/std/FileConversionEx.java");FileWriterfw=newFileWriter("src/website/java/std/conversion.
 txt");intdata=0;while((data=fr.read())!=-1){if(data!='\t'&amp;&amp;data!='\n'&amp;&amp;data!=''&amp;&amp;data!='\r')fw.wri
 te(data);}fr.close();fw.close();}catch(IOExceptione){e.printStackTrace();}}}</code></pre>
 
@@ -109,12 +109,12 @@ te(data);}fr.close();fw.close();}catch(IOExceptione){e.printStackTrace();}}}</co
 	<!-- Scripts -->
 	<!-- jQuery library -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="/kinco/assets/js/jquery.scrollex.min.js"></script>
-	<script src="/kinco/assets/js/jquery.scrolly.min.js"></script>
-	<script src="/kinco/assets/js/skel.min.js"></script>
-	<script src="/kinco/assets/js/util.js"></script>
-	<!--[if lte IE 8]><script src="/kinco/assets/js/ie/respond.min.js"></script><![endif]-->
-	<script src="/kinco/assets/js/main.js"></script>
+	<script src="/website/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/website/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/website/assets/js/skel.min.js"></script>
+	<script src="/website/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="/website/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/website/assets/js/main.js"></script>
 
 </body>
 
