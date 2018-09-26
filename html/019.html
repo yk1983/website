@@ -1,0 +1,62 @@
+<h2>정의</h2>
+<p>caption요소는 테이블 캡션을 정의합니다. 즉, 자신의 부모요소인 table요소의 제목을 지정합니다.</p>
+
+<div class="line"></div>
+
+<h2>지원 브라우저</h2>
+<img src="img/chrome_48_on.png" alt="크롬" />
+<img src="img/internet_explorer_48_on.png" alt="인터넷 익스플로러" />
+<img src="img/firefox_48_on.png" alt="파이어 폭스" />
+<img src="img/safari_48_on.png" alt="사파리" />
+<img src="img/ofera_48_on.png" alt="오페라" />
+
+<div class="line"></div>
+
+<h2>속성</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Attribute</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><del>align</del></td>
+            <td>HTML5에서는 지원되지 않습니다. <del>캡션의 정렬을 정의합니다.</del></td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="line"></div>
+
+<h2>설명</h2>
+<p>caption요소는 테이블의 문맥을 소개하여 쉽게 이해할수 있도록 해줍니다.</p>
+<p>caption요소는 태그 바로 뒤에 삽입해야합니다.</p>
+<p>참고 : 표 당 하나의 캡션 만 지정할 수 있습니다.</p>
+<p>팁 : 기본적으로 표 캡션은 표 위에 가운데에 정렬됩니다. 그러나 CSS 속성 <code>text-align</code> 및 <code>caption-side</code> 를 사용하여 캡션을 정렬하고 배치 할 수 있습니다.</p>
+
+<div class="line"></div>
+
+<h2>기본 CSS 설정</h2>
+<p><pre>caption { 
+    display: table-caption;
+    text-align: center;
+}</pre></p>
+
+<div class="line"></div>
+
+<h2>예제</h2>
+<p><pre>
+&lt;table&gt;
+    &lt;caption&gt;Monthly savings&lt;/caption&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Month&lt;/th&gt;
+        &lt;th&gt;Savings&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;January&lt;/td&gt;
+        &lt;td&gt;$100&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+</pre></p>

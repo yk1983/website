@@ -1,0 +1,63 @@
+<h2>정의</h2>
+<p>canvas요소는 스크립트 (보통 자바 스크립트)를 통해 즉석에서 그래픽을 그리는 데 사용됩니다.</p>
+<p>canvas요소는 그래픽의 컨테이너 일 뿐이므로 실제로 그래픽을 그리려면 스크립트를 사용해야합니다.</p>
+
+<div class="line"></div>
+
+<h2>지원 브라우저</h2>
+<img src="img/chrome_48_on.png" alt="크롬" />4.0
+<img src="img/internet_explorer_48_on.png" alt="인터넷 익스플로러" />9.0
+<img src="img/firefox_48_on.png" alt="파이어 폭스" />2.0
+<img src="img/safari_48_on.png" alt="사파리" />3.1
+<img src="img/ofera_48_on.png" alt="오페라" />9.0
+
+<div class="line"></div>
+
+<h2>속성</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Attribute</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>height</td>
+            <td>캔버스의 높이를 지정합니다.</td>
+        </tr>
+        <tr>
+            <td>width</td>
+            <td>캔버스의 너비를 지정합니다.</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="line"></div>
+
+<h2>설명</h2>
+<p>참고 : &lt;canvas&gt; 요소 안에있는 텍스트는 &lt;canvas&gt;를 지원하지 않는 브라우저에 표시됩니다.</p>
+<p>canvas요소는 스크립트와 해상도에 의존하는 비트맵 캔버스를 제공합니다.</p>
+<p>그래프, 게임 그래픽, 비주얼 이미지들을 바로바로 랜더링하는 용도로 사용됩니다.</p>
+
+<div class="line"></div>
+
+<h2>기본 CSS 설정</h2>
+<p><pre>canvas { 
+    height: 150px;
+    width: 300px;
+}</pre></p>
+
+<div class="line"></div>
+
+<h2>예제</h2>
+<p><pre>
+&lt;canvas id="myCanvas"&gt;&lt;/canvas&gt;
+
+&lt;script&gt;
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+ctx.fillStyle = "#FF0000";
+ctx.fillRect(0, 0, 80, 80);
+&lt;/script&gt;
+</pre></p>
