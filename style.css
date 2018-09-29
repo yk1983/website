@@ -10,7 +10,7 @@ body {
 
 p {
     font-family: 'Poppins', sans-serif;
-    font-size: 1.1em;
+    font-size: 1.0em;
     font-weight: 300;
     line-height: 1.7em;
     color: #999;
@@ -110,6 +110,11 @@ a[data-toggle="collapse"] {
     top: 50%;
     right: 20px;
     transform: translateY(-50%);
+}
+
+.collapse {
+    max-height: 350px;
+    overflow-y: auto;
 }
 
 ul ul a {

@@ -346,9 +346,6 @@
 				var me = $(this);
 				var index = me.find('option:selected').val();
 				var value = (index == '#') ? '' : me.find('option:selected').text().toLowerCase();
-
-				console.log(index);
-				console.log(value);
 				search(value);
 			});
 		});
