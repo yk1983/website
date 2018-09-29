@@ -1,0 +1,43 @@
+<h2>정의</h2>
+<p>dfn요소는 텍스트를 전문용어나 관용구등의 정의어로 지정합니다.</p>
+
+<div class="line"></div>
+
+<h2>지원 브라우저</h2>
+<img src="img/chrome_48_on.png" alt="크롬" />
+<img src="img/internet_explorer_48_on.png" alt="인터넷 익스플로러" />
+<img src="img/firefox_48_on.png" alt="파이어 폭스" />
+<img src="img/safari_48_on.png" alt="사파리" />
+<img src="img/ofera_48_on.png" alt="오페라" />
+
+<div class="line"></div>
+
+<h2>설명</h2>
+<p>dfn요소의 가장 가까운 부모는 dfn 내부 용어에 대한 정의 / 설명을 포함해야합니다.</p>
+
+<div class="line"></div>
+
+<h2>기본 CSS 설정</h2>
+<p><pre>dfn {
+    font-style: italic;
+}</pre></p>
+
+<div class="line"></div>
+
+<h2>예제</h2>
+<p><pre>
+title 속성 없음 :
+&lt;p&gt;&lt;dfn&gt;HTML&lt;/dfn&gt; is the standard markup language for creating web pages.&lt;/p&gt;
+
+title 속성 추가 :
+&lt;p&gt;&lt;dfn title="HyperText Markup Language"&gt;HTML&lt;/dfn&gt; is the standard markup language for creating web pages.&lt;/p&gt;
+dfn 요소 내의 abbr 요소의 title 속성 :
+&lt;p&gt;&lt;dfn&gt;&lt;abbr title="HyperText Markup Language"&gt;HTML&lt;/abbr&gt;&lt;/dfn&gt; is the standard markup language for creating web pages.&lt;/p&gt;
+
+dfn 요소에 id 속성을 추가하여 a 요소를 사용하여 정의를 참조하는 예 :
+&lt;p&gt;&lt;dfn id="html-def"&gt;HTML&lt;/dfn&gt; is the standard markup language for creating web pages.&lt;/p&gt;
+
+&lt;p&gt;This is some text...&lt;/p&gt;
+&lt;p&gt;This is some text...&lt;/p&gt;
+&lt;p&gt;Learn &lt;a href="#html-def"&gt;HTML&lt;/a&gt; now.&lt;/p&gt;
+</pre></p>
