@@ -1,0 +1,105 @@
+<h2>정의</h2>
+<p>form요소는 웹페이지가 상호작용할 수 있게 하기 위한 form의 최상위 요소로 그 범위를 정의합니다.</p>
+<p>form요소는 사용자 입력을위한 HTML 양식을 만드는 데 사용됩니다.</p>
+
+<div class="line"></div>
+
+<h2>지원 브라우저</h2>
+<img src="img/chrome_48_on.png" alt="크롬" />
+<img src="img/internet_explorer_48_on.png" alt="인터넷 익스플로러" />
+<img src="img/firefox_48_on.png" alt="파이어 폭스" />
+<img src="img/safari_48_on.png" alt="사파리" />
+<img src="img/ofera_48_on.png" alt="오페라" />
+
+<div class="line"></div>
+
+<h2>속성</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Attribute</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><del>accept</del></td>
+            <td><del>서버가 수락하는(파일 업로드를 통해 제출할 수있는) 파일 유형의 쉼표로 구분 된 목록을 지정합니다.</del> HTML5에서는 지원되지 않습니다.</td>
+        </tr>
+        <tr>
+            <td>accept-charset</td>
+            <td>양식 제출에 사용될 문자 인코딩을 지정합니다.</td>
+        </tr>
+        <tr>
+            <td>action</td>
+            <td>양식 제출시 양식 데이터를 보낼 위치를 지정합니다.</td>
+        </tr>
+        <tr>
+            <td>autocomplete</td>
+            <td>양식에 자동 완성 사용 또는 사용 중지 여부를 지정합니다.</td>
+        </tr>
+        <tr>
+            <td>enctype</td>
+            <td>양식 데이터를 서버로 전송할 때 인코딩 할 방법을 지정합니다. ("method"속성의 값이 "post"일 경우만 해당)</td>
+        </tr>
+        <tr>
+            <td>method</td>
+            <td>양식 데이터를 보낼 때 사용할 HTTP 메소드를 지정합니다.</td>
+        </tr>
+        <tr>
+            <td>name</td>
+            <td>양식의 이름을 지정합니다.</td>
+        </tr>
+        <tr>
+            <td>novalidate</td>
+            <td>제출할 때 양식의 유효성을 검사하지 않도록 지정합니다.</td>
+        </tr>
+        <tr>
+            <td>target</td>
+            <td>양식을 제출 한 후 수신 된 응답을 표시 할 위치를 지정합니다.
+                <ul>
+                    <li>_blank</li>
+                    <li>_parent</li>
+                    <li>_self</li>
+                    <li>_top</li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="line"></div>
+
+<h2>설명</h2>
+<p>form요소는 다음 형식 요소 중 하나 이상을 포함 할 수 있습니다.</p>
+<ul>
+    <li>input</li>
+    <li>textarea</li>
+    <li>button</li>
+    <li>select</li>
+    <li>options</li>
+    <li>optgroup</li>
+    <li>fieldset</li>
+    <li>label</li>
+</ul>
+<p>HTML5에는 autocomplete 및 novalidate의 두 가지 새로운 속성이 추가되었으며 accept 속성이 제거되었습니다.</p>
+<p>XHTML에서 name속성은 더 이상 사용되지 않습니다. 대신 global id 속성을 사용하십시오.</p>
+
+<div class="line"></div>
+
+<h2>기본 CSS 설정</h2>
+<p><pre>form {
+    display: block;
+    margin-top: 0em;
+}</pre></p>
+
+<div class="line"></div>
+
+<h2>예제</h2>
+<p><pre>
+&lt;form action="/action_page.php" method="get"&gt;
+    First name: &lt;input type="text" name="fname"&gt;&lt;br&gt;
+    Last name: &lt;input type="text" name="lname"&gt;&lt;br&gt;
+    &lt;input type="submit" value="Submit"&gt;
+&lt;/form&gt;
+</pre></p>

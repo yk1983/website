@@ -1,0 +1,114 @@
+<h2>정의</h2>
+<p>h1 ~ h6요소는 각 섹션의 제목을 나타냅니다.</p>
+<p><span class="text-danger">HTML5에서 지원되지 않습니다.</span></p>
+
+<div class="line"></div>
+
+<h2>지원 브라우저</h2>
+<img src="img/chrome_48_on.png" alt="크롬" />
+<img src="img/internet_explorer_48_on.png" alt="인터넷 익스플로러" />
+<img src="img/firefox_48_on.png" alt="파이어 폭스" />
+<img src="img/safari_48_on.png" alt="사파리" />
+<img src="img/ofera_48_on.png" alt="오페라" />
+
+<div class="line"></div>
+
+<h2>속성</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Attribute</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><del>align</del></td>
+            <td><del>표제의 정렬을 지정합니다.</del> HTML5에서는 지원되지 않습니다.</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="line"></div>
+
+<h2>설명</h2>
+<p>h1요소는 가장 중요한 제목을 정의합니다. h6요소는는 가장 중요하지 않은 머리글을 정의합니다. (각 숫자들은 제목의 등급을 나타내며, h1요소가 가장 높은 등급이고, h6요소가 가장 낮은 등급입니다.)</p>
+<p>계층 구조에 맞게 순서대로 작성되어지는것이 좋습니다 (&lt;h1&gt; 다음에 &lt;h2&gt; 가 오는것이 좋습니다.)</p>
+<p>원칙적으로 h1요소는 하나의 문서에 한번만 지정하는 것이 좋습니다. (여러개의 섹션으로 구성된 문서라면 각 섹션당 한번만 지정하는 것이 좋습니다. )</p>
+<p>이러한 헤딩을 잘 사용하면 검색 엔진의 정보 인식성을 높일 수 있습니다.</p>
+<p>HTML5에서는 <code>align</code>속성이 지원되지 않습니다. CSS를 사용하여 요소를 정렬하십시오.</p>
+
+<div class="line"></div>
+
+<h2>기본 CSS 설정</h2>
+<p><pre>h1 { 
+    display: block;
+    font-size: 2em;
+    margin-top: 0.67em;
+    margin-bottom: 0.67em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+}
+
+h2 {
+    display: block;
+    font-size: 1.5em;
+    margin-top: 0.83em;
+    margin-bottom: 0.83em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+}
+
+h3 { 
+    display: block;
+    font-size: 1.17em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+}
+
+h4 { 
+    display: block;
+    font-size: 1em;
+    margin-top: 1.33em;
+    margin-bottom: 1.33em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+}
+
+h5 { 
+    display: block;
+    font-size: .83em;
+    margin-top: 1.67em;
+    margin-bottom: 1.67em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+}
+
+h6 { 
+    display: block;
+    font-size: .67em;
+    margin-top: 2.33em;
+    margin-bottom: 2.33em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+}</pre></p>
+
+<div class="line"></div>
+
+<h2>예제</h2>
+<p><pre>
+&lt;h1&gt;This is heading 1&lt;/h1&gt;
+&lt;h2&gt;This is heading 2&lt;/h2&gt;
+&lt;h3&gt;This is heading 3&lt;/h3&gt;
+&lt;h4&gt;This is heading 4&lt;/h4&gt;
+&lt;h5&gt;This is heading 5&lt;/h5&gt;
+&lt;h6&gt;This is heading 6&lt;/h6&gt;
+</pre></p>
